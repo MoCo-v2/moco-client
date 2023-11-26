@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
+
+import {LoginModal} from '@/containers';
 
 const StyledNavBar = styled(Navbar)`
   height: 8.5rem;
@@ -15,6 +17,7 @@ const StyledNavBar = styled(Navbar)`
 
   .navbar-nav {
     gap: 3rem;
+    flex-direction: row;
   }
 
   .point-color {
@@ -23,6 +26,8 @@ const StyledNavBar = styled(Navbar)`
 `;
 
 export const Header = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   return (
     <StyledNavBar expand="lg">
       <Container>
@@ -30,14 +35,15 @@ export const Header = () => {
           M<span className="point-color">O</span>C
           <span className="point-color">O</span>
         </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="#home">새 글 쓰기</Nav.Link>
-            <Nav.Link href="#link">로그인</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
+        <Nav>
+          <Nav.Link href="#home">새 글 쓰기</Nav.Link>
+          <Nav.Link onClick={() => setShowLoginModal(true)}>로그인</Nav.Link>
+        </Nav>
       </Container>
+      <LoginModal
+        show={showLoginModal}
+        onHide={() => setShowLoginModal(false)}
+      />
     </StyledNavBar>
   );
 };
