@@ -47,13 +47,14 @@ export const MainBanner = () => {
     <Wrapper>
       <Slider
         ref={slickRef}
+        initialSlide={0}
         fade
         infinite
         speed={400}
         slidesToShow={1}
         slidesToScroll={1}
         arrows={false}
-        afterChange={v => setCurrentSlide(v)}
+        beforeChange={(_, v) => setCurrentSlide(v)}
       >
         {DummyData}
       </Slider>
