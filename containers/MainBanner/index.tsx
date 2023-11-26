@@ -62,8 +62,8 @@ export const MainBanner = () => {
       <SlideIndicator>
         <button className="left" onClick={previous}>
           <svg
-            width="24"
-            height="24"
+            width="2.4rem"
+            height="2.4rem"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             fill="#fff"
@@ -82,8 +82,8 @@ export const MainBanner = () => {
         </div>
         <button className="right" onClick={next}>
           <svg
-            width="24"
-            height="24"
+            width="2.4rem"
+            height="2.4rem"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             fill="#fff"

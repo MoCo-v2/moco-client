@@ -1,3 +1,18 @@
 html {
   font-size: 10px;
 }
+@media (max-width: 1920px) {
+  html {
+    font-size: 10px;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media (max-width: 576px) {
+  html {
+    font-size: 7px;
+  }
+}
