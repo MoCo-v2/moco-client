@@ -69,8 +69,8 @@ export const MainBanner = () => {
             fill="#fff"
           >
             <path
-              fillRule="evenodd"
-              clipRule="evenodd"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
               d="M9 16.34l4.58-4.59L9 7.16l1.41-1.41 6 6-6 6L9 16.34z"
             ></path>
           </svg>
@@ -89,8 +89,8 @@ export const MainBanner = () => {
             fill="#fff"
           >
             <path
-              fillRule="evenodd"
-              clipRule="evenodd"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
               d="M9 16.34l4.58-4.59L9 7.16l1.41-1.41 6 6-6 6L9 16.34z"
             ></path>
           </svg>
