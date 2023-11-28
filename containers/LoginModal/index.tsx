@@ -1,3 +1,6 @@
+import {useSession, signIn} from 'next-auth/react';
+import axios from 'axios';
+
 import {Modal} from '@/components';
 
 import {StyledModalBody, StyledModalTitle} from './style';
@@ -14,6 +17,9 @@ interface Props {
 
 export const LoginModal = (props: Props) => {
   const {show, onHide} = props;
+  const {data: session, status} = useSession();
+  console.log(session, status);
+
   return (
     <Modal
       show={show}
@@ -28,7 +34,7 @@ export const LoginModal = (props: Props) => {
       <StyledModalBody>
         <div className="title">MOCO에 오신 것을 환영합니다!</div>
         <div className="content">
-          <div className="item">
+          <div className="item" onClick={() => signIn('google')}>
             <button className="item-img google">
               <GoogleLogo />
             </button>
