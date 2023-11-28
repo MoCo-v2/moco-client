@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {Modal} from '@/components';
 
 import {StyledModalBody, StyledModalTitle} from './style';
@@ -14,6 +16,22 @@ interface Props {
 
 export const LoginModal = (props: Props) => {
   const {show, onHide} = props;
+
+  const test = async () => {
+    try {
+      console.log('test###');
+      const test = await axios
+        .get('http://192.168.219.144:8080/oauth2/authorization/google')
+        .then(response => {
+          console.log('aaaa###');
+          return response;
+        })
+        .catch(error => {});
+    } catch (error) {
+      console.log('err###', error);
+    }
+  };
+
   return (
     <Modal
       show={show}
@@ -28,7 +46,7 @@ export const LoginModal = (props: Props) => {
       <StyledModalBody>
         <div className="title">MOCO에 오신 것을 환영합니다!</div>
         <div className="content">
-          <div className="item">
+          <div className="item" onClick={test}>
             <button className="item-img google">
               <GoogleLogo />
             </button>
