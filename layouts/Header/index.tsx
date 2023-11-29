@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {signOut, useSession} from 'next-auth/react';
 
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
@@ -26,7 +27,14 @@ const StyledNavBar = styled(Navbar)`
 `;
 
 export const Header = () => {
+  const {data: session, status} = useSession();
+
   const [showLoginModal, setShowLoginModal] = useState(false);
+  console.log('session###', session);
+  const logOut = () => {
+    // TODO:: 로그아웃 로직 추가
+    signOut();
+  };
 
   return (
     <StyledNavBar expand="lg">
@@ -36,8 +44,15 @@ export const Header = () => {
           <span className="point-color">O</span>
         </Navbar.Brand>
         <Nav>
-          <Nav.Link href="#home">새 글 쓰기</Nav.Link>
-          <Nav.Link onClick={() => setShowLoginModal(true)}>로그인</Nav.Link>
+          {/* TODO:: session 의 특정 정보로 로그인 로그아웃 판별 */}
+          {session ? (
+            <>
+              <Nav.Link href="#home">새 글 쓰기</Nav.Link>
+              <Nav.Link onClick={logOut}>로그아웃</Nav.Link>
+            </>
+          ) : (
+            <Nav.Link onClick={() => setShowLoginModal(true)}>로그인</Nav.Link>
+          )}
         </Nav>
       </Container>
       <LoginModal
