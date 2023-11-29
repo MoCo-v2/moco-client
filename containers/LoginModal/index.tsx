@@ -1,5 +1,4 @@
 import {useSession, signIn} from 'next-auth/react';
-import axios from 'axios';
 
 import {Modal} from '@/components';
 
@@ -17,8 +16,8 @@ interface Props {
 
 export const LoginModal = (props: Props) => {
   const {show, onHide} = props;
+
   const {data: session, status} = useSession();
-  console.log(session, status);
 
   return (
     <Modal
@@ -40,13 +39,13 @@ export const LoginModal = (props: Props) => {
             </button>
             <div className="desc">Google 로그인</div>
           </div>
-          <div className="item">
+          <div className="item" onClick={() => signIn('github')}>
             <button className="item-img github">
               <GithubLogo />
             </button>
             <div className="desc">Github 로그인</div>
           </div>
-          <div className="item">
+          <div className="item" onClick={() => signIn('kakao')}>
             <button className="item-img kakao">
               <KakaoLogo />
             </button>
