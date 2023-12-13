@@ -1,7 +1,4 @@
-import {useEffect} from 'react';
-import {useSession, signIn} from 'next-auth/react';
-
-import {deleteCookie, setCookie} from 'cookies-next';
+import {signIn} from 'next-auth/react';
 
 import {Modal} from '@/components';
 
@@ -19,22 +16,6 @@ interface Props {
 
 export const LoginModal = (props: Props) => {
   const {show, onHide} = props;
-
-  const {data: session, status} = useSession();
-
-  useEffect(() => {
-    // TODO:: 쿠키 또는 isLogin 값에 따른 회원가입 페이지 처리
-    if (session) {
-      const {accessToken, isLogin} = session;
-      if (accessToken && isLogin) {
-        setCookie('moco_asct', accessToken);
-      } else {
-        deleteCookie('moco_asct');
-      }
-    } else {
-      deleteCookie('moco_asct');
-    }
-  }, [session]);
 
   return (
     <Modal

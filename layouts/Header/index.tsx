@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {signOut, useSession} from 'next-auth/react';
 
+import {deleteCookie, setCookie} from 'cookies-next';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
 
-import {LoginModal} from '@/containers';
+import {LoginModal, SignUpModal} from '@/containers';
 
 const StyledNavBar = styled(Navbar)`
   height: 8.5rem;
@@ -30,10 +31,27 @@ export const Header = () => {
   const {data: session, status} = useSession();
 
   const [showLoginModal, setShowLoginModal] = useState(false);
-  console.log('session###', session);
-  const logOut = () => {
-    // TODO:: 로그아웃 로직 추가
-    signOut();
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  useEffect(() => {
+    if (!session) return;
+    if (session.isLogin) {
+      setShowSignUpModal(false);
+      setCookie('moco_asct', session.accessToken);
+    } else {
+      setShowSignUpModal(true);
+      deleteCookie('moco_asct');
+    }
+  }, [session]);
+
+  const onCloseSignUpModal = async () => {
+    setShowSignUpModal(false);
+    await signOut();
+  };
+
+  const logOut = async () => {
+    deleteCookie('moco_asct');
+    await signOut();
   };
 
   return (
@@ -44,8 +62,7 @@ export const Header = () => {
           <span className="point-color">O</span>
         </Navbar.Brand>
         <Nav>
-          {/* TODO:: session 의 특정 정보로 로그인 로그아웃 판별 */}
-          {session ? (
+          {session?.isLogin ? (
             <>
               <Nav.Link href="#home">새 글 쓰기</Nav.Link>
               <Nav.Link onClick={logOut}>로그아웃</Nav.Link>
@@ -59,6 +76,7 @@ export const Header = () => {
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
       />
+      <SignUpModal show={showSignUpModal} onHide={onCloseSignUpModal} />
     </StyledNavBar>
   );
 };
