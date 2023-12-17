@@ -34,6 +34,7 @@ export default NextAuth({
           token.isLogin = true;
           token.accessToken = data.accessToken;
         } else {
+          token.id = data.id;
           token.isLogin = false;
         }
       }
@@ -43,6 +44,8 @@ export default NextAuth({
       if (session) {
         if (token.accessToken) {
           session.accessToken = token.accessToken;
+        } else {
+          session.id = token.id;
         }
         session.isLogin = token.isLogin;
       }

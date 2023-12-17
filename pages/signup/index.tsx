@@ -1,9 +1,29 @@
 import {useSession} from 'next-auth/react';
 
+import {SignUpForm} from '@/containers';
+import {useMemo} from 'react';
+
 const SignUpPage = () => {
   const {data: session, status} = useSession();
 
-  return <div>회원가입페이지{session?.user?.email}</div>;
+  const data = useMemo(() => {
+    if (!session?.id) return;
+    return {
+      id: session.id,
+      name: session.user?.name || '',
+      picture: session.user?.image || '',
+    };
+  }, [session]);
+
+  return (
+    <>
+      {data ? (
+        <SignUpForm id={data.id} name={data.name} picture={data.picture} />
+      ) : (
+        <></>
+      )}
+    </>
+  );
 };
 
 export default SignUpPage;
