@@ -38,9 +38,11 @@ export const Header = () => {
     if (session.isLogin) {
       setShowSignUpModal(false);
       setCookie('moco_asct', session.accessToken);
+      setCookie('moco_rsct', session.refreshToken);
     } else {
       setShowSignUpModal(true);
       deleteCookie('moco_asct');
+      deleteCookie('moco_rsct');
     }
   }, [session]);
 

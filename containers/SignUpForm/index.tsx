@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-
-import {CAREERS, POSITIONS, STACKS} from '@/consts';
+import {useRouter} from 'next/router';
 
 import {Form, Button} from 'react-bootstrap';
-import Select, {MultiValue, SingleValue} from 'react-select';
+import Select from 'react-select';
 
 import {StyledForm, Wrapper} from './style';
+
+import {authAPI, SignUpData} from '@/modules';
+import {CAREERS, POSITIONS, STACKS} from '@/consts';
 
 interface Props {
   id: string;
@@ -13,28 +15,42 @@ interface Props {
   picture?: string;
 }
 
-interface Option {
-  value: string;
-  label: string;
-}
-
 export const SignUpForm = (props: Props) => {
   const {id, name: defaultName, picture} = props;
 
-  const [name, setName] = useState(defaultName);
-  const [postion, setPostion] = useState<SingleValue<Option>>(null);
-  const [career, setCareer] = useState<SingleValue<Option>>(null);
-  const [stack, setStack] = useState<MultiValue<Option>>([]);
+  const router = useRouter();
 
-  const onSubmit = (event: any) => {
-    event.preventDefault();
-    console.log('회원가입!', {
-      id,
-      name,
-      postion: postion?.value,
-      career: career?.value,
-      stack: JSON.stringify(stack.map(x => x.value)),
-      picture,
+  const [validated, setValidated] = useState(false);
+  const [signUpData, setSignUpData] = useState<SignUpData>({
+    id,
+    name: defaultName || '',
+    position: '',
+    career: '',
+    stack: JSON.stringify([]),
+    picture: picture || '',
+  });
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+      event.stopPropagation();
+      const form = event.currentTarget;
+      if (form.checkValidity()) {
+        await authAPI.userSignUp(signUpData);
+        alert('회원가입완료!');
+        router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setValidated(true);
+    }
+  };
+
+  const onChange = (key: string, value?: string) => {
+    setSignUpData({
+      ...signUpData,
+      [key]: value,
     });
   };
 
@@ -42,13 +58,14 @@ export const SignUpForm = (props: Props) => {
     <Wrapper>
       <div className="content">
         <div className="title">회원가입</div>
-        <StyledForm onSubmit={onSubmit}>
+        <StyledForm onSubmit={onSubmit} noValidate validated={validated}>
           <Form.Group>
             <Form.Label>닉네임</Form.Label>
             <Form.Control
-              value={name}
-              onChange={e => setName(e.target.value)}
+              value={signUpData.name}
+              onChange={e => onChange('name', e.target.value)}
               placeholder="닉네임을 입력해주세요."
+              required
             />
           </Form.Group>
           <Form.Group>
@@ -56,8 +73,8 @@ export const SignUpForm = (props: Props) => {
             <Select
               placeholder="직무를 선택해주세요."
               options={POSITIONS}
-              defaultValue={postion}
-              onChange={setPostion}
+              onChange={e => onChange('position', e?.value)}
+              required
               styles={{
                 control: styles => ({
                   ...styles,
@@ -78,8 +95,8 @@ export const SignUpForm = (props: Props) => {
             <Select
               placeholder="경력을 선택해주세요."
               options={CAREERS}
-              defaultValue={career}
-              onChange={setCareer}
+              onChange={e => onChange('career', e?.value)}
+              required
               styles={{
                 control: styles => ({
                   ...styles,
@@ -101,8 +118,10 @@ export const SignUpForm = (props: Props) => {
               isMulti
               placeholder="관심 스택을 선택해주세요."
               options={STACKS}
-              defaultValue={stack}
-              onChange={setStack}
+              onChange={e =>
+                onChange('stack', JSON.stringify(e.map(x => x.value)))
+              }
+              required
               styles={{
                 control: styles => ({
                   ...styles,

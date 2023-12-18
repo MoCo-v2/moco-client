@@ -24,7 +24,7 @@ export default NextAuth({
       if (account) {
         // 이미 가입된 유저인지 신규 유저인지 API 요청
         const data = await axios
-          .post(`${process.env.NEXT_PUBLIC_MOCO_API_URL}/api/v1/login`, {
+          .post(`${process.env.NEXT_PUBLIC_MOCO_API_URL}/api/v1/public/login`, {
             provider: account.provider,
             accessToken: account.access_token,
           })
@@ -33,6 +33,7 @@ export default NextAuth({
         if (data?.accessToken) {
           token.isLogin = true;
           token.accessToken = data.accessToken;
+          token.refreshToken = data.refreshToken;
         } else {
           token.id = data.id;
           token.isLogin = false;
@@ -44,6 +45,7 @@ export default NextAuth({
       if (session) {
         if (token.accessToken) {
           session.accessToken = token.accessToken;
+          session.refreshToken = token.refreshToken;
         } else {
           session.id = token.id;
         }
