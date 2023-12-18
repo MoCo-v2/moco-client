@@ -10,7 +10,7 @@ export const POSITIONS = [
 ];
 
 export const CAREERS = [
-  {label: '0년', value: '0년'},
+  {label: '0년', value: '0년'},
   {label: '1년', value: '1년'},
   {label: '2년', value: '2년'},
   {label: '3년', value: '3년'},
