@@ -3,6 +3,7 @@ import {signOut} from 'next-auth/react';
 
 import {Form, Button} from 'react-bootstrap';
 import Select from 'react-select';
+import {Confetti} from '@neoconfetti/react';
 
 import {StyledForm, StyledModalBody, Wrapper} from './style';
 
@@ -59,6 +60,7 @@ export const SignUpForm = (props: Props) => {
 
   return (
     <Wrapper>
+      {showSuccessModal && <Confetti />}
       <div className="content">
         <div className="title">회원가입</div>
         <StyledForm onSubmit={onSubmit} noValidate validated={validated}>

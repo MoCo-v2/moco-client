@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@neoconfetti/react": "^0.1.0",
     "@next/bundle-analyzer": "^14.0.2",
     "@svgr/webpack": "^8.1.0",
     "@types/react-bootstrap": "^0.32.35",
