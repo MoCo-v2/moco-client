@@ -1,10 +1,14 @@
+import {useEffect, useMemo} from 'react';
+import {useRouter} from 'next/router';
+
 import {useSession} from 'next-auth/react';
 
 import {SignUpForm} from '@/containers';
-import {useMemo} from 'react';
 
 const SignUpPage = () => {
   const {data: session, status} = useSession();
+
+  const router = useRouter();
 
   const data = useMemo(() => {
     if (!session?.id) return;
@@ -14,6 +18,10 @@ const SignUpPage = () => {
       picture: session.user?.image || '',
     };
   }, [session]);
+
+  useEffect(() => {
+    if (!data) router.push('/');
+  }, [data]);
 
   return (
     <>
