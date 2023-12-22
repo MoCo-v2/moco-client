@@ -55,3 +55,20 @@ export const StyledForm = styled(Form)`
     line-height: 1.5;
   }
 `;
+
+export const StyledModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4rem 0 3rem;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+
+  .btn {
+    margin-top: 3rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+  }
+`;

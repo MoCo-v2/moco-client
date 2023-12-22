@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {useRouter} from 'next/router';
+import {signOut} from 'next-auth/react';
 
 import {Form, Button} from 'react-bootstrap';
 import Select from 'react-select';
 
-import {StyledForm, Wrapper} from './style';
+import {StyledForm, StyledModalBody, Wrapper} from './style';
 
 import {authAPI, SignUpData} from '@/modules';
 import {CAREERS, POSITIONS, STACKS} from '@/consts';
+
+import {Modal} from '@/components';
 
 interface Props {
   id: string;
@@ -18,8 +20,6 @@ interface Props {
 export const SignUpForm = (props: Props) => {
   const {id, name: defaultName, picture} = props;
 
-  const router = useRouter();
-
   const [validated, setValidated] = useState(false);
   const [signUpData, setSignUpData] = useState<SignUpData>({
     id,
@@ -29,21 +29,19 @@ export const SignUpForm = (props: Props) => {
     stack: JSON.stringify([]),
     picture: picture || '',
   });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
-      event.stopPropagation();
       const form = event.currentTarget;
       if (form.checkValidity()) {
+        setValidated(true);
         await authAPI.userSignUp(signUpData);
-        alert('회원가입완료!');
-        router.push('/');
+        setShowSuccessModal(true);
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setValidated(true);
     }
   };
 
@@ -52,6 +50,11 @@ export const SignUpForm = (props: Props) => {
       ...signUpData,
       [key]: value,
     });
+  };
+
+  const onClickLogIn = async () => {
+    await signOut();
+    setShowSuccessModal(false);
   };
 
   return (
@@ -140,6 +143,14 @@ export const SignUpForm = (props: Props) => {
           <Button type="submit">회원가입</Button>
         </StyledForm>
       </div>
+      <Modal show={showSuccessModal} onHide={onClickLogIn}>
+        <StyledModalBody>
+          회원가입을 축하드립니다.🎉
+          <br />
+          로그인 후 팀원을 모집해 보세요!
+          <Button onClick={onClickLogIn}>팀원 모집하기</Button>
+        </StyledModalBody>
+      </Modal>
     </Wrapper>
   );
 };
