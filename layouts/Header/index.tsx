@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {signOut, useSession} from 'next-auth/react';
+import Link from 'next/link';
 
 import {deleteCookie, setCookie} from 'cookies-next';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
 
 import {LoginModal, SignUpModal} from '@/containers';
+
+import {ROUTE_WRITE} from '@/routes';
 
 const StyledNavBar = styled(Navbar)`
   height: 8.5rem;
@@ -20,6 +23,16 @@ const StyledNavBar = styled(Navbar)`
   .navbar-nav {
     gap: 3rem;
     flex-direction: row;
+    align-items: center;
+    .write-btn {
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.65);
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+      &:hover {
+        color: #000;
+      }
+    }
   }
 
   .point-color {
@@ -66,7 +79,9 @@ export const Header = () => {
         <Nav>
           {session?.isLogin ? (
             <>
-              <Nav.Link href="#home">새 글 쓰기</Nav.Link>
+              <Link className="write-btn" href={ROUTE_WRITE}>
+                새 글 쓰기
+              </Link>
               <Nav.Link onClick={logOut}>로그아웃</Nav.Link>
             </>
           ) : (
