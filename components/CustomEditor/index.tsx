@@ -1,0 +1,76 @@
+'use client';
+
+import {Editor} from '@toast-ui/react-editor';
+import {HookCallback} from '@toast-ui/editor/types/editor';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import 'prismjs/themes/prism.css';
+import Prism from 'prismjs';
+
+const toolbarItems = [
+  ['heading', 'bold', 'italic', 'strike'],
+  ['hr'],
+  ['ul', 'ol', 'task'],
+  ['table', 'link'],
+  ['image'],
+  ['code', 'codeblock'],
+];
+
+interface Props {
+  editorRef: React.RefObject<Editor>;
+  onChange: () => void;
+  initialValue?: string;
+}
+
+export default function MyEditor({editorRef, onChange, initialValue}: Props) {
+  const onUploadImage = async (blob: Blob, callback: HookCallback) => {
+    const formData = new FormData();
+    formData.append('image', blob);
+    try {
+      // TODO:: 이미지 업로드 api 연동
+      // const imageRes = await apiInstance.post('/image', formData, {
+      //     headers: {
+      //         'Content-Type': 'multipart/form-data',
+      //     },
+      // })
+      // 임시 데이터
+      const imageRes = {
+        data: {
+          imageURL: 'test',
+        },
+      };
+      const image_URL = imageRes.data.imageURL;
+      callback(image_URL, 'image');
+      return false;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      {editorRef && (
+        <Editor
+          ref={editorRef}
+          initialValue={initialValue}
+          initialEditType="wysiwyg"
+          hideModeSwitch={true}
+          height="calc(100vh - 380px)"
+          language="ko-KR"
+          theme={''}
+          usageStatistics={false}
+          toolbarItems={toolbarItems}
+          useCommandShortcut={true}
+          plugins={[colorSyntax, [codeSyntaxHighlight, {highlighter: Prism}]]}
+          hooks={{addImageBlobHook: onUploadImage}}
+          onChange={onChange}
+        />
+      )}
+    </>
+  );
+}
