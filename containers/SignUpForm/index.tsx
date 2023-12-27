@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {signOut} from 'next-auth/react';
 
 import {Form, Button} from 'react-bootstrap';
-import Select from 'react-select';
 import {Confetti} from '@neoconfetti/react';
 
 import {StyledForm, StyledModalBody, Wrapper} from './style';
@@ -10,7 +9,7 @@ import {StyledForm, StyledModalBody, Wrapper} from './style';
 import {authAPI, SignUpData} from '@/modules';
 import {CAREERS, POSITIONS, STACKS} from '@/consts';
 
-import {Modal} from '@/components';
+import {CustomSelect, Modal} from '@/components';
 
 interface Props {
   id: string;
@@ -75,71 +74,35 @@ export const SignUpForm = (props: Props) => {
           </Form.Group>
           <Form.Group>
             <Form.Label>직무</Form.Label>
-            <Select
+            <CustomSelect
               placeholder="직무를 선택해주세요."
               options={POSITIONS}
               onChange={e => onChange('position', e?.value)}
               required
-              styles={{
-                control: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                  minHeight: '5rem',
-                  border: '1px solid #dce1e6',
-                  borderRadius: '0.6rem',
-                }),
-                menu: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                }),
-              }}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label>경력</Form.Label>
-            <Select
+            <CustomSelect
               placeholder="경력을 선택해주세요."
               options={CAREERS}
               onChange={e => onChange('career', e?.value)}
               required
-              styles={{
-                control: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                  minHeight: '5rem',
-                  border: '1px solid #dce1e6',
-                  borderRadius: '0.6rem',
-                }),
-                menu: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                }),
-              }}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label>관심 스택</Form.Label>
-            <Select
+            <CustomSelect
               isMulti
               placeholder="관심 스택을 선택해주세요."
               options={STACKS}
               onChange={e =>
-                onChange('stack', JSON.stringify(e.map(x => x.value)))
+                onChange(
+                  'stack',
+                  JSON.stringify(e.map((x: {value: string}) => x.value)),
+                )
               }
               required
-              styles={{
-                control: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                  minHeight: '5rem',
-                  border: '1px solid #dce1e6',
-                  borderRadius: '0.6rem',
-                }),
-                menu: styles => ({
-                  ...styles,
-                  fontSize: '1.6rem',
-                }),
-              }}
             />
           </Form.Group>
           <Button type="submit">회원가입</Button>
