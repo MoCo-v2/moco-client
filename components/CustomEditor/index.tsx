@@ -60,7 +60,7 @@ export default function MyEditor({editorRef, onChange, initialValue}: Props) {
           initialValue={initialValue}
           initialEditType="wysiwyg"
           hideModeSwitch={true}
-          height="calc(100vh - 380px)"
+          height="50rem"
           language="ko-KR"
           theme={''}
           usageStatistics={false}
