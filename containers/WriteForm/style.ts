@@ -43,4 +43,17 @@ export const StyledForm = styled(Form)`
     font-size: 1.6rem;
     margin-bottom: 1.6rem;
   }
+  .btn-wrapper {
+    margin: 2rem 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    .btn {
+      min-width: 8rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 0.8rem 1rem;
+    }
+  }
 `;

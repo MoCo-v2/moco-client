@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -11,18 +11,22 @@ const MyEditor = dynamic(() => import('@/components/CustomEditor'), {
 
 import {Wrapper, StyledForm} from './style';
 
-import {CustomSelect, SectionTitle} from '@/components';
+import {CustomDatePicker, CustomSelect, SectionTitle} from '@/components';
+import {
+  POSITIONS,
+  STACKS,
+  WRITE_CAPACITY,
+  WRITE_CONTACT,
+  WRITE_DURATION,
+  WRITE_MODE,
+  WRITE_TYPE,
+} from '@/consts';
 
 interface Props {}
 
-export const TEST = [
-  {label: '테스트항목', value: '테스트항목'},
-  {label: '테스트항목', value: '테스트항목'},
-  {label: '테스트항목', value: '테스트항목'},
-];
-
 export const WriteForm = (props: Props) => {
   const {} = props;
+  const [deadLine, setDeadLine] = useState<Date>(new Date());
 
   const editorRef = useRef<Editor>(null);
 
@@ -40,8 +44,8 @@ export const WriteForm = (props: Props) => {
             <Form.Group>
               <Form.Label>모집 유형</Form.Label>
               <CustomSelect
-                placeholder="프로젝트 | 모각코 | 스터디"
-                options={TEST}
+                placeholder="프로젝트 | 모각코 | 스터디 | 과외"
+                options={WRITE_TYPE}
                 onChange={e => {}}
                 required
               />
@@ -50,7 +54,7 @@ export const WriteForm = (props: Props) => {
               <Form.Label>모집 인원</Form.Label>
               <CustomSelect
                 placeholder="인원 미정 ~ 10명 이상"
-                options={TEST}
+                options={WRITE_CAPACITY}
                 onChange={e => {}}
                 required
               />
@@ -60,8 +64,8 @@ export const WriteForm = (props: Props) => {
             <Form.Group>
               <Form.Label>진행 방식</Form.Label>
               <CustomSelect
-                placeholder="온라인 | 오프라인"
-                options={TEST}
+                placeholder="전체 | 온라인 | 오프라인"
+                options={WRITE_MODE}
                 onChange={e => {}}
                 required
               />
@@ -70,7 +74,7 @@ export const WriteForm = (props: Props) => {
               <Form.Label>진행 기간</Form.Label>
               <CustomSelect
                 placeholder="기간 미정 ~ 6개월 이상"
-                options={TEST}
+                options={WRITE_DURATION}
                 onChange={e => {}}
                 required
               />
@@ -80,19 +84,18 @@ export const WriteForm = (props: Props) => {
             <Form.Group>
               <Form.Label>기술 스택</Form.Label>
               <CustomSelect
+                isMulti
                 placeholder="프로젝트 사용 스택"
-                options={TEST}
+                options={STACKS}
                 onChange={e => {}}
                 required
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>모집 마감일</Form.Label>
-              <CustomSelect
-                placeholder="TODO:: 캘린더로 변경 예정"
-                options={TEST}
-                onChange={e => {}}
-                required
+              <CustomDatePicker
+                selected={deadLine}
+                onChange={date => setDeadLine(date)}
               />
             </Form.Group>
           </div>
@@ -101,7 +104,7 @@ export const WriteForm = (props: Props) => {
               <Form.Label>모집 포지션</Form.Label>
               <CustomSelect
                 placeholder="프론트엔드, 백엔드..."
-                options={TEST}
+                options={POSITIONS}
                 onChange={e => {}}
                 required
               />
@@ -110,7 +113,7 @@ export const WriteForm = (props: Props) => {
               <Form.Label>연락 방법</Form.Label>
               <CustomSelect
                 placeholder="연락방법을 선택해주세요."
-                options={TEST}
+                options={WRITE_CONTACT}
                 onChange={e => {}}
                 required
               />
@@ -135,6 +138,10 @@ export const WriteForm = (props: Props) => {
           </Form.Group>
           <MyEditor editorRef={editorRef} onChange={onChange} />
         </section>
+        <div className="btn-wrapper">
+          <Button variant="secondary">취소</Button>
+          <Button>글 등록</Button>
+        </div>
       </StyledForm>
     </Wrapper>
   );
