@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.2",
     "cookies-next": "^4.1.0",
     "date-fns": "^2.30.0",
+    "dayjs": "^1.11.10",
     "next": "14.0.2",
     "next-auth": "^4.24.5",
     "react": "^18",

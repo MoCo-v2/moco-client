@@ -20,3 +20,17 @@ export interface ResponsePost {
   full: boolean;
   removed: boolean;
 }
+
+export interface WritePostData {
+  title: string;
+  content: string;
+  type: string;
+  capacity: string;
+  mode: string;
+  duration: string;
+  techStack: string;
+  recruitmentPosition: string;
+  deadLine: string;
+  contact_method: string;
+  link: string;
+}

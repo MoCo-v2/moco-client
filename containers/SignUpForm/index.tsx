@@ -39,6 +39,8 @@ export const SignUpForm = (props: Props) => {
         setValidated(true);
         await authAPI.userSignUp(signUpData);
         setShowSuccessModal(true);
+      } else {
+        setValidated(false);
       }
     } catch (error) {
       console.log(error);
