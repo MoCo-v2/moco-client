@@ -12,6 +12,8 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 
+import {imageAPI} from '@/modules';
+
 const toolbarItems = [
   ['heading', 'bold', 'italic', 'strike'],
   ['hr'],
@@ -32,20 +34,8 @@ export default function MyEditor({editorRef, onChange, initialValue}: Props) {
     const formData = new FormData();
     formData.append('image', blob);
     try {
-      // TODO:: 이미지 업로드 api 연동
-      // const imageRes = await apiInstance.post('/image', formData, {
-      //     headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //     },
-      // })
-      // 임시 데이터
-      const imageRes = {
-        data: {
-          imageURL: 'test',
-        },
-      };
-      const image_URL = imageRes.data.imageURL;
-      callback(image_URL, 'image');
+      const imageURL = await imageAPI.uploadImage(formData);
+      callback(imageURL, 'image');
       return false;
     } catch (error) {
       console.error(error);
