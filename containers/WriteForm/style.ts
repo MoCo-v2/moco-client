@@ -43,6 +43,10 @@ export const StyledForm = styled(Form)`
     font-size: 1.6rem;
     margin-bottom: 1.6rem;
   }
+  .form-control:valid {
+    border: 1px solid #dce1e6;
+    background-image: none;
+  }
   .btn-wrapper {
     margin: 2rem 0 0;
     display: flex;
