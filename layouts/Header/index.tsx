@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {signOut, useSession} from 'next-auth/react';
 import Link from 'next/link';
 
-import {deleteCookie, setCookie} from 'cookies-next';
+import {deleteCookie, getCookie, setCookie} from 'cookies-next';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
 
@@ -50,8 +50,10 @@ export const Header = () => {
     if (!session) return;
     if (session.isLogin) {
       setShowSignUpModal(false);
-      setCookie('moco_asct', session.accessToken);
-      setCookie('moco_rsct', session.refreshToken);
+      if (!getCookie('moco_asct')) {
+        setCookie('moco_asct', session.accessToken);
+        setCookie('moco_rsct', session.refreshToken);
+      }
     } else {
       setShowSignUpModal(true);
       deleteCookie('moco_asct');
