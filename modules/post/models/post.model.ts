@@ -9,7 +9,7 @@ export interface ResponsePost {
   techStack: string;
   recruitmentPosition: string;
   deadLine: string;
-  contact_method: string;
+  contactMethod: string;
   link: string;
   view: number;
   commentCnt: number;
@@ -31,6 +31,6 @@ export interface WritePostData {
   techStack: string;
   recruitmentPosition: string;
   deadLine: string;
-  contact_method: string;
+  contactMethod: string;
   link: string;
 }
