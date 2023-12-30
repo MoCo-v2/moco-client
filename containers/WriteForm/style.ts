@@ -24,6 +24,10 @@ export const Wrapper = styled.div`
       width: 100%;
     }
   }
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 `;
 
 export const StyledForm = styled(Form)`

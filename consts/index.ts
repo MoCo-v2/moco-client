@@ -97,5 +97,5 @@ export const WRITE_DURATION = [
 export const WRITE_CONTACT = [
   {label: '카카오톡', value: '카카오톡'},
   {label: '이메일', value: '이메일'},
-  {label: '구글폼', value: '구글폼'},
+  {label: '구글 폼', value: '구글 폼'},
 ];

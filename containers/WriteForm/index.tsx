@@ -1,9 +1,13 @@
 import React, {useRef, useState} from 'react';
 import dynamic from 'next/dynamic';
+import {useRouter} from 'next/router';
 
 import dayjs from 'dayjs';
 import {Button, Form} from 'react-bootstrap';
 import {Editor} from '@toast-ui/react-editor';
+import {toast, ToastContainer} from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyEditor = dynamic(() => import('@/components/CustomEditor'), {
   ssr: false,
@@ -28,6 +32,7 @@ interface Props {}
 
 export const WriteForm = (props: Props) => {
   const {} = props;
+  const router = useRouter();
 
   const [validated, setValidated] = useState(false);
   const [writeData, setWriteData] = useState<WritePostData>({
@@ -40,7 +45,7 @@ export const WriteForm = (props: Props) => {
     techStack: JSON.stringify([]),
     recruitmentPosition: '',
     deadLine: dayjs().format('YYYY-MM-DD').toString(),
-    contact_method: '',
+    contactMethod: '',
     link: '',
   });
 
@@ -72,7 +77,7 @@ export const WriteForm = (props: Props) => {
           '게시글 작성 완료! TODO:: 팝업 컴포넌트로 변경 및 상세 페이지로 이동',
         );
       } else {
-        alert('필수값 누락! TODO:: 팝업 컴포넌트로 변경');
+        toast.error('게시글 정보를 확인해주세요.');
         setValidated(false);
       }
     } catch (error) {
@@ -175,7 +180,7 @@ export const WriteForm = (props: Props) => {
               <CustomSelect
                 placeholder="연락방법을 선택해주세요."
                 options={WRITE_CONTACT}
-                onChange={e => onChange('contact_method', e?.value)}
+                onChange={e => onChange('contactMethod', e?.value)}
                 required
               />
             </Form.Group>
@@ -186,7 +191,15 @@ export const WriteForm = (props: Props) => {
               <Form.Label>링크</Form.Label>
               <Form.Control
                 onChange={e => onChange('link', e.target.value)}
-                placeholder="TODO:: 연락 방법에 따른 placeholder 추가"
+                placeholder={
+                  writeData.contactMethod === '카카오톡'
+                    ? '오픈 카톡방 링크'
+                    : writeData.contactMethod === '이메일'
+                    ? '이메일 주소'
+                    : writeData.contactMethod === '구글 폼'
+                    ? '구글 폼 주소'
+                    : ''
+                }
               />
             </Form.Group>
           </div>
@@ -204,10 +217,13 @@ export const WriteForm = (props: Props) => {
           <MyEditor editorRef={editorRef} onChange={onChangeContent} />
         </section>
         <div className="btn-wrapper">
-          <Button variant="secondary">취소</Button>
+          <Button variant="secondary" onClick={() => router.back()}>
+            취소
+          </Button>
           <Button type="submit">글 등록</Button>
         </div>
       </StyledForm>
+      <ToastContainer />
     </Wrapper>
   );
 };
