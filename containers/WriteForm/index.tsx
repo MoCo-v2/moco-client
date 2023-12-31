@@ -1,10 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import dynamic from 'next/dynamic';
 import {useRouter} from 'next/router';
 
 import dayjs from 'dayjs';
 import {Button, Form} from 'react-bootstrap';
-import {Editor} from '@toast-ui/react-editor';
 import {toast, ToastContainer} from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -49,8 +48,6 @@ export const WriteForm = (props: Props) => {
     link: '',
   });
 
-  const editorRef = useRef<Editor>(null);
-
   const onChange = (key: string, value?: string) => {
     setWriteData({
       ...writeData,
@@ -58,11 +55,10 @@ export const WriteForm = (props: Props) => {
     });
   };
 
-  const onChangeContent = () => {
-    const data = editorRef.current?.getInstance().getHTML();
+  const onChangeContent = (value: string) => {
     setWriteData({
       ...writeData,
-      content: data || '',
+      content: value || '',
     });
   };
 
@@ -70,6 +66,7 @@ export const WriteForm = (props: Props) => {
     try {
       event.preventDefault();
       const form = event.currentTarget;
+      console.log(writeData);
       if (form.checkValidity()) {
         setValidated(true);
         await postAPI.writePost(writeData);
@@ -214,8 +211,9 @@ export const WriteForm = (props: Props) => {
               required
             />
           </Form.Group>
-          <MyEditor editorRef={editorRef} onChange={onChangeContent} />
+          <MyEditor onChange={onChangeContent} />
         </section>
+
         <div className="btn-wrapper">
           <Button variant="secondary" onClick={() => router.back()}>
             취소

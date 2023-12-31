@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import {Form} from 'react-bootstrap';
 
 export const Wrapper = styled.div`
-  max-width: 1040px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 60px 16px;
-  width: 1024px;
   margin: 0 auto;
   color: #333;
   grid-gap: 50px;
@@ -28,9 +27,18 @@ export const Wrapper = styled.div`
     font-size: 1.4rem;
     font-weight: bold;
   }
+
+  .ProseMirror {
+    padding: 0;
+    border-top: 1px solid #dce1e6;
+    border-bottom: 1px solid #dce1e6;
+    border-radius: 0;
+    padding: 1.2rem 1.4rem;
+  }
 `;
 
 export const StyledForm = styled(Form)`
+  width: 1024px;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
