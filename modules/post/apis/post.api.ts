@@ -1,5 +1,8 @@
+import axios from 'axios';
 import createAxiosInstance from '@/utils/axiosInstance';
-import {WritePostData} from '@/modules';
+import {ResponsePost, WritePostData} from '@/modules';
+
+const apiUrl = process.env.NEXT_PUBLIC_MOCO_API_URL + '/api/v1';
 
 const axiosInstance = createAxiosInstance(
   `${process.env.NEXT_PUBLIC_MOCO_API_URL}/api/v1`,
@@ -7,5 +10,9 @@ const axiosInstance = createAxiosInstance(
 
 export const postAPI = {
   writePost: (data: WritePostData) =>
-    axiosInstance.post('/private/posts', data).then(res => res.data),
+    axiosInstance.post<number>('/private/posts', data).then(res => res.data),
+  getPostById: (id: string) =>
+    axios
+      .get<ResponsePost>(`${apiUrl}/public/posts/${id}`)
+      .then(res => res.data),
 };
