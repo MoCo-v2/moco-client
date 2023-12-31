@@ -27,6 +27,8 @@ import {postAPI, WritePostData} from '@/modules';
 
 import {Wrapper, StyledForm} from './style';
 
+import {ROUTE_POST} from '@/routes';
+
 interface Props {}
 
 export const WriteForm = (props: Props) => {
@@ -47,6 +49,7 @@ export const WriteForm = (props: Props) => {
     contactMethod: '',
     link: '',
   });
+  const [content, setContent] = useState('');
 
   const onChange = (key: string, value?: string) => {
     setWriteData({
@@ -56,23 +59,22 @@ export const WriteForm = (props: Props) => {
   };
 
   const onChangeContent = (value: string) => {
-    setWriteData({
-      ...writeData,
-      content: value || '',
-    });
+    setContent(value || '');
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       const form = event.currentTarget;
-      console.log(writeData);
       if (form.checkValidity()) {
         setValidated(true);
-        await postAPI.writePost(writeData);
-        alert(
-          '게시글 작성 완료! TODO:: 팝업 컴포넌트로 변경 및 상세 페이지로 이동',
-        );
+        const id = await postAPI.writePost({...writeData, content});
+        router.push({
+          pathname: `${ROUTE_POST}`,
+          query: {
+            id,
+          },
+        });
       } else {
         toast.error('게시글 정보를 확인해주세요.');
         setValidated(false);
