@@ -13,7 +13,7 @@ export interface ResponsePost {
   link: string;
   view: number;
   commentCnt: number;
-  created_date: string;
+  createdDate: string;
   userId: string;
   writer: string;
   picture: string;
