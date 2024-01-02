@@ -6,8 +6,6 @@ import dayjs from 'dayjs';
 import {Button, Form} from 'react-bootstrap';
 import {toast, ToastContainer} from 'react-toastify';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 const MyEditor = dynamic(() => import('@/components/CustomEditor'), {
   ssr: false,
 });
