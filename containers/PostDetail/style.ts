@@ -79,20 +79,53 @@ export const Wrapper = styled.div`
       border-bottom: 3px solid #f2f2f2;
     }
     .post-content {
-      padding: 5rem 0;
+      padding: 5rem 0 0;
       font-size: 2rem;
     }
   }
 
   .comment-section {
     .comment-count {
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      span {
+        color: #939393;
+      }
     }
     .comment-write {
+      display: flex;
+      align-items: start;
+      gap: 1.5rem;
+      img {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      textarea {
+        font-size: 1.6rem;
+        font-family: inherit;
+        padding: 1rem 1rem 1.5rem;
+        outline: none;
+        border: 2px solid #e1e1e1;
+        border-radius: 1.6rem;
+        width: 100%;
+        min-height: 10rem;
+        margin-bottom: 1rem;
+        resize: none;
+      }
+    }
+    .btn-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin: 1.6rem 0 2.4rem;
       .btn {
         min-width: 8rem;
         font-size: 1.6rem;
         font-weight: 600;
-        padding: 0.8rem 1rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5rem;
       }
     }
   }

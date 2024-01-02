@@ -108,10 +108,11 @@ export const PostDetail = (props: Props) => {
           댓글 <span>{post.commentCnt}</span>
         </div>
         <div className="comment-write">
-          <div>
-            <textarea placeholder="댓글을 입력해주세요." />
-          </div>
-          <Button>등록</Button>
+          <img src={user?.picture} alt="profile" draggable={false} />
+          <textarea placeholder="댓글을 입력해주세요." />
+        </div>
+        <div className="btn-wrapper">
+          <Button>댓글 등록</Button>
         </div>
         <div className="comment-list"></div>
       </section>
