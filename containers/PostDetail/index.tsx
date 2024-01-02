@@ -17,10 +17,10 @@ interface Props {
 
 export const PostDetail = (props: Props) => {
   const {post} = props;
-  console.log(post);
 
   const {user} = useUser();
-  console.log('user##', user);
+
+  console.log({post, user});
 
   const onClickContactMethod = (type: string, link: string) => {
     if (type === '이메일') {
