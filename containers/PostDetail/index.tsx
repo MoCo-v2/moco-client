@@ -82,7 +82,11 @@ export const PostDetail = (props: Props) => {
           <div className="label">사용 언어</div>
           <div className="value">
             {(JSON.parse(post.techStack) || []).map((stack: string) => (
-              <img src={getStackImageUrl(stack)} key={stack} />
+              <img
+                src={getStackImageUrl(stack)}
+                key={stack}
+                draggable={false}
+              />
             ))}
           </div>
         </div>
