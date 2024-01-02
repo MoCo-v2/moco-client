@@ -11,6 +11,10 @@ export const Wrapper = styled.div`
   gap: 50px;
   position: relative;
 
+  .bn-inline-content {
+    min-height: 2rem;
+  }
+
   .Toastify__toast-body {
     font-size: 1.4rem;
     font-weight: bold;
