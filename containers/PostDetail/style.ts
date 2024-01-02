@@ -57,6 +57,9 @@ export const Wrapper = styled.div`
         margin-right: 3.6rem;
       }
       .value {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
     }
   }
@@ -70,5 +73,10 @@ export const Wrapper = styled.div`
   .post-content {
     padding: 5rem 0;
     font-size: 2rem;
+  }
+
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
   }
 `;
