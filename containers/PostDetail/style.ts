@@ -11,38 +11,45 @@ export const Wrapper = styled.div`
   gap: 50px;
   position: relative;
 
-  .title {
-    font-weight: 800;
-    font-size: 3.6rem;
-    color: #000;
+  .bn-inline-content {
+    min-height: 2rem;
   }
 
-  .writer-info {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 3.2rem 0;
-    border-bottom: 3px solid #f2f2f2;
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 
-    img {
-      height: 4rem;
-      width: 4rem;
-      border-radius: 50%;
-      object-fit: cover;
+  .writer-section {
+    .title {
+      font-weight: 800;
+      font-size: 3.6rem;
+      color: #000;
     }
-
-    .writer {
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    .created {
-      font-size: 1.8rem;
-      color: #717171;
+    .writer-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 3.2rem 0;
+      border-bottom: 3px solid #f2f2f2;
+      img {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .writer {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .created {
+        font-size: 1.8rem;
+        color: #717171;
+      }
     }
   }
 
-  .study-info {
+  .study-info-section {
     font-size: 2rem;
     font-weight: 700;
     display: flex;
@@ -64,19 +71,62 @@ export const Wrapper = styled.div`
     }
   }
 
-  .content-title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    padding: 3.2rem 0;
-    border-bottom: 3px solid #f2f2f2;
-  }
-  .post-content {
-    padding: 5rem 0;
-    font-size: 2rem;
+  .content-section {
+    .content-title {
+      font-size: 2.4rem;
+      font-weight: bold;
+      padding: 3.2rem 0;
+      border-bottom: 3px solid #f2f2f2;
+    }
+    .post-content {
+      padding: 5rem 0 0;
+      font-size: 2rem;
+    }
   }
 
-  .Toastify__toast-body {
-    font-size: 1.4rem;
-    font-weight: bold;
+  .comment-section {
+    .comment-count {
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      span {
+        color: #939393;
+      }
+    }
+    .comment-write {
+      display: flex;
+      align-items: start;
+      gap: 1.5rem;
+      img {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      textarea {
+        font-size: 1.6rem;
+        font-family: inherit;
+        padding: 1rem 1rem 1.5rem;
+        outline: none;
+        border: 2px solid #e1e1e1;
+        border-radius: 1.6rem;
+        width: 100%;
+        min-height: 10rem;
+        margin-bottom: 1rem;
+        resize: none;
+      }
+    }
+    .btn-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin: 1.6rem 0 2.4rem;
+      .btn {
+        min-width: 8rem;
+        font-size: 1.6rem;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5rem;
+      }
+    }
   }
 `;
