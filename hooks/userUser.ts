@@ -12,7 +12,7 @@ export const useUser = () => {
   const mutation = useMutation({
     mutationFn: authAPI.getProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['todos']});
+      queryClient.invalidateQueries({queryKey: ['user']});
     },
   });
 
