@@ -9,7 +9,7 @@ const axiosInstance = createAxiosInstance(
 );
 
 export const commentAPI = {
-  createComment: ({postId, content}: {postId: string; content: string}) =>
+  createComment: ({postId, content}: {postId: number; content: string}) =>
     axiosInstance
       .post<ResponseComment>(`/private/comments/${postId}`, {content})
       .then(res => res.data),
@@ -17,17 +17,17 @@ export const commentAPI = {
     commentId,
     content,
   }: {
-    commentId: string;
+    commentId: number;
     content: string;
   }) =>
     axiosInstance
       .put<ResponseComment>(`/private/comments/${commentId}`, {content})
       .then(res => res.data),
-  deleteComment: (commentId: string) =>
+  deleteComment: (commentId: number) =>
     axiosInstance
       .delete(`/private/comments/${commentId}`)
       .then(res => res.data),
-  getCommentsByPostId: (id: string) =>
+  getCommentsByPostId: (id: number) =>
     axios
       .get<ResponseComment[]>(`${apiUrl}/public/comments/${id}`)
       .then(res => res.data),
