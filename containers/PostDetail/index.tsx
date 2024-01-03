@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
 import {Button} from 'react-bootstrap';
 
-import {ResponsePost, commentAPI} from '@/modules';
+import {ResponseComment, ResponsePost, commentAPI} from '@/modules';
 
 import {useUser} from '@/hooks/useUser';
 import {useComments} from '@/hooks/useComment';
@@ -26,6 +26,7 @@ export const PostDetail = (props: Props) => {
   const {data: comments, mutation} = useComments(post.id);
 
   const [comment, setComment] = useState('');
+  const [editCommentData, setEditCommentData] = useState<ResponseComment>();
 
   console.log({post, user});
   console.log(comments);
@@ -161,14 +162,44 @@ export const PostDetail = (props: Props) => {
                     {dayjs(comment.createdDate).format('YYYY.MM.DD HH:mm')}
                   </div>
                 </div>
-                <div
-                  className="comment-delete-btn"
-                  onClick={() => onDeleteComment(comment.id)}
-                >
-                  삭제
-                </div>
+                {comment.name === user?.name ? (
+                  <div className="comment-modify-btn-wrap">
+                    <div
+                      className="comment-edit-btn"
+                      onClick={() => setEditCommentData(comment)}
+                    >
+                      수정
+                    </div>
+                    <div
+                      className="comment-delete-btn"
+                      onClick={() => onDeleteComment(comment.id)}
+                    >
+                      삭제
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
-              <div className="comment-content">{comment.content}</div>
+              {editCommentData?.id === comment.id ? (
+                <>
+                  <textarea
+                    onChange={e =>
+                      setEditCommentData(prev => {
+                        if (!prev) return prev;
+                        return {
+                          ...prev,
+                          content: e.target.value,
+                        };
+                      })
+                    }
+                    value={editCommentData?.content}
+                    placeholder="댓글을 입력해주세요."
+                  />
+                </>
+              ) : (
+                <div className="comment-content">{comment.content}</div>
+              )}
             </div>
           ))}
         </div>

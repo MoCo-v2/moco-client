@@ -158,11 +158,17 @@ export const Wrapper = styled.div`
               color: #717171;
             }
           }
-          .comment-delete-btn {
-            color: #ff4d4f;
+          .comment-modify-btn-wrap {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 1rem;
+            margin-left: auto;
             font-size: 1.4rem;
             cursor: pointer;
-            margin-left: auto;
+            .comment-delete-btn {
+              color: #ff4d4f;
+            }
           }
         }
         .comment-content {
