@@ -1,15 +1,19 @@
+import {useState} from 'react';
+
 import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
 import {Button} from 'react-bootstrap';
 
-import {ResponsePost} from '@/modules';
+import {ResponsePost, commentAPI} from '@/modules';
+
+import {useUser} from '@/hooks/useUser';
+import {useComments} from '@/hooks/useComment';
 
 import {getStackImageUrl} from '@/utils';
 
 import {Tag} from '@/components';
 
 import {Wrapper} from './style';
-import {useUser} from '@/hooks/userUser';
 
 interface Props {
   post: ResponsePost;
@@ -19,8 +23,12 @@ export const PostDetail = (props: Props) => {
   const {post} = props;
 
   const {user} = useUser();
+  const {data: comments, mutation} = useComments(post.id);
+
+  const [comment, setComment] = useState('');
 
   console.log({post, user});
+  console.log(comments);
 
   const onClickContactMethod = (type: string, link: string) => {
     if (type === '이메일') {
@@ -28,6 +36,20 @@ export const PostDetail = (props: Props) => {
       toast.success('이메일이 복사되었습니다.');
     } else {
       window.open(link, '_blank');
+    }
+  };
+
+  const onCreateComment = async () => {
+    try {
+      const data = await commentAPI.createComment({
+        postId: post.id,
+        content: comment,
+      });
+      toast.success('댓글이 등록되었습니다.');
+      mutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('댓글 등록에 실패하였습니다.');
     }
   };
 
@@ -109,10 +131,13 @@ export const PostDetail = (props: Props) => {
         </div>
         <div className="comment-write">
           <img src={user?.picture} alt="profile" draggable={false} />
-          <textarea placeholder="댓글을 입력해주세요." />
+          <textarea
+            onChange={e => setComment(e.target.value)}
+            placeholder="댓글을 입력해주세요."
+          />
         </div>
         <div className="btn-wrapper">
-          <Button>댓글 등록</Button>
+          <Button onClick={onCreateComment}>댓글 등록</Button>
         </div>
         <div className="comment-list"></div>
       </section>
