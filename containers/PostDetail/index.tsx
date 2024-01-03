@@ -41,15 +41,26 @@ export const PostDetail = (props: Props) => {
 
   const onCreateComment = async () => {
     try {
-      const data = await commentAPI.createComment({
+      await commentAPI.createComment({
         postId: post.id,
         content: comment,
       });
-      toast.success('댓글이 등록되었습니다.');
       mutation.mutate();
+      toast.success('댓글이 등록되었습니다.');
     } catch (error) {
       console.log(error);
       toast.error('댓글 등록에 실패하였습니다.');
+    }
+  };
+
+  const onDeleteComment = async (commentId: number) => {
+    try {
+      await commentAPI.deleteComment(commentId);
+      mutation.mutate();
+      toast.success('댓글이 삭제되었습니다.');
+    } catch (error) {
+      console.log(error);
+      toast.error('댓글 삭제에 실패하였습니다.');
     }
   };
 
@@ -139,7 +150,28 @@ export const PostDetail = (props: Props) => {
         <div className="btn-wrapper">
           <Button onClick={onCreateComment}>댓글 등록</Button>
         </div>
-        <div className="comment-list"></div>
+        <div className="comment-list">
+          {comments?.map(comment => (
+            <div className="comment-item" key={comment.id}>
+              <div className="comment-writer">
+                <img src={comment.picture} alt="profile" draggable={false} />
+                <div>
+                  <div className="writer">{comment.name}</div>
+                  <div className="created">
+                    {dayjs(comment.createdDate).format('YYYY.MM.DD HH:mm')}
+                  </div>
+                </div>
+                <div
+                  className="comment-delete-btn"
+                  onClick={() => onDeleteComment(comment.id)}
+                >
+                  삭제
+                </div>
+              </div>
+              <div className="comment-content">{comment.content}</div>
+            </div>
+          ))}
+        </div>
       </section>
       <ToastContainer />
     </Wrapper>

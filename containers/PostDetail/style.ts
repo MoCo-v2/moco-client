@@ -128,5 +128,47 @@ export const Wrapper = styled.div`
         border-radius: 5rem;
       }
     }
+    .comment-list {
+      .comment-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2.4rem 0;
+        border-bottom: 3px solid #f2f2f2;
+        .comment-writer {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          img {
+            height: 4rem;
+            width: 4rem;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          & > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            .writer {
+              color: #333;
+              font-weight: 700;
+            }
+            .created {
+              color: #717171;
+            }
+          }
+          .comment-delete-btn {
+            color: #ff4d4f;
+            font-size: 1.4rem;
+            cursor: pointer;
+            margin-left: auto;
+          }
+        }
+        .comment-content {
+          font-size: 1.6rem;
+        }
+      }
+    }
   }
 `;
