@@ -2,7 +2,6 @@ import {useState} from 'react';
 
 import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
-import {Button} from 'react-bootstrap';
 
 import {ResponseComment, ResponsePost, commentAPI} from '@/modules';
 
@@ -11,6 +10,8 @@ import {useComments} from '@/hooks/useComment';
 
 import {getStackImageUrl} from '@/utils';
 
+import {CommentList} from './CommentList';
+import {WriteComment} from './WriteComment';
 import {Tag} from '@/components';
 
 import {Wrapper} from './style';
@@ -27,9 +28,6 @@ export const PostDetail = (props: Props) => {
 
   const [comment, setComment] = useState('');
   const [editCommentData, setEditCommentData] = useState<ResponseComment>();
-
-  console.log({post, user});
-  console.log(comments);
 
   const onClickContactMethod = (type: string, link: string) => {
     if (type === '이메일') {
@@ -48,6 +46,7 @@ export const PostDetail = (props: Props) => {
       });
       mutation.mutate();
       toast.success('댓글이 등록되었습니다.');
+      setComment('');
     } catch (error) {
       console.log(error);
       toast.error('댓글 등록에 실패하였습니다.');
@@ -62,6 +61,22 @@ export const PostDetail = (props: Props) => {
     } catch (error) {
       console.log(error);
       toast.error('댓글 삭제에 실패하였습니다.');
+    }
+  };
+
+  const onModifyComment = async () => {
+    try {
+      if (!editCommentData) return;
+      await commentAPI.modifiedComment({
+        commentId: editCommentData.id,
+        content: editCommentData.content,
+      });
+      mutation.mutate();
+      toast.success('댓글이 수정되었습니다.');
+      setEditCommentData(undefined);
+    } catch (error) {
+      console.log(error);
+      toast.error('댓글 수정에 실패하였습니다.');
     }
   };
 
@@ -136,73 +151,25 @@ export const PostDetail = (props: Props) => {
           className="post-content"
           dangerouslySetInnerHTML={{__html: post.content}}
         />
+        <div className="post-info">
+          <span>조회수: {post.view}</span>
+          <span>TODO:: 북마크</span>
+        </div>
       </section>
       <section className="comment-section">
-        <div className="comment-count">
-          댓글 <span>{post.commentCnt}</span>
-        </div>
-        <div className="comment-write">
-          <img src={user?.picture} alt="profile" draggable={false} />
-          <textarea
-            onChange={e => setComment(e.target.value)}
-            placeholder="댓글을 입력해주세요."
-          />
-        </div>
-        <div className="btn-wrapper">
-          <Button onClick={onCreateComment}>댓글 등록</Button>
-        </div>
-        <div className="comment-list">
-          {comments?.map(comment => (
-            <div className="comment-item" key={comment.id}>
-              <div className="comment-writer">
-                <img src={comment.picture} alt="profile" draggable={false} />
-                <div>
-                  <div className="writer">{comment.name}</div>
-                  <div className="created">
-                    {dayjs(comment.createdDate).format('YYYY.MM.DD HH:mm')}
-                  </div>
-                </div>
-                {comment.name === user?.name ? (
-                  <div className="comment-modify-btn-wrap">
-                    <div
-                      className="comment-edit-btn"
-                      onClick={() => setEditCommentData(comment)}
-                    >
-                      수정
-                    </div>
-                    <div
-                      className="comment-delete-btn"
-                      onClick={() => onDeleteComment(comment.id)}
-                    >
-                      삭제
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-              {editCommentData?.id === comment.id ? (
-                <>
-                  <textarea
-                    onChange={e =>
-                      setEditCommentData(prev => {
-                        if (!prev) return prev;
-                        return {
-                          ...prev,
-                          content: e.target.value,
-                        };
-                      })
-                    }
-                    value={editCommentData?.content}
-                    placeholder="댓글을 입력해주세요."
-                  />
-                </>
-              ) : (
-                <div className="comment-content">{comment.content}</div>
-              )}
-            </div>
-          ))}
-        </div>
+        <WriteComment
+          post={post}
+          comment={comment}
+          setComment={setComment}
+          onCreateComment={onCreateComment}
+        />
+        <CommentList
+          comments={comments}
+          editCommentData={editCommentData}
+          setEditCommentData={setEditCommentData}
+          onDeleteComment={onDeleteComment}
+          onModifyComment={onModifyComment}
+        />
       </section>
       <ToastContainer />
     </Wrapper>
