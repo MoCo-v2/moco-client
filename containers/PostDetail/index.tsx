@@ -2,15 +2,16 @@ import {useState} from 'react';
 
 import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
-import {Button} from 'react-bootstrap';
 
-import {ResponsePost, commentAPI} from '@/modules';
+import {ResponseComment, ResponsePost, commentAPI} from '@/modules';
 
 import {useUser} from '@/hooks/useUser';
 import {useComments} from '@/hooks/useComment';
 
 import {getStackImageUrl} from '@/utils';
 
+import {CommentList} from './CommentList';
+import {WriteComment} from './WriteComment';
 import {Tag} from '@/components';
 
 import {Wrapper} from './style';
@@ -26,9 +27,7 @@ export const PostDetail = (props: Props) => {
   const {data: comments, mutation} = useComments(post.id);
 
   const [comment, setComment] = useState('');
-
-  console.log({post, user});
-  console.log(comments);
+  const [editCommentData, setEditCommentData] = useState<ResponseComment>();
 
   const onClickContactMethod = (type: string, link: string) => {
     if (type === '이메일') {
@@ -41,15 +40,43 @@ export const PostDetail = (props: Props) => {
 
   const onCreateComment = async () => {
     try {
-      const data = await commentAPI.createComment({
+      await commentAPI.createComment({
         postId: post.id,
         content: comment,
       });
-      toast.success('댓글이 등록되었습니다.');
       mutation.mutate();
+      toast.success('댓글이 등록되었습니다.');
+      setComment('');
     } catch (error) {
       console.log(error);
       toast.error('댓글 등록에 실패하였습니다.');
+    }
+  };
+
+  const onDeleteComment = async (commentId: number) => {
+    try {
+      await commentAPI.deleteComment(commentId);
+      mutation.mutate();
+      toast.success('댓글이 삭제되었습니다.');
+    } catch (error) {
+      console.log(error);
+      toast.error('댓글 삭제에 실패하였습니다.');
+    }
+  };
+
+  const onModifyComment = async () => {
+    try {
+      if (!editCommentData) return;
+      await commentAPI.modifiedComment({
+        commentId: editCommentData.id,
+        content: editCommentData.content,
+      });
+      mutation.mutate();
+      toast.success('댓글이 수정되었습니다.');
+      setEditCommentData(undefined);
+    } catch (error) {
+      console.log(error);
+      toast.error('댓글 수정에 실패하였습니다.');
     }
   };
 
@@ -124,22 +151,25 @@ export const PostDetail = (props: Props) => {
           className="post-content"
           dangerouslySetInnerHTML={{__html: post.content}}
         />
+        <div className="post-info">
+          <span>조회수: {post.view}</span>
+          <span>TODO:: 북마크</span>
+        </div>
       </section>
       <section className="comment-section">
-        <div className="comment-count">
-          댓글 <span>{post.commentCnt}</span>
-        </div>
-        <div className="comment-write">
-          <img src={user?.picture} alt="profile" draggable={false} />
-          <textarea
-            onChange={e => setComment(e.target.value)}
-            placeholder="댓글을 입력해주세요."
-          />
-        </div>
-        <div className="btn-wrapper">
-          <Button onClick={onCreateComment}>댓글 등록</Button>
-        </div>
-        <div className="comment-list"></div>
+        <WriteComment
+          post={post}
+          comment={comment}
+          setComment={setComment}
+          onCreateComment={onCreateComment}
+        />
+        <CommentList
+          comments={comments}
+          editCommentData={editCommentData}
+          setEditCommentData={setEditCommentData}
+          onDeleteComment={onDeleteComment}
+          onModifyComment={onModifyComment}
+        />
       </section>
       <ToastContainer />
     </Wrapper>
