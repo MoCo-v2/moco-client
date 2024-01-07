@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
-import {getCookie, setCookie} from 'cookies-next';
+import {deleteCookie, getCookie, setCookie} from 'cookies-next';
+import {signOut} from 'next-auth/react';
 
 const createAxiosInstance = (baseURL: string) => {
   const instance: AxiosInstance = axios.create({
@@ -22,7 +23,11 @@ const createAxiosInstance = (baseURL: string) => {
     response => response,
     async error => {
       const originalRequest = error.config;
-
+      if (error.response?.status === 400) {
+        deleteCookie('moco_asct');
+        deleteCookie('moco_rsct');
+        await signOut();
+      }
       // 만료된 토큰에 대한 처리 (401 에러)
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;

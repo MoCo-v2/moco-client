@@ -68,6 +68,7 @@ export const Header = () => {
 
   const logOut = async () => {
     deleteCookie('moco_asct');
+    deleteCookie('moco_rsct');
     await signOut();
   };
 
