@@ -22,17 +22,21 @@ export const WriteComment = (props: Props) => {
       <div className="comment-count">
         댓글 <span>{post.commentCnt}</span>
       </div>
-      <div className="comment-write">
-        <img src={user?.picture} alt="profile" draggable={false} />
-        <textarea
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          placeholder="댓글을 입력해주세요."
-        />
-      </div>
-      <div className="btn-wrapper">
-        <Button onClick={onCreateComment}>댓글 등록</Button>
-      </div>
+      {user && (
+        <>
+          <div className="comment-write">
+            <img src={user?.picture} alt="profile" draggable={false} />
+            <textarea
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              placeholder="댓글을 입력해주세요."
+            />
+          </div>
+          <div className="btn-wrapper">
+            <Button onClick={onCreateComment}>댓글 등록</Button>
+          </div>
+        </>
+      )}
     </StyledWriteComment>
   );
 };

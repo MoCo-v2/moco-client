@@ -15,4 +15,11 @@ export const postAPI = {
     axios
       .get<ResponsePost>(`${apiUrl}/public/posts/${id}`)
       .then(res => res.data),
+  getPostList: (filter: {offset: number; limit: number; recruit?: boolean}) =>
+    axios
+      .get<{posts: ResponsePost[]; totalElements: number; totalPages: number}>(
+        `${apiUrl}/public/posts`,
+        {params: filter},
+      )
+      .then(res => res.data),
 };
