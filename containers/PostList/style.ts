@@ -1,0 +1,121 @@
+import styled from 'styled-components';
+
+export const Wrapper = styled.div`
+  width: 100%;
+  padding: 2rem 6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+
+  .test {
+    position: sticky;
+    top: 3rem;
+    width: 45rem;
+    height: 32rem;
+    border: 1px solid #d2d2d2;
+    border-radius: 1rem;
+  }
+`;
+
+export const PostListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+`;
+
+export const PostItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid #d1d1d1;
+  border-radius: 1rem;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  }
+  .writer-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    img {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .dead-line {
+      font-size: 1.2rem;
+      color: #a1a1a1;
+    }
+    .type {
+      margin-left: auto;
+      padding: 0.5rem 1rem;
+      border-radius: 1.5rem;
+      background: #f2f4f8;
+      color: #4a5e75;
+      font-weight: 700;
+    }
+  }
+  .content {
+    overflow: hidden;
+    border-top: 1px solid #d1d1d1;
+    /* border-bottom: 1px solid #d1d1d1; */
+    padding: 1rem 0 0;
+    .title {
+      text-decoration: none;
+      color: #000;
+
+      font-size: 1.8rem;
+      font-weight: 700;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+  .post-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .recruitment-position {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      div {
+        padding: 0.5rem 1rem;
+        border-radius: 1.5rem;
+        background: #f2f4f8;
+        color: #4a5e75;
+        font-weight: 700;
+      }
+    }
+    .tech-stack {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+      }
+    }
+    .comment-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+  }
+`;
