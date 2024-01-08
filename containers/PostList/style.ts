@@ -22,6 +22,33 @@ export const PostListWrapper = styled.div`
   flex-direction: column;
   gap: 2rem;
   width: 100%;
+
+  .pagination {
+    align-items: center;
+    justify-content: center;
+
+    li {
+      width: 3.2rem;
+      height: 3.2rem;
+      margin: 0 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      &.active {
+        background: #0d6efd;
+        border-radius: 100%;
+        a {
+          color: #fff;
+        }
+      }
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+    }
+  }
 `;
 
 export const PostItem = styled.div`

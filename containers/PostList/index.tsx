@@ -1,21 +1,38 @@
-import {usePost} from '@/hooks/usePost';
-import {PostItem, PostListWrapper, Wrapper} from './style';
-import dayjs from 'dayjs';
-import {getStackImageUrl} from '@/utils';
-import {ROUTE_POST} from '@/routes';
+import {useState} from 'react';
 import Link from 'next/link';
 
+import dayjs from 'dayjs';
+import Pagination from 'react-js-pagination';
+
+import {usePost} from '@/hooks/usePost';
+import {getStackImageUrl} from '@/utils';
+import {ROUTE_POST} from '@/routes';
+
+import {PostItem, PostListWrapper, Wrapper} from './style';
+
 interface Props {}
+
+const limit = 10;
 
 export const PostList = (props: Props) => {
   const {} = props;
 
-  const {data: postList} = usePost({
-    offset: 0,
-    limit: 20,
+  const [page, setPage] = useState(0);
+
+  const {
+    data: postList,
+    totalElements,
+    totalPages,
+  } = usePost({
+    offset: page,
+    limit,
     recruit: false,
   });
   console.log(postList);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
 
   return (
     <Wrapper>
@@ -70,6 +87,20 @@ export const PostList = (props: Props) => {
             </PostItem>
           );
         })}
+        <Pagination
+          activePage={page + 1}
+          itemsCountPerPage={limit}
+          totalItemsCount={totalElements || 0}
+          pageRangeDisplayed={5}
+          prevPageText={'‹'}
+          nextPageText={'›'}
+          firstPageText={'«'}
+          lastPageText={'»'}
+          onChange={number => {
+            setPage(number - 1);
+            handleScrollToTop();
+          }}
+        />
       </PostListWrapper>
       <div className="test">TODO:: 인기 게시글</div>
     </Wrapper>
