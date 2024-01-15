@@ -5,7 +5,15 @@ interface Props extends SelectProps {
 }
 
 export const CustomSelect = (props: Props) => {
-  const {placeholder, options, onChange, required, isMulti} = props;
+  const {
+    placeholder,
+    options,
+    onChange,
+    required,
+    isMulti,
+    defaultValue,
+    value,
+  } = props;
   return (
     <Select
       isMulti={isMulti}
@@ -13,6 +21,8 @@ export const CustomSelect = (props: Props) => {
       options={options}
       onChange={onChange}
       required={required}
+      defaultValue={defaultValue}
+      value={value}
       styles={{
         control: styles => ({
           ...styles,

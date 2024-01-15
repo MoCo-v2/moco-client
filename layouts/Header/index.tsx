@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import {LoginModal, SignUpModal} from '@/containers';
 
-import {ROUTE_WRITE} from '@/routes';
+import {ROUTE_PROFILE, ROUTE_WRITE} from '@/routes';
 
 const StyledNavBar = styled(Navbar)`
   height: 8.5rem;
@@ -84,6 +84,9 @@ export const Header = () => {
             <>
               <Link className="write-btn" href={ROUTE_WRITE}>
                 새 글 쓰기
+              </Link>
+              <Link className="write-btn" href={ROUTE_PROFILE}>
+                내 정보
               </Link>
               <Nav.Link onClick={logOut}>로그아웃</Nav.Link>
             </>
