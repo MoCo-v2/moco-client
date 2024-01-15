@@ -6,3 +6,6 @@ export const ROUTE_WRITE = '/write';
 
 // 게시글 상세
 export const ROUTE_POST = '/post';
+
+// 프로필 페이지
+export const ROUTE_PROFILE = '/profile';

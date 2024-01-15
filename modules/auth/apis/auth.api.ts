@@ -15,4 +15,8 @@ export const authAPI = {
     axios.post(`${apiUrl}/public/join`, data).then(res => res.data),
   getProfile: () =>
     axiosInstance.get<ResponseUser>('/private/users').then(res => res.data),
+  checkNickName: (name: string) =>
+    axios.get(`${apiUrl}/public/check-nickname/${name}`).then(res => res.data),
+  updateUser: (data: SignUpData) =>
+    axiosInstance.put(`${apiUrl}/private/users`, data).then(res => res.data),
 };

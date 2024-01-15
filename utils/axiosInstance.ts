@@ -23,7 +23,7 @@ const createAxiosInstance = (baseURL: string) => {
     response => response,
     async error => {
       const originalRequest = error.config;
-      if (error.response?.status === 400) {
+      if (error.response?.status === 403) {
         deleteCookie('moco_asct');
         deleteCookie('moco_rsct');
         await signOut();
