@@ -5,13 +5,14 @@ import {SessionProvider} from 'next-auth/react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {ThemeProvider} from 'styled-components';
 
-import '@/styles/globals.css';
 import {theme} from '@/styles/theme';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
+
+import '@/styles/globals.css';
 
 const queryClient = new QueryClient();
 
