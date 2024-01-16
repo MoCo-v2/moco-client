@@ -4,6 +4,8 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import Pagination from 'react-js-pagination';
 
+import {ProfileDetailModal} from '../ProfileDetailModal';
+
 import {usePost} from '@/hooks/usePost';
 import {getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
@@ -18,6 +20,7 @@ export const PostList = (props: Props) => {
   const {} = props;
 
   const [page, setPage] = useState(0);
+  const [userId, setUserId] = useState<string | undefined>();
 
   const {
     data: postList,
@@ -34,6 +37,10 @@ export const PostList = (props: Props) => {
     window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
+  const onClickProfile = (userId: string) => {
+    setUserId(userId);
+  };
+
   return (
     <Wrapper>
       <div className="test">TODO:: 검색 필터</div>
@@ -42,8 +49,13 @@ export const PostList = (props: Props) => {
           return (
             <PostItem key={post.id}>
               <div className="writer-info">
-                <img src={post.picture} alt="profile" draggable={false} />
-                <div className="name">{post.writer}</div>
+                <div
+                  className="profile"
+                  onClick={() => onClickProfile(post.userId)}
+                >
+                  <img src={post.picture} alt="profile" draggable={false} />
+                  <div className="name">{post.writer}</div>
+                </div>
                 <div className="dead-line">
                   마감일 | {dayjs(post.deadLine).format('YYYY.MM.DD')}
                 </div>
@@ -103,6 +115,7 @@ export const PostList = (props: Props) => {
         />
       </PostListWrapper>
       <div className="test">TODO:: 인기 게시글</div>
+      <ProfileDetailModal userId={userId} setUserId={setUserId} />
     </Wrapper>
   );
 };

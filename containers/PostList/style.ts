@@ -66,15 +66,21 @@ export const PostItem = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    img {
-      width: 4rem;
-      height: 4rem;
-      object-fit: cover;
-      border-radius: 100%;
-    }
-    .name {
-      font-size: 1.5rem;
-      font-weight: 700;
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+      .name {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
     }
     .dead-line {
       font-size: 1.2rem;
