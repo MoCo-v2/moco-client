@@ -10,10 +10,13 @@ import {useUser} from '@/hooks/useUser';
 
 import {CAREERS, POSITIONS, STACKS} from '@/consts';
 
+import {useLoadingStore} from '@/store/loading';
+
 import {StyledForm, Wrapper} from './style';
 
 export const ProfileForm = () => {
   const {user, mutation} = useUser();
+  const {showLoading, hideLoading} = useLoadingStore();
 
   const [validated, setValidated] = useState(false);
   const [tempUser, setTempUser] = useState<ResponseUser>({
@@ -40,21 +43,29 @@ export const ProfileForm = () => {
   };
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    if (file) {
-      const formData = new FormData();
-      formData.append('image', file);
-      const imageURL = await imageAPI.uploadImage(formData);
-      setTempUser({
-        ...tempUser,
-        picture: imageURL || '',
-      });
+    try {
+      const file = e.target.files?.[0] || null;
+      if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        showLoading();
+        const imageURL = await imageAPI.uploadImage(formData);
+        setTempUser({
+          ...tempUser,
+          picture: imageURL || '',
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      hideLoading();
     }
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
+      showLoading();
       const form = event.currentTarget;
       if (user?.name !== tempUser.name) {
         await authAPI.checkNickName(tempUser.name);
@@ -73,6 +84,8 @@ export const ProfileForm = () => {
       if ((error as any)?.response?.data?.msg) {
         toast.error((error as any).response.data.msg);
       }
+    } finally {
+      hideLoading();
     }
   };
 
