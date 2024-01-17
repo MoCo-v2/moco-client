@@ -3,12 +3,14 @@ import {signOut, useSession} from 'next-auth/react';
 import Link from 'next/link';
 
 import {deleteCookie, getCookie, setCookie} from 'cookies-next';
-import {Container, Nav, Navbar} from 'react-bootstrap';
+import {Container, Nav, NavDropdown, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
 
 import {LoginModal, SignUpModal} from '@/containers';
 
 import {ROUTE_PROFILE, ROUTE_WRITE} from '@/routes';
+
+import {useUser} from '@/hooks/useUser';
 
 const StyledNavBar = styled(Navbar)`
   height: 8.5rem;
@@ -33,15 +35,36 @@ const StyledNavBar = styled(Navbar)`
         color: #000;
       }
     }
+    .dropdown-menu {
+      position: absolute;
+    }
   }
 
   .point-color {
     color: ${({theme}) => theme.color.blue};
   }
+
+  .profile-img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #f5f5f5;
+  }
+
+  .dropdown-item {
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    &:active {
+      background-color: #f8f9fa;
+    }
+  }
 `;
 
 export const Header = () => {
   const {data: session, status} = useSession();
+  const {user} = useUser();
 
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -85,10 +108,23 @@ export const Header = () => {
               <Link className="write-btn" href={ROUTE_WRITE}>
                 새 글 쓰기
               </Link>
-              <Link className="write-btn" href={ROUTE_PROFILE}>
-                내 정보
-              </Link>
-              <Nav.Link onClick={logOut}>로그아웃</Nav.Link>
+              <NavDropdown
+                title={
+                  <img
+                    className="profile-img"
+                    src={user?.picture || ''}
+                    alt="porfile"
+                  />
+                }
+                id="nav-dropdown"
+              >
+                <NavDropdown.Item>
+                  <Link className="write-btn" href={ROUTE_PROFILE}>
+                    내 정보
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logOut}>로그아웃</NavDropdown.Item>
+              </NavDropdown>
             </>
           ) : (
             <Nav.Link onClick={() => setShowLoginModal(true)}>로그인</Nav.Link>
