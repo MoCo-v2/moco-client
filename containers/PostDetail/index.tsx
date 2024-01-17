@@ -14,6 +14,8 @@ import {CommentList} from './CommentList';
 import {WriteComment} from './WriteComment';
 import {Tag} from '@/components';
 
+import {useLoadingStore} from '@/store/loading';
+
 import {Wrapper} from './style';
 
 interface Props {
@@ -24,6 +26,7 @@ export const PostDetail = (props: Props) => {
   const {post} = props;
 
   const {user} = useUser();
+  const {showLoading, hideLoading} = useLoadingStore();
   const {data: comments, mutation} = useComments(post.id);
 
   const [comment, setComment] = useState('');
@@ -40,6 +43,7 @@ export const PostDetail = (props: Props) => {
 
   const onCreateComment = async () => {
     try {
+      showLoading();
       await commentAPI.createComment({
         postId: post.id,
         content: comment,
@@ -50,23 +54,29 @@ export const PostDetail = (props: Props) => {
     } catch (error) {
       console.log(error);
       toast.error('댓글 등록에 실패하였습니다.');
+    } finally {
+      hideLoading();
     }
   };
 
   const onDeleteComment = async (commentId: number) => {
     try {
+      showLoading();
       await commentAPI.deleteComment(commentId);
       mutation.mutate();
       toast.success('댓글이 삭제되었습니다.');
     } catch (error) {
       console.log(error);
       toast.error('댓글 삭제에 실패하였습니다.');
+    } finally {
+      hideLoading();
     }
   };
 
   const onModifyComment = async () => {
     try {
       if (!editCommentData) return;
+      showLoading();
       await commentAPI.modifiedComment({
         commentId: editCommentData.id,
         content: editCommentData.content,
@@ -77,6 +87,8 @@ export const PostDetail = (props: Props) => {
     } catch (error) {
       console.log(error);
       toast.error('댓글 수정에 실패하였습니다.');
+    } finally {
+      hideLoading();
     }
   };
 

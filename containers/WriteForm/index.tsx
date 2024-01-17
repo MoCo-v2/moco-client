@@ -26,11 +26,13 @@ import {postAPI, WritePostData} from '@/modules';
 import {Wrapper, StyledForm} from './style';
 
 import {ROUTE_POST} from '@/routes';
+import {useLoadingStore} from '@/store/loading';
 
 interface Props {}
 
 export const WriteForm = (props: Props) => {
   const {} = props;
+  const {showLoading, hideLoading} = useLoadingStore();
   const router = useRouter();
 
   const [validated, setValidated] = useState(false);
@@ -63,6 +65,7 @@ export const WriteForm = (props: Props) => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
+      showLoading();
       const form = event.currentTarget;
       if (form.checkValidity()) {
         setValidated(true);
@@ -79,6 +82,8 @@ export const WriteForm = (props: Props) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      hideLoading();
     }
   };
 

@@ -5,6 +5,10 @@ import {SessionProvider} from 'next-auth/react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {ThemeProvider} from 'styled-components';
 
+import {PageLoader} from '@/components';
+
+import {useLoadingStore} from '@/store/loading';
+
 import {theme} from '@/styles/theme';
 
 import {Noto_Sans_KR} from 'next/font/google';
@@ -24,6 +28,8 @@ import '@/styles/globals.css';
 const queryClient = new QueryClient();
 
 export default function App({Component, pageProps}: AppProps) {
+  const {loading} = useLoadingStore();
+
   return (
     <>
       <Head>
@@ -36,6 +42,7 @@ export default function App({Component, pageProps}: AppProps) {
         <SessionProvider session={pageProps.session}>
           <ThemeProvider theme={theme}>
             <main className={noto.className}>
+              {loading && <PageLoader />}
               <Component {...pageProps} />
             </main>
           </ThemeProvider>

@@ -6,6 +6,7 @@ import {Confetti} from '@neoconfetti/react';
 
 import {StyledForm, StyledModalBody, Wrapper} from './style';
 
+import {useLoadingStore} from '@/store/loading';
 import {authAPI, SignUpData} from '@/modules';
 import {CAREERS, POSITIONS, STACKS} from '@/consts';
 
@@ -19,6 +20,8 @@ interface Props {
 
 export const SignUpForm = (props: Props) => {
   const {id, name: defaultName, picture} = props;
+
+  const {showLoading, hideLoading} = useLoadingStore();
 
   const [validated, setValidated] = useState(false);
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -34,6 +37,7 @@ export const SignUpForm = (props: Props) => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
+      showLoading();
       const form = event.currentTarget;
       if (form.checkValidity()) {
         setValidated(true);
@@ -44,6 +48,8 @@ export const SignUpForm = (props: Props) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      hideLoading();
     }
   };
 

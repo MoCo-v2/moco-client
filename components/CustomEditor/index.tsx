@@ -5,6 +5,8 @@ import {imageAPI} from '@/modules';
 import {BlockNoteEditor} from '@blocknote/core';
 import {BlockNoteView, useBlockNote} from '@blocknote/react';
 
+import {useLoadingStore} from '@/store/loading';
+
 import '@blocknote/core/style.css';
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 }
 
 export default function MyEditor({onChange}: Props) {
+  const {showLoading, hideLoading} = useLoadingStore();
   const editor: BlockNoteEditor | null = useBlockNote({
     onEditorContentChange: editor => {
       const saveBlocksAsHTML = async () => {
@@ -24,10 +27,17 @@ export default function MyEditor({onChange}: Props) {
     },
     uploadFile: file => {
       const onUploadImage = async () => {
-        const formData = new FormData();
-        formData.append('image', file);
-        const imageURL = await imageAPI.uploadImage(formData);
-        return imageURL || '';
+        try {
+          showLoading();
+          const formData = new FormData();
+          formData.append('image', file);
+          const imageURL = await imageAPI.uploadImage(formData);
+          return imageURL || '';
+        } catch (error) {
+          console.log(error);
+        } finally {
+          hideLoading();
+        }
       };
       return onUploadImage();
     },
