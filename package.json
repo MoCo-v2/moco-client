@@ -43,7 +43,6 @@
     "@types/react-dom": "^18",
     "@types/react-js-pagination": "^3.0.7",
     "@types/styled-components": "^5.1.30",
-    "babel-plugin-styled-components": "^2.1.4",
     "typescript": "^5"
   }
 }

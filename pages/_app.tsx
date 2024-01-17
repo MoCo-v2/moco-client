@@ -7,6 +7,13 @@ import {ThemeProvider} from 'styled-components';
 
 import {theme} from '@/styles/theme';
 
+import {Noto_Sans_KR} from 'next/font/google';
+
+const noto = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -28,7 +35,9 @@ export default function App({Component, pageProps}: AppProps) {
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>
           <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
+            <main className={noto.className}>
+              <Component {...pageProps} />
+            </main>
           </ThemeProvider>
         </SessionProvider>
       </QueryClientProvider>
