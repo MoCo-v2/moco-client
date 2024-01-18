@@ -5,13 +5,13 @@ import {ToastContainer, toast} from 'react-toastify';
 
 import {ResponseComment, ResponsePost, commentAPI} from '@/modules';
 
-import {useUser} from '@/hooks/useUser';
 import {useComments} from '@/hooks/useComment';
 
 import {getStackImageUrl} from '@/utils';
 
 import {CommentList} from './CommentList';
 import {WriteComment} from './WriteComment';
+import {ProfileDetailModal} from '../ProfileDetailModal';
 import {Tag} from '@/components';
 
 import {useLoadingStore} from '@/store/loading';
@@ -25,12 +25,16 @@ interface Props {
 export const PostDetail = (props: Props) => {
   const {post} = props;
 
-  const {user} = useUser();
   const {showLoading, hideLoading} = useLoadingStore();
   const {data: comments, mutation} = useComments(post.id);
 
   const [comment, setComment] = useState('');
   const [editCommentData, setEditCommentData] = useState<ResponseComment>();
+  const [userId, setUserId] = useState<string | undefined>();
+
+  const onClickProfile = (userId: string) => {
+    setUserId(userId);
+  };
 
   const onClickContactMethod = (type: string, link: string) => {
     if (type === '이메일') {
@@ -96,7 +100,10 @@ export const PostDetail = (props: Props) => {
     <Wrapper>
       <section className="writer-section">
         <div className="title">{post.title}</div>
-        <div className="writer-info">
+        <div
+          className="writer-info"
+          onClick={() => onClickProfile(post.userId)}
+        >
           <img src={post.picture} alt="profile" draggable={false} />
           <div className="writer">{post.writer}</div>
           <div className="created">
@@ -184,6 +191,7 @@ export const PostDetail = (props: Props) => {
         />
       </section>
       <ToastContainer />
+      <ProfileDetailModal userId={userId} setUserId={setUserId} />
     </Wrapper>
   );
 };

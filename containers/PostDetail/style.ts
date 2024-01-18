@@ -32,6 +32,7 @@ export const Wrapper = styled.div`
       gap: 1.5rem;
       padding: 3.2rem 0;
       border-bottom: 3px solid #f2f2f2;
+      cursor: pointer;
       img {
         height: 4rem;
         width: 4rem;
