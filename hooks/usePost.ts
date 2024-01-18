@@ -10,6 +10,7 @@ export const usePost = (filter: {
   offset: number;
   limit: number;
   recruit?: boolean;
+  username?: string;
 }) => {
   const queryClient = useQueryClient();
 

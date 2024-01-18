@@ -3,18 +3,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   padding: 2rem 6rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-
-  .test {
-    position: sticky;
-    top: 3rem;
-    width: 45rem;
-    height: 32rem;
-    border: 1px solid #d2d2d2;
-    border-radius: 1rem;
-  }
 `;
 
 export const PostListWrapper = styled.div`
@@ -23,6 +11,7 @@ export const PostListWrapper = styled.div`
   gap: 2rem;
   max-width: 100rem;
   min-width: 40rem;
+  margin: 0 auto;
 
   .pagination {
     align-items: center;

@@ -10,11 +10,10 @@ const createAxiosInstance = (baseURL: string) => {
 
   // 요청 전에 실행되는 인터셉터
   instance.interceptors.request.use(config => {
-    // accessToken 헤더에 추가
     const accessToken = getAccessToken();
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
+    if (!accessToken) throw new Error('No access token found');
+    // accessToken 헤더에 추가
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   });
 
