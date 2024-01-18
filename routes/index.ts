@@ -9,3 +9,6 @@ export const ROUTE_POST = '/post';
 
 // 프로필 페이지
 export const ROUTE_PROFILE = '/profile';
+
+// 내 작성글
+export const ROUTE_MYPOST = '/myPost';

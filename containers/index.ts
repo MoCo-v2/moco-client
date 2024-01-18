@@ -7,3 +7,4 @@ export * from './PostDetail';
 export * from './PostList';
 export * from './ProfileForm';
 export * from './ProfileDetailModal';
+export * from './MyPostList';

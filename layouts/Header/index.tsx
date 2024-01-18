@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import {LoginModal, SignUpModal} from '@/containers';
 
-import {ROUTE_PROFILE, ROUTE_WRITE} from '@/routes';
+import {ROUTE_MYPOST, ROUTE_PROFILE, ROUTE_WRITE} from '@/routes';
 
 import {useUser} from '@/hooks/useUser';
 
@@ -26,7 +26,7 @@ const StyledNavBar = styled(Navbar)`
     gap: 3rem;
     flex-direction: row;
     align-items: center;
-    .write-btn {
+    .nav-btn {
       text-decoration: none;
       color: rgba(0, 0, 0, 0.65);
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -105,7 +105,7 @@ export const Header = () => {
         <Nav>
           {session?.isLogin ? (
             <>
-              <Link className="write-btn" href={ROUTE_WRITE}>
+              <Link className="nav-btn" href={ROUTE_WRITE}>
                 새 글 쓰기
               </Link>
               <NavDropdown
@@ -119,11 +119,18 @@ export const Header = () => {
                 id="nav-dropdown"
               >
                 <NavDropdown.Item>
-                  <Link className="write-btn" href={ROUTE_PROFILE}>
+                  <Link className="nav-btn" href={ROUTE_PROFILE}>
                     내 정보
                   </Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={logOut}>로그아웃</NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link className="nav-btn" href={ROUTE_MYPOST}>
+                    내 작성글
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logOut}>
+                  <a className="nav-btn">로그아웃</a>
+                </NavDropdown.Item>
               </NavDropdown>
             </>
           ) : (
