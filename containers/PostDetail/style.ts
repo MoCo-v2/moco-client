@@ -48,6 +48,21 @@ export const Wrapper = styled.div`
         color: #717171;
       }
     }
+    .modify-box {
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      font-weight: 500;
+      span {
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+          font-weight: 600;
+        }
+      }
+    }
   }
 
   .study-info-section {

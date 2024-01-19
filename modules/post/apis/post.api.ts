@@ -11,6 +11,12 @@ const axiosInstance = createAxiosInstance(
 export const postAPI = {
   writePost: (data: WritePostData) =>
     axiosInstance.post<number>('/private/posts', data).then(res => res.data),
+  deletePost: (id: number) =>
+    axiosInstance.delete(`/private/posts/${id}`).then(res => res.data),
+  modifyPost: (id: number, data: WritePostData) =>
+    axiosInstance.put(`/private/posts/${id}`, data).then(res => res.data),
+  endRecruitmentPost: (id: number) =>
+    axiosInstance.patch(`/private/posts/${id}`).then(res => res.data),
   getPostById: (id: string) =>
     axios
       .get<ResponsePost>(`${apiUrl}/public/posts/${id}`)
