@@ -2,20 +2,22 @@
 
 import {imageAPI} from '@/modules';
 
-import {BlockNoteEditor} from '@blocknote/core';
 import {BlockNoteView, useBlockNote} from '@blocknote/react';
 
 import {useLoadingStore} from '@/store/loading';
 
 import '@blocknote/core/style.css';
+import {useEffect} from 'react';
 
 interface Props {
   onChange: (value: string) => void;
+  content?: string;
 }
 
-export default function MyEditor({onChange}: Props) {
+export default function MyEditor({onChange, content}: Props) {
   const {showLoading, hideLoading} = useLoadingStore();
-  const editor: BlockNoteEditor | null = useBlockNote({
+
+  const editor = useBlockNote({
     onEditorContentChange: editor => {
       const saveBlocksAsHTML = async () => {
         const html: string = await editor.blocksToHTMLLossy(
@@ -42,6 +44,18 @@ export default function MyEditor({onChange}: Props) {
       return onUploadImage();
     },
   });
+
+  useEffect(() => {
+    if (editor) {
+      const getBlocks = async () => {
+        const blocks = await editor.tryParseHTMLToBlocks(content || '');
+        setTimeout(() => {
+          editor.replaceBlocks(editor.topLevelBlocks, blocks);
+        }, 100);
+      };
+      getBlocks();
+    }
+  }, [editor, content]);
 
   return (
     <>

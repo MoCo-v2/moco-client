@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import dynamic from 'next/dynamic';
 import {useRouter} from 'next/router';
 
@@ -8,6 +8,7 @@ import {toast, ToastContainer} from 'react-toastify';
 
 const MyEditor = dynamic(() => import('@/components/CustomEditor'), {
   ssr: false,
+  loading: () => <p>Loading...</p>,
 });
 
 import {CustomDatePicker, CustomSelect, SectionTitle} from '@/components';
@@ -28,10 +29,13 @@ import {Wrapper, StyledForm} from './style';
 import {ROUTE_POST} from '@/routes';
 import {useLoadingStore} from '@/store/loading';
 
-interface Props {}
+interface Props {
+  id?: string;
+}
 
 export const WriteForm = (props: Props) => {
-  const {} = props;
+  const {id} = props;
+
   const {showLoading, hideLoading} = useLoadingStore();
   const router = useRouter();
 
@@ -51,6 +55,42 @@ export const WriteForm = (props: Props) => {
   });
   const [content, setContent] = useState('');
 
+  useEffect(() => {
+    if (id) {
+      (async () => {
+        const post = await postAPI.getPostById(id);
+        setWriteData({
+          title: post.title,
+          content: post.content,
+          type: post.type,
+          capacity: post.capacity,
+          mode: post.mode,
+          duration: post.duration,
+          techStack: post.techStack,
+          recruitmentPosition: post.recruitmentPosition,
+          deadLine: post.deadLine,
+          contactMethod: post.contactMethod,
+          link: post.link,
+        });
+      })();
+    } else {
+      setWriteData({
+        title: '',
+        content: '',
+        type: '',
+        capacity: '',
+        mode: '',
+        duration: '',
+        techStack: JSON.stringify([]),
+        recruitmentPosition: '',
+        deadLine: dayjs().format('YYYY-MM-DD').toString(),
+        contactMethod: '',
+        link: '',
+      });
+      setContent('');
+    }
+  }, [id]);
+
   const onChange = (key: string, value?: string) => {
     setWriteData({
       ...writeData,
@@ -69,13 +109,26 @@ export const WriteForm = (props: Props) => {
       const form = event.currentTarget;
       if (form.checkValidity()) {
         setValidated(true);
-        const id = await postAPI.writePost({...writeData, content});
-        router.push({
-          pathname: `${ROUTE_POST}`,
-          query: {
-            id,
-          },
-        });
+        if (id) {
+          const res = await postAPI.modifyPost(Number(id), {
+            ...writeData,
+            content,
+          });
+          router.push({
+            pathname: `${ROUTE_POST}`,
+            query: {
+              id: res,
+            },
+          });
+        } else {
+          const res = await postAPI.writePost({...writeData, content});
+          router.push({
+            pathname: `${ROUTE_POST}`,
+            query: {
+              id: res,
+            },
+          });
+        }
       } else {
         toast.error('게시글 정보를 확인해주세요.');
         setValidated(false);
@@ -99,6 +152,7 @@ export const WriteForm = (props: Props) => {
                 placeholder="프로젝트 | 모각코 | 스터디 | 과외"
                 options={WRITE_TYPE}
                 onChange={e => onChange('type', e?.value)}
+                value={{label: writeData.type, value: writeData.type}}
                 required
               />
             </Form.Group>
@@ -108,6 +162,7 @@ export const WriteForm = (props: Props) => {
                 placeholder="인원 미정 ~ 10명 이상"
                 options={WRITE_CAPACITY}
                 onChange={e => onChange('capacity', e?.value)}
+                value={{label: writeData.capacity, value: writeData.capacity}}
                 required
               />
             </Form.Group>
@@ -119,6 +174,7 @@ export const WriteForm = (props: Props) => {
                 placeholder="전체 | 온라인 | 오프라인"
                 options={WRITE_MODE}
                 onChange={e => onChange('mode', e?.value)}
+                value={{label: writeData.mode, value: writeData.mode}}
                 required
               />
             </Form.Group>
@@ -128,6 +184,7 @@ export const WriteForm = (props: Props) => {
                 placeholder="기간 미정 ~ 6개월 이상"
                 options={WRITE_DURATION}
                 onChange={e => onChange('duration', e?.value)}
+                value={{label: writeData.duration, value: writeData.duration}}
                 required
               />
             </Form.Group>
@@ -145,6 +202,12 @@ export const WriteForm = (props: Props) => {
                     JSON.stringify(e.map((x: {value: string}) => x.value)),
                   )
                 }
+                value={JSON.parse(writeData.techStack || '[]').map(
+                  (x: string) => ({
+                    label: x,
+                    value: x,
+                  }),
+                )}
                 required
               />
             </Form.Group>
@@ -174,6 +237,12 @@ export const WriteForm = (props: Props) => {
                     JSON.stringify(e.map((x: {value: string}) => x.value)),
                   )
                 }
+                value={JSON.parse(writeData.recruitmentPosition || '[]').map(
+                  (x: string) => ({
+                    label: x,
+                    value: x,
+                  }),
+                )}
                 required
               />
             </Form.Group>
@@ -183,6 +252,10 @@ export const WriteForm = (props: Props) => {
                 placeholder="연락방법을 선택해주세요."
                 options={WRITE_CONTACT}
                 onChange={e => onChange('contactMethod', e?.value)}
+                value={{
+                  label: writeData.contactMethod,
+                  value: writeData.contactMethod,
+                }}
                 required
               />
             </Form.Group>
@@ -202,6 +275,7 @@ export const WriteForm = (props: Props) => {
                     ? '구글 폼 주소'
                     : ''
                 }
+                value={writeData.link}
               />
             </Form.Group>
           </div>
@@ -212,11 +286,12 @@ export const WriteForm = (props: Props) => {
             <Form.Label>제목</Form.Label>
             <Form.Control
               onChange={e => onChange('title', e.target.value)}
+              value={writeData.title}
               placeholder="제목을 입력해주세요."
               required
             />
           </Form.Group>
-          <MyEditor onChange={onChangeContent} />
+          <MyEditor onChange={onChangeContent} content={writeData.content} />
         </section>
 
         <div className="btn-wrapper">

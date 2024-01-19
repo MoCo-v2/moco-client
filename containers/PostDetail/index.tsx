@@ -1,18 +1,21 @@
 import {useState} from 'react';
+import {useRouter} from 'next/router';
 
 import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
 
-import {ResponseComment, ResponsePost, commentAPI} from '@/modules';
+import {ResponseComment, ResponsePost, commentAPI, postAPI} from '@/modules';
 
 import {useComments} from '@/hooks/useComment';
+import {useUser} from '@/hooks/useUser';
 
 import {getStackImageUrl} from '@/utils';
+import {ROUTE_WRITE} from '@/routes';
 
 import {CommentList} from './CommentList';
 import {WriteComment} from './WriteComment';
 import {ProfileDetailModal} from '../ProfileDetailModal';
-import {Tag} from '@/components';
+import {ConfirmModal, Tag} from '@/components';
 
 import {useLoadingStore} from '@/store/loading';
 
@@ -25,12 +28,46 @@ interface Props {
 export const PostDetail = (props: Props) => {
   const {post} = props;
 
+  const router = useRouter();
+  const {user} = useUser();
   const {showLoading, hideLoading} = useLoadingStore();
   const {data: comments, mutation} = useComments(post.id);
 
   const [comment, setComment] = useState('');
   const [editCommentData, setEditCommentData] = useState<ResponseComment>();
   const [userId, setUserId] = useState<string | undefined>();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [modifyType, setModifyType] = useState<string>();
+
+  const onClickModifyItem = (type: string) => {
+    setModifyType(type);
+    setShowConfirmModal(true);
+  };
+
+  const onOkConfirmModal = async () => {
+    try {
+      if (!modifyType) throw new Error('modifyType is undefined');
+      showLoading();
+      if (modifyType === 'endRecruitment') {
+        await postAPI.endRecruitmentPost(post.id);
+        toast.success('마감되었습니다.');
+        router.replace(router.asPath);
+      } else if (modifyType === 'modify') {
+        router.push({pathname: ROUTE_WRITE, query: {id: post.id}});
+      } else if (modifyType === 'delete') {
+        await postAPI.deletePost(post.id);
+        toast.success('삭제되었습니다.');
+        router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('오류가 발생하였습니다.');
+    } finally {
+      setShowConfirmModal(false);
+      setModifyType(undefined);
+      hideLoading();
+    }
+  };
 
   const onClickProfile = (userId: string) => {
     setUserId(userId);
@@ -110,6 +147,17 @@ export const PostDetail = (props: Props) => {
             {dayjs(post.createdDate).format('YYYY.MM.DD')}
           </div>
         </div>
+        {user?.id === post.userId && (
+          <div className="modify-box">
+            {!post.full && (
+              <span onClick={() => onClickModifyItem('endRecruitment')}>
+                마감
+              </span>
+            )}
+            <span onClick={() => onClickModifyItem('modify')}>수정</span>
+            <span onClick={() => onClickModifyItem('delete')}>삭제</span>
+          </div>
+        )}
       </section>
       <section className="study-info-section">
         <div className="item">
@@ -192,6 +240,24 @@ export const PostDetail = (props: Props) => {
       </section>
       <ToastContainer />
       <ProfileDetailModal userId={userId} setUserId={setUserId} />
+      <ConfirmModal
+        show={showConfirmModal}
+        onHide={() => {
+          setModifyType(undefined);
+          setShowConfirmModal(false);
+        }}
+        onOk={onOkConfirmModal}
+      >
+        <div>
+          {modifyType === 'endRecruitment'
+            ? '마감하시겠습니까?'
+            : modifyType === 'modify'
+            ? '수정하시겠습니까?'
+            : modifyType === 'delete'
+            ? '삭제하시겠습니까?'
+            : ''}
+        </div>
+      </ConfirmModal>
     </Wrapper>
   );
 };
