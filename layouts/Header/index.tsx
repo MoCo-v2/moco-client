@@ -8,7 +8,12 @@ import styled from 'styled-components';
 
 import {LoginModal, SignUpModal} from '@/containers';
 
-import {ROUTE_MYPOST, ROUTE_PROFILE, ROUTE_WRITE} from '@/routes';
+import {
+  ROUTE_BOOKMARK,
+  ROUTE_MYPOST,
+  ROUTE_PROFILE,
+  ROUTE_WRITE,
+} from '@/routes';
 
 import {useUser} from '@/hooks/useUser';
 
@@ -126,6 +131,11 @@ export const Header = () => {
                 <NavDropdown.Item>
                   <Link className="nav-btn" href={ROUTE_MYPOST}>
                     내 작성글
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link className="nav-btn" href={ROUTE_BOOKMARK}>
+                    내 관심글
                   </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={logOut}>

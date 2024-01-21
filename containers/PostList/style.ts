@@ -15,6 +15,11 @@ export const Wrapper = styled.div`
     border: 1px solid #d2d2d2;
     border-radius: 1rem;
   }
+
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 `;
 
 export const PostListWrapper = styled.div`
@@ -150,6 +155,12 @@ export const PostItem = styled.div`
       gap: 1rem;
       justify-content: flex-end;
       margin-left: auto;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
   }
 `;

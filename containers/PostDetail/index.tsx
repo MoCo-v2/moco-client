@@ -3,11 +3,19 @@ import {useRouter} from 'next/router';
 
 import dayjs from 'dayjs';
 import {ToastContainer, toast} from 'react-toastify';
+import {BsEye, BsBookmark, BsBookmarkFill} from 'react-icons/bs';
 
-import {ResponseComment, ResponsePost, commentAPI, postAPI} from '@/modules';
+import {
+  ResponseComment,
+  ResponsePost,
+  bookmarkAPI,
+  commentAPI,
+  postAPI,
+} from '@/modules';
 
 import {useComments} from '@/hooks/useComment';
 import {useUser} from '@/hooks/useUser';
+import {useBookmarkIds} from '@/hooks/useBookmarkIds';
 
 import {getStackImageUrl} from '@/utils';
 import {ROUTE_WRITE} from '@/routes';
@@ -32,6 +40,7 @@ export const PostDetail = (props: Props) => {
   const {user} = useUser();
   const {showLoading, hideLoading} = useLoadingStore();
   const {data: comments, mutation} = useComments(post.id);
+  const {data: bookmarkIds, mutation: bookmarkMutation} = useBookmarkIds();
 
   const [comment, setComment] = useState('');
   const [editCommentData, setEditCommentData] = useState<ResponseComment>();
@@ -133,6 +142,36 @@ export const PostDetail = (props: Props) => {
     }
   };
 
+  const onClickBookmark = async (postId: number) => {
+    try {
+      if (!user) throw new Error('user is undefined');
+      showLoading();
+      await bookmarkAPI.createBookmark(postId);
+      toast.success('북마크에 추가되었습니다.');
+      bookmarkMutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('북마크 추가에 실패했습니다.');
+    } finally {
+      hideLoading();
+    }
+  };
+
+  const onDeleteBookmark = async (postId: number) => {
+    try {
+      if (!user) throw new Error('user is undefined');
+      showLoading();
+      await bookmarkAPI.deleteBookmark(postId);
+      toast.success('북마크에서 삭제되었습니다');
+      bookmarkMutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('북마크 삭제에 실패했습니다.');
+    } finally {
+      hideLoading();
+    }
+  };
+
   return (
     <Wrapper>
       <section className="writer-section">
@@ -219,8 +258,28 @@ export const PostDetail = (props: Props) => {
           dangerouslySetInnerHTML={{__html: post.content}}
         />
         <div className="post-info">
-          <span>조회수: {post.view}</span>
-          <span>TODO:: 북마크</span>
+          <span>
+            <BsEye size={'1.4rem'} /> {post.view}
+          </span>
+          {user?.id && (
+            <span
+              style={{
+                cursor: 'pointer',
+              }}
+            >
+              {bookmarkIds?.find(id => id === post.id) ? (
+                <BsBookmarkFill
+                  size={'1.4rem'}
+                  onClick={() => onDeleteBookmark(post.id)}
+                />
+              ) : (
+                <BsBookmark
+                  size={'1.4rem'}
+                  onClick={() => onClickBookmark(post.id)}
+                />
+              )}
+            </span>
+          )}
         </div>
       </section>
       <section className="comment-section">

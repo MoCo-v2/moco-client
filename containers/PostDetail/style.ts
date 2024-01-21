@@ -107,6 +107,12 @@ export const Wrapper = styled.div`
       padding-top: 2rem;
       font-weight: 600;
       color: #939393;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
   }
 `;

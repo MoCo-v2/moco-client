@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   padding: 2rem 6rem;
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 `;
 
 export const PostListWrapper = styled.div`
@@ -139,6 +143,11 @@ export const PostItem = styled.div`
       gap: 1rem;
       justify-content: flex-end;
       margin-left: auto;
+      & > div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
   }
 `;
