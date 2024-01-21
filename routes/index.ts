@@ -12,3 +12,6 @@ export const ROUTE_PROFILE = '/profile';
 
 // 내 작성글
 export const ROUTE_MYPOST = '/myPost';
+
+// 내 북마크
+export const ROUTE_BOOKMARK = '/bookmark';

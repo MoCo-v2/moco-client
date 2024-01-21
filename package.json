@@ -28,6 +28,7 @@
     "react-bootstrap": "^2.9.1",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18",
+    "react-icons": "^5.0.1",
     "react-js-pagination": "^3.0.3",
     "react-select": "^5.8.0",
     "react-slick": "^0.29.0",

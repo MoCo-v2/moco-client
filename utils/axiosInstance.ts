@@ -32,7 +32,13 @@ const createAxiosInstance = (baseURL: string) => {
         originalRequest._retry = true;
 
         // 새로운 accessToken 받기
-        const newAccessToken = await refreshAccessToken();
+        const newAccessToken = await refreshAccessToken().catch(async err => {
+          if (err.response?.status === 403) {
+            deleteCookie('moco_asct');
+            deleteCookie('moco_rsct');
+            await signOut();
+          }
+        });
 
         // 새로 받은 토큰을 사용하여 원래 요청 다시 시도
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

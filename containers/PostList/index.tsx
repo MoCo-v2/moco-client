@@ -3,12 +3,18 @@ import Link from 'next/link';
 
 import dayjs from 'dayjs';
 import Pagination from 'react-js-pagination';
+import {BsEye, BsChatLeft, BsBookmark, BsBookmarkFill} from 'react-icons/bs';
+import {ToastContainer, toast} from 'react-toastify';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
 
 import {usePost} from '@/hooks/usePost';
+import {useUser} from '@/hooks/useUser';
+import {useBookmarkIds} from '@/hooks/useBookmarkIds';
 import {getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
+import {useLoadingStore} from '@/store/loading';
+import {bookmarkAPI} from '@/modules';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
 
@@ -18,6 +24,10 @@ const limit = 10;
 
 export const PostList = (props: Props) => {
   const {} = props;
+
+  const {showLoading, hideLoading} = useLoadingStore();
+  const {user} = useUser();
+  const {data: bookmarkIds, mutation} = useBookmarkIds();
 
   const [page, setPage] = useState(0);
   const [userId, setUserId] = useState<string | undefined>();
@@ -31,14 +41,43 @@ export const PostList = (props: Props) => {
     limit,
     recruit: false,
   });
-  console.log(postList);
 
   const handleScrollToTop = () => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({top: 0, behavior: 'instant'});
   };
 
   const onClickProfile = (userId: string) => {
     setUserId(userId);
+  };
+
+  const onClickBookmark = async (postId: number) => {
+    try {
+      if (!user) throw new Error('user is undefined');
+      showLoading();
+      await bookmarkAPI.createBookmark(postId);
+      toast.success('북마크에 추가되었습니다.');
+      mutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('북마크 추가에 실패했습니다.');
+    } finally {
+      hideLoading();
+    }
+  };
+
+  const onDeleteBookmark = async (postId: number) => {
+    try {
+      if (!user) throw new Error('user is undefined');
+      showLoading();
+      await bookmarkAPI.deleteBookmark(postId);
+      toast.success('북마크에서 삭제되었습니다');
+      mutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('북마크 삭제에 실패했습니다.');
+    } finally {
+      hideLoading();
+    }
   };
 
   return (
@@ -91,8 +130,31 @@ export const PostList = (props: Props) => {
                     );
                   })}
                   <div className="comment-section">
-                    <div className="view-count">조회: {post.view}</div>
-                    <div className="comments">댓글: {post.commentCnt}</div>
+                    <div className="view-count">
+                      <BsEye size="1.2rem" /> {post.view}
+                    </div>
+                    <div className="comments">
+                      <BsChatLeft size="1.2rem" /> {post.commentCnt}
+                    </div>
+                    {user?.id && (
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {bookmarkIds?.find(id => id === post.id) ? (
+                          <BsBookmarkFill
+                            size={'1.2rem'}
+                            onClick={() => onDeleteBookmark(post.id)}
+                          />
+                        ) : (
+                          <BsBookmark
+                            size={'1.2rem'}
+                            onClick={() => onClickBookmark(post.id)}
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -116,6 +178,7 @@ export const PostList = (props: Props) => {
       </PostListWrapper>
       <div className="test">TODO:: 인기 게시글</div>
       <ProfileDetailModal userId={userId} setUserId={setUserId} />
+      <ToastContainer />
     </Wrapper>
   );
 };
