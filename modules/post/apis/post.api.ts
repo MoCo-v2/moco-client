@@ -28,4 +28,15 @@ export const postAPI = {
         {params: filter},
       )
       .then(res => res.data),
+  getBookmarkPostList: (filter: {
+    offset: number;
+    limit: number;
+    recruit?: boolean;
+  }) =>
+    axiosInstance
+      .get<{posts: ResponsePost[]; totalElements: number; totalPages: number}>(
+        `${apiUrl}/private/posts`,
+        {params: filter},
+      )
+      .then(res => res.data),
 };
