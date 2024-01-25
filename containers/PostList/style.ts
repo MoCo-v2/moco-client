@@ -10,10 +10,9 @@ export const Wrapper = styled.div`
   .test {
     position: sticky;
     top: 3rem;
+    min-width: 25rem;
     width: 45rem;
-    height: 32rem;
-    border: 1px solid #d2d2d2;
-    border-radius: 1rem;
+    height: 100%;
   }
 
   .Toastify__toast-body {

@@ -7,13 +7,16 @@ import {BsEye, BsChatLeft, BsBookmark, BsBookmarkFill} from 'react-icons/bs';
 import {ToastContainer, toast} from 'react-toastify';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
+import {RecommendPostList} from '../RecommendPostList';
 
 import {usePost} from '@/hooks/usePost';
 import {useUser} from '@/hooks/useUser';
 import {useBookmarkIds} from '@/hooks/useBookmarkIds';
+
+import {useLoadingStore} from '@/store/loading';
+
 import {getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
-import {useLoadingStore} from '@/store/loading';
 import {bookmarkAPI} from '@/modules';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
@@ -176,7 +179,9 @@ export const PostList = (props: Props) => {
           }}
         />
       </PostListWrapper>
-      <div className="test">TODO:: 인기 게시글</div>
+      <div className="test">
+        <RecommendPostList />
+      </div>
       <ProfileDetailModal userId={userId} setUserId={setUserId} />
       <ToastContainer />
     </Wrapper>

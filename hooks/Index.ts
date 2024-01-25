@@ -4,3 +4,4 @@ export * from './usePost';
 export * from './useUserProfile';
 export * from './useBookmarkIds';
 export * from './useBookmarkPost';
+export * from './useRecommendPost';
