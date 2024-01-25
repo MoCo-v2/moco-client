@@ -39,4 +39,8 @@ export const postAPI = {
         {params: filter},
       )
       .then(res => res.data),
+  getNearDeadlinePostList: () =>
+    axios
+      .get<ResponsePost[]>(`${apiUrl}/public/posts/near-deadline`)
+      .then(res => res.data),
 };
