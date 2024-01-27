@@ -44,7 +44,6 @@ export const Wrapper = styled.div`
         width: 1rem;
         height: 1rem;
         border-radius: 100%;
-        background: #0d6efd;
       }
     }
     &:last-child {

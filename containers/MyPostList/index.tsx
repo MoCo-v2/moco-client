@@ -4,15 +4,15 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import Pagination from 'react-js-pagination';
 import {ToastContainer, toast} from 'react-toastify';
-import {BsEye, BsChatLeft, BsBookmark, BsBookmarkFill} from 'react-icons/bs';
+import {BsEye, BsChatLeft, BsBookmarkFill} from 'react-icons/bs';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
 
 import {useUser} from '@/hooks/useUser';
-import {useBookmarkPost} from '@/hooks/useBookmarkPost';
+import {usePost} from '@/hooks/usePost';
 import {useLoadingStore} from '@/store/loading';
 import {bookmarkAPI} from '@/modules';
-import {getStackImageUrl} from '@/utils';
+import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
@@ -35,10 +35,11 @@ export const MyPostList = (props: Props) => {
     mutation,
     totalElements,
     totalPages,
-  } = useBookmarkPost({
+  } = usePost({
     offset: page,
     limit,
     recruit: false,
+    username: user?.name,
   });
 
   const handleScrollToTop = () => {
@@ -83,7 +84,15 @@ export const MyPostList = (props: Props) => {
                 <div className="dead-line">
                   마감일 | {dayjs(post.deadLine).format('YYYY.MM.DD')}
                 </div>
-                <div className="type">{post.type}</div>
+                <div className="type">
+                  <div
+                    className="item-type-symbol"
+                    style={{
+                      backgroundColor: getModeColor(post.type),
+                    }}
+                  />
+                  {post.type}
+                </div>
               </div>
               <div className="content">
                 <Link

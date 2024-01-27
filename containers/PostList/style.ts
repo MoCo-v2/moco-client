@@ -92,12 +92,18 @@ export const PostItem = styled.div`
       color: #a1a1a1;
     }
     .type {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       margin-left: auto;
-      padding: 0.5rem 1rem;
-      border-radius: 1.5rem;
-      background: #f2f4f8;
       color: #4a5e75;
       font-weight: 700;
+      font-size: 1.2rem;
+      .item-type-symbol {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 100%;
+      }
     }
   }
   .content {
