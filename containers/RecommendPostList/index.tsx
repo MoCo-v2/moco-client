@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import {useRecommendPost} from '@/hooks/useRecommendPost';
 import {ROUTE_POST} from '@/routes';
+import {getModeColor} from '@/utils';
 
 import {Wrapper} from './style';
 
@@ -27,7 +28,12 @@ export const RecommendPostList = (props: Props) => {
             <div className="item-title">{post.title}</div>
           </Link>
           <div className="item-type">
-            <div className="item-type-symbol" />
+            <div
+              className="item-type-symbol"
+              style={{
+                backgroundColor: getModeColor(post.type),
+              }}
+            />
             {post.type}
           </div>
         </div>

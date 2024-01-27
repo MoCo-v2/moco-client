@@ -8,4 +8,5 @@ export * from './PostList';
 export * from './ProfileForm';
 export * from './ProfileDetailModal';
 export * from './MyPostList';
+export * from './MyBookmarkList';
 export * from './RecommendPostList';

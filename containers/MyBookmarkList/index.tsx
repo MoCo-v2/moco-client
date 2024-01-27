@@ -3,21 +3,17 @@ import Link from 'next/link';
 
 import dayjs from 'dayjs';
 import Pagination from 'react-js-pagination';
-import {BsEye, BsChatLeft, BsBookmark, BsBookmarkFill} from 'react-icons/bs';
 import {ToastContainer, toast} from 'react-toastify';
+import {BsEye, BsChatLeft, BsBookmarkFill} from 'react-icons/bs';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
-import {RecommendPostList} from '../RecommendPostList';
 
-import {usePost} from '@/hooks/usePost';
 import {useUser} from '@/hooks/useUser';
-import {useBookmarkIds} from '@/hooks/useBookmarkIds';
-
+import {useBookmarkPost} from '@/hooks/useBookmarkPost';
 import {useLoadingStore} from '@/store/loading';
-
+import {bookmarkAPI} from '@/modules';
 import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
-import {bookmarkAPI} from '@/modules';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
 
@@ -25,47 +21,32 @@ interface Props {}
 
 const limit = 10;
 
-export const PostList = (props: Props) => {
+export const MyBookmarkList = (props: Props) => {
   const {} = props;
 
   const {showLoading, hideLoading} = useLoadingStore();
   const {user} = useUser();
-  const {data: bookmarkIds, mutation} = useBookmarkIds();
 
   const [page, setPage] = useState(0);
   const [userId, setUserId] = useState<string | undefined>();
 
   const {
     data: postList,
+    mutation,
     totalElements,
     totalPages,
-  } = usePost({
+  } = useBookmarkPost({
     offset: page,
     limit,
     recruit: false,
   });
 
   const handleScrollToTop = () => {
-    window.scrollTo({top: 0, behavior: 'instant'});
+    window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
   const onClickProfile = (userId: string) => {
     setUserId(userId);
-  };
-
-  const onClickBookmark = async (postId: number) => {
-    try {
-      if (!user) throw new Error('user is undefined');
-      showLoading();
-      await bookmarkAPI.createBookmark(postId);
-      toast.success('북마크에 추가되었습니다.');
-      mutation.mutate();
-    } catch (error) {
-      console.log(error);
-      toast.error('북마크 추가에 실패했습니다.');
-    } finally {
-      hideLoading();
-    }
   };
 
   const onDeleteBookmark = async (postId: number) => {
@@ -83,9 +64,10 @@ export const PostList = (props: Props) => {
     }
   };
 
+  if (!user) return null;
+
   return (
     <Wrapper>
-      <div className="test">TODO:: 검색 필터</div>
       <PostListWrapper>
         {postList?.map(post => {
           return (
@@ -142,10 +124,12 @@ export const PostList = (props: Props) => {
                   })}
                   <div className="comment-section">
                     <div className="view-count">
-                      <BsEye size="1.2rem" /> {post.view}
+                      <BsEye size="1.2rem" />
+                      {post.view}
                     </div>
                     <div className="comments">
-                      <BsChatLeft size="1.2rem" /> {post.commentCnt}
+                      <BsChatLeft size="1.2rem" />
+                      {post.commentCnt}
                     </div>
                     {user?.id && (
                       <div
@@ -153,17 +137,10 @@ export const PostList = (props: Props) => {
                           cursor: 'pointer',
                         }}
                       >
-                        {bookmarkIds?.find(id => id === post.id) ? (
-                          <BsBookmarkFill
-                            size={'1.2rem'}
-                            onClick={() => onDeleteBookmark(post.id)}
-                          />
-                        ) : (
-                          <BsBookmark
-                            size={'1.2rem'}
-                            onClick={() => onClickBookmark(post.id)}
-                          />
-                        )}
+                        <BsBookmarkFill
+                          size={'1.2rem'}
+                          onClick={() => onDeleteBookmark(post.id)}
+                        />
                       </div>
                     )}
                   </div>
@@ -187,9 +164,6 @@ export const PostList = (props: Props) => {
           }}
         />
       </PostListWrapper>
-      <div className="test">
-        <RecommendPostList />
-      </div>
       <ProfileDetailModal userId={userId} setUserId={setUserId} />
       <ToastContainer />
     </Wrapper>
