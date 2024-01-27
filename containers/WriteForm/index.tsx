@@ -77,14 +77,14 @@ export const WriteForm = (props: Props) => {
       setWriteData({
         title: '',
         content: '',
-        type: '',
-        capacity: '',
-        mode: '',
-        duration: '',
+        type: '프로젝트',
+        capacity: '인원 미정',
+        mode: '전체',
+        duration: '기간 미정',
         techStack: JSON.stringify([]),
         recruitmentPosition: '',
         deadLine: dayjs().format('YYYY-MM-DD').toString(),
-        contactMethod: '',
+        contactMethod: '카카오톡',
         link: '',
       });
       setContent('');
