@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     position: sticky;
     top: 2rem;
     min-width: 25rem;
-    width: 45rem;
+    width: 60rem;
     height: 100%;
   }
 
