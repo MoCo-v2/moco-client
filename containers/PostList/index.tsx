@@ -8,6 +8,7 @@ import {ToastContainer, toast} from 'react-toastify';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
 import {RecommendPostList} from '../RecommendPostList';
+import {SearchBox} from '../SearchBox';
 
 import {usePost} from '@/hooks/usePost';
 import {useUser} from '@/hooks/useUser';
@@ -37,6 +38,7 @@ export const PostList = (props: Props) => {
 
   const {
     data: postList,
+    mutation: postMutation,
     totalElements,
     totalPages,
   } = usePost({
@@ -85,7 +87,9 @@ export const PostList = (props: Props) => {
 
   return (
     <Wrapper>
-      <div className="test">TODO:: 검색 필터</div>
+      <div className="side-box">
+        <SearchBox />
+      </div>
       <PostListWrapper>
         {postList?.map(post => {
           return (
@@ -187,7 +191,7 @@ export const PostList = (props: Props) => {
           }}
         />
       </PostListWrapper>
-      <div className="test">
+      <div className="side-box">
         <RecommendPostList />
       </div>
       <ProfileDetailModal userId={userId} setUserId={setUserId} />

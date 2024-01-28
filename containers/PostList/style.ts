@@ -7,9 +7,9 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   gap: 2rem;
 
-  .test {
+  .side-box {
     position: sticky;
-    top: 3rem;
+    top: 2rem;
     min-width: 25rem;
     width: 45rem;
     height: 100%;
@@ -25,7 +25,7 @@ export const PostListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 100rem;
+  width: 100%;
   min-width: 40rem;
 
   .pagination {

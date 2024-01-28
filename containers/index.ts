@@ -10,3 +10,4 @@ export * from './ProfileDetailModal';
 export * from './MyPostList';
 export * from './MyBookmarkList';
 export * from './RecommendPostList';
+export * from './SearchBox';
