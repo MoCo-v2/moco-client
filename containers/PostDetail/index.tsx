@@ -19,6 +19,7 @@ import {useBookmarkIds} from '@/hooks/useBookmarkIds';
 
 import {getStackImageUrl} from '@/utils';
 import {ROUTE_WRITE} from '@/routes';
+import {POSITIONS, WRITE_MODE, WRITE_TYPE} from '@/consts';
 
 import {CommentList} from './CommentList';
 import {WriteComment} from './WriteComment';
@@ -201,11 +202,15 @@ export const PostDetail = (props: Props) => {
       <section className="study-info-section">
         <div className="item">
           <div className="label">모집 구분</div>
-          <div className="value">{post.type}</div>
+          <div className="value">
+            {WRITE_TYPE.find(x => x.value === post.type)?.label}
+          </div>
         </div>
         <div className="item">
           <div className="label">진행 방식</div>
-          <div className="value">{post.mode}</div>
+          <div className="value">
+            {WRITE_MODE.find(x => x.value === post.mode)?.label}
+          </div>
         </div>
         <div className="item">
           <div className="label">모집 인원</div>
@@ -234,7 +239,10 @@ export const PostDetail = (props: Props) => {
           <div className="label">모집 분야</div>
           <div className="value">
             {JSON.parse(post.recruitmentPosition).map((position: string) => (
-              <Tag tag={position} key={position} />
+              <Tag
+                tag={POSITIONS.find(x => x.value === position)?.label || ''}
+                key={position}
+              />
             ))}
           </div>
         </div>

@@ -77,9 +77,9 @@ export const WriteForm = (props: Props) => {
       setWriteData({
         title: '',
         content: '',
-        type: '프로젝트',
+        type: 'project',
         capacity: '인원 미정',
-        mode: '전체',
+        mode: 'all',
         duration: '기간 미정',
         techStack: JSON.stringify([]),
         recruitmentPosition: '',
@@ -152,7 +152,11 @@ export const WriteForm = (props: Props) => {
                 placeholder="프로젝트 | 모각코 | 스터디 | 과외"
                 options={WRITE_TYPE}
                 onChange={e => onChange('type', e?.value)}
-                value={{label: writeData.type, value: writeData.type}}
+                value={{
+                  label: WRITE_TYPE.find(x => x.value === writeData.type)
+                    ?.label,
+                  value: writeData.type,
+                }}
                 required
               />
             </Form.Group>
@@ -174,7 +178,11 @@ export const WriteForm = (props: Props) => {
                 placeholder="전체 | 온라인 | 오프라인"
                 options={WRITE_MODE}
                 onChange={e => onChange('mode', e?.value)}
-                value={{label: writeData.mode, value: writeData.mode}}
+                value={{
+                  label: WRITE_MODE.find(x => x.value === writeData.mode)
+                    ?.label,
+                  value: writeData.mode,
+                }}
                 required
               />
             </Form.Group>
@@ -204,7 +212,7 @@ export const WriteForm = (props: Props) => {
                 }
                 value={JSON.parse(writeData.techStack || '[]').map(
                   (x: string) => ({
-                    label: x,
+                    label: STACKS.find(stack => stack.value === x)?.label,
                     value: x,
                   }),
                 )}
@@ -239,7 +247,8 @@ export const WriteForm = (props: Props) => {
                 }
                 value={JSON.parse(writeData.recruitmentPosition || '[]').map(
                   (x: string) => ({
-                    label: x,
+                    label: POSITIONS.find(position => position.value === x)
+                      ?.label,
                     value: x,
                   }),
                 )}

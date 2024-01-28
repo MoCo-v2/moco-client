@@ -1,12 +1,12 @@
 export const POSITIONS = [
-  {label: '프론트엔드', value: '프론트엔드'},
-  {label: '백엔드', value: '백엔드'},
-  {label: '디자이너', value: '디자이너'},
-  {label: 'IOS', value: 'IOS'},
-  {label: '안드로이드', value: '안드로이드'},
-  {label: '데브옵스', value: '데브옵스'},
-  {label: 'PM', value: 'PM'},
-  {label: '기획자', value: '기획자'},
+  {label: '프론트엔드', value: 'fe'},
+  {label: '백엔드', value: 'be'},
+  {label: '디자이너', value: 'de'},
+  {label: 'IOS', value: 'ios'},
+  {label: '안드로이드', value: 'and'},
+  {label: '데브옵스', value: 'dev'},
+  {label: 'PM', value: 'pm'},
+  {label: '기획자', value: 'plan'},
 ];
 
 export const CAREERS = [
@@ -24,43 +24,43 @@ export const CAREERS = [
 ];
 
 export const STACKS = [
-  {label: 'JavaScript', value: 'JavaScript'},
-  {label: 'TypeScript', value: 'TypeScript'},
-  {label: 'React', value: 'React'},
-  {label: 'Vue', value: 'Vue'},
-  {label: 'Nextjs', value: 'Nextjs'},
-  {label: 'Nodejs', value: 'Nodejs'},
-  {label: 'Spring', value: 'Spring'},
-  {label: 'Java', value: 'Java'},
-  {label: 'Nestjs', value: 'Nestjs'},
-  {label: 'Express', value: 'Express'},
-  {label: 'Go', value: 'Go'},
-  {label: 'C', value: 'C'},
-  {label: 'Python', value: 'Python'},
-  {label: 'Django', value: 'Django'},
-  {label: 'Swift', value: 'Swift'},
-  {label: 'Kotlin', value: 'Kotlin'},
-  {label: 'MySQL', value: 'MySQL'},
-  {label: 'MongoDB', value: 'MongoDB'},
+  {label: 'JavaScript', value: 'js'},
+  {label: 'TypeScript', value: 'ts'},
+  {label: 'React', value: 'react'},
+  {label: 'Vue', value: 'vue'},
+  {label: 'Nextjs', value: 'nextjs'},
+  {label: 'Nodejs', value: 'nodejs'},
+  {label: 'Spring', value: 'spring'},
+  {label: 'Java', value: 'java'},
+  {label: 'Nestjs', value: 'nestjs'},
+  {label: 'Express', value: 'express'},
+  {label: 'Go', value: 'go'},
+  {label: 'C', value: 'c'},
+  {label: 'Python', value: 'python'},
+  {label: 'Django', value: 'django'},
+  {label: 'Swift', value: 'swift'},
+  {label: 'Kotlin', value: 'kotlin'},
+  {label: 'MySQL', value: 'mysQL'},
+  {label: 'MongoDB', value: 'mongodb'},
   {label: 'php', value: 'php'},
-  {label: 'GraphQL', value: 'GraphQL'},
-  {label: 'Firebase', value: 'Firebase'},
-  {label: 'ReactNative', value: 'ReactNative'},
-  {label: 'Unity', value: 'Unity'},
-  {label: 'Flutter', value: 'Flutter'},
-  {label: 'AWS', value: 'AWS'},
-  {label: 'Kubernetes', value: 'Kubernetes'},
-  {label: 'Docker', value: 'Docker'},
-  {label: 'Git', value: 'Git'},
-  {label: 'Figma', value: 'Figma'},
-  {label: 'Zeplin', value: 'Zeplin'},
+  {label: 'GraphQL', value: 'graphql'},
+  {label: 'Firebase', value: 'firebase'},
+  {label: 'ReactNative', value: 'reactnative'},
+  {label: 'Unity', value: 'unity'},
+  {label: 'Flutter', value: 'flutter'},
+  {label: 'AWS', value: 'aws'},
+  {label: 'Kubernetes', value: 'kubernetes'},
+  {label: 'Docker', value: 'docker'},
+  {label: 'Git', value: 'git'},
+  {label: 'Figma', value: 'figma'},
+  {label: 'Zeplin', value: 'zeplin'},
 ];
 
 export const WRITE_TYPE = [
-  {label: '프로젝트', value: '프로젝트'},
-  {label: '모각코', value: '모각코'},
-  {label: '스터디', value: '스터디'},
-  {label: '과외', value: '과외'},
+  {label: '프로젝트', value: 'project'},
+  {label: '모각코', value: 'moco'},
+  {label: '스터디', value: 'study'},
+  {label: '과외', value: 'lesson'},
 ];
 
 export const WRITE_CAPACITY = [
@@ -78,9 +78,9 @@ export const WRITE_CAPACITY = [
 ];
 
 export const WRITE_MODE = [
-  {label: '전체', value: '전체'},
-  {label: '온라인', value: '온라인'},
-  {label: '오프라인', value: '오프라인'},
+  {label: '전체', value: 'all'},
+  {label: '온라인', value: 'online'},
+  {label: '오프라인', value: 'offline'},
 ];
 
 export const WRITE_DURATION = [

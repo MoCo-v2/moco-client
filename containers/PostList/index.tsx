@@ -8,6 +8,7 @@ import {ToastContainer, toast} from 'react-toastify';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
 import {RecommendPostList} from '../RecommendPostList';
+import {SearchBox} from '../SearchBox';
 
 import {usePost} from '@/hooks/usePost';
 import {useUser} from '@/hooks/useUser';
@@ -18,6 +19,7 @@ import {useLoadingStore} from '@/store/loading';
 import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
 import {bookmarkAPI} from '@/modules';
+import {POSITIONS, WRITE_TYPE} from '@/consts';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
 
@@ -37,6 +39,7 @@ export const PostList = (props: Props) => {
 
   const {
     data: postList,
+    mutation: postMutation,
     totalElements,
     totalPages,
   } = usePost({
@@ -85,7 +88,9 @@ export const PostList = (props: Props) => {
 
   return (
     <Wrapper>
-      <div className="test">TODO:: 검색 필터</div>
+      <div className="side-box">
+        <SearchBox />
+      </div>
       <PostListWrapper>
         {postList?.map(post => {
           return (
@@ -108,7 +113,7 @@ export const PostList = (props: Props) => {
                       backgroundColor: getModeColor(post.type),
                     }}
                   />
-                  {post.type}
+                  {WRITE_TYPE.find(x => x.value === post.type)?.label}
                 </div>
               </div>
               <div className="content">
@@ -127,7 +132,14 @@ export const PostList = (props: Props) => {
               <div className="post-info">
                 <div className="recruitment-position">
                   {JSON.parse(post.recruitmentPosition).map((x: string) => {
-                    return <div key={x}>{x}</div>;
+                    return (
+                      <div key={x}>
+                        {
+                          POSITIONS.find(position => position.value === x)
+                            ?.label
+                        }
+                      </div>
+                    );
                   })}
                 </div>
                 <div className="tech-stack">
@@ -187,7 +199,7 @@ export const PostList = (props: Props) => {
           }}
         />
       </PostListWrapper>
-      <div className="test">
+      <div className="side-box">
         <RecommendPostList />
       </div>
       <ProfileDetailModal userId={userId} setUserId={setUserId} />

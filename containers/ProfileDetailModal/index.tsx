@@ -1,6 +1,8 @@
 import {Modal} from '@/components';
 
 import {useUserProfile} from '@/hooks/useUserProfile';
+import {POSITIONS, STACKS} from '@/consts';
+
 import {Wrppaepr} from './style';
 
 interface Props {
@@ -25,14 +27,16 @@ export const ProfileDetailModal = (props: Props) => {
               <span className="name">{user.name}</span>
             </div>
             <div className="user-info-middle">
-              <span className="position">{user.position}</span>
+              <span className="position">
+                {POSITIONS.find(x => x.value === user.position)?.label}
+              </span>
               <span className="career">{user.career}차</span>
             </div>
             <div className="user-info-bottom">
               <span className="label">관심 스택</span>
               {JSON.parse(user.stack || '[]').map((x: string) => (
                 <span className="stack" key={x}>
-                  {x}
+                  {STACKS.find(stack => stack.value === x)?.label}
                 </span>
               ))}
             </div>

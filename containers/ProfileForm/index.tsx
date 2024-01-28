@@ -121,7 +121,12 @@ export const ProfileForm = () => {
             placeholder="직무를 선택해주세요."
             options={POSITIONS}
             onChange={e => onChange('position', e?.value)}
-            value={{label: tempUser.position, value: tempUser.position}}
+            value={{
+              label: POSITIONS.find(
+                position => position.value === tempUser.position,
+              )?.label,
+              value: tempUser.position,
+            }}
             required
           />
         </Form.Group>
@@ -158,7 +163,7 @@ export const ProfileForm = () => {
               )
             }
             value={JSON.parse(tempUser.stack || '[]').map((x: string) => ({
-              label: x,
+              label: STACKS.find(stack => stack.value === x)?.label,
               value: x,
             }))}
             required
