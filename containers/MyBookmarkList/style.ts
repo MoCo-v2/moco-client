@@ -13,7 +13,7 @@ export const PostListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 100%;
+  width: 80rem;
   min-width: 40rem;
   margin: 0 auto;
 

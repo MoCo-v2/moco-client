@@ -19,6 +19,7 @@ import {useLoadingStore} from '@/store/loading';
 import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
 import {bookmarkAPI} from '@/modules';
+import {POSITIONS, WRITE_TYPE} from '@/consts';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
 
@@ -112,7 +113,7 @@ export const PostList = (props: Props) => {
                       backgroundColor: getModeColor(post.type),
                     }}
                   />
-                  {post.type}
+                  {WRITE_TYPE.find(x => x.value === post.type)?.label}
                 </div>
               </div>
               <div className="content">
@@ -131,7 +132,14 @@ export const PostList = (props: Props) => {
               <div className="post-info">
                 <div className="recruitment-position">
                   {JSON.parse(post.recruitmentPosition).map((x: string) => {
-                    return <div key={x}>{x}</div>;
+                    return (
+                      <div key={x}>
+                        {
+                          POSITIONS.find(position => position.value === x)
+                            ?.label
+                        }
+                      </div>
+                    );
                   })}
                 </div>
                 <div className="tech-stack">

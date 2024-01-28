@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {useRecommendPost} from '@/hooks/useRecommendPost';
 import {ROUTE_POST} from '@/routes';
 import {getModeColor} from '@/utils';
+import {WRITE_TYPE} from '@/consts';
 
 import {Wrapper} from './style';
 
@@ -34,7 +35,7 @@ export const RecommendPostList = (props: Props) => {
                 backgroundColor: getModeColor(post.type),
               }}
             />
-            {post.type}
+            {WRITE_TYPE.find(x => x.value === post.type)?.label}
           </div>
         </div>
       ))}

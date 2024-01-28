@@ -4,16 +4,18 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import Pagination from 'react-js-pagination';
 import {ToastContainer, toast} from 'react-toastify';
-import {BsEye, BsChatLeft, BsBookmarkFill} from 'react-icons/bs';
+import {BsEye, BsChatLeft, BsBookmarkFill, BsBookmark} from 'react-icons/bs';
 
 import {ProfileDetailModal} from '../ProfileDetailModal';
 
 import {useUser} from '@/hooks/useUser';
 import {usePost} from '@/hooks/usePost';
+import {useBookmarkIds} from '@/hooks/useBookmarkIds';
 import {useLoadingStore} from '@/store/loading';
 import {bookmarkAPI} from '@/modules';
 import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
+import {POSITIONS, WRITE_TYPE} from '@/consts';
 
 import {PostItem, PostListWrapper, Wrapper} from './style';
 
@@ -26,13 +28,14 @@ export const MyPostList = (props: Props) => {
 
   const {showLoading, hideLoading} = useLoadingStore();
   const {user} = useUser();
+  const {data: bookmarkIds, mutation} = useBookmarkIds();
 
   const [page, setPage] = useState(0);
   const [userId, setUserId] = useState<string | undefined>();
 
   const {
     data: postList,
-    mutation,
+    mutation: postMutation,
     totalElements,
     totalPages,
   } = usePost({
@@ -65,6 +68,21 @@ export const MyPostList = (props: Props) => {
     }
   };
 
+  const onClickBookmark = async (postId: number) => {
+    try {
+      if (!user) throw new Error('user is undefined');
+      showLoading();
+      await bookmarkAPI.createBookmark(postId);
+      toast.success('북마크에 추가되었습니다.');
+      mutation.mutate();
+    } catch (error) {
+      console.log(error);
+      toast.error('북마크 추가에 실패했습니다.');
+    } finally {
+      hideLoading();
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -91,7 +109,7 @@ export const MyPostList = (props: Props) => {
                       backgroundColor: getModeColor(post.type),
                     }}
                   />
-                  {post.type}
+                  {WRITE_TYPE.find(x => x.value === post.type)?.label}
                 </div>
               </div>
               <div className="content">
@@ -110,7 +128,14 @@ export const MyPostList = (props: Props) => {
               <div className="post-info">
                 <div className="recruitment-position">
                   {JSON.parse(post.recruitmentPosition).map((x: string) => {
-                    return <div key={x}>{x}</div>;
+                    return (
+                      <div key={x}>
+                        {
+                          POSITIONS.find(position => position.value === x)
+                            ?.label
+                        }
+                      </div>
+                    );
                   })}
                 </div>
                 <div className="tech-stack">
@@ -138,10 +163,17 @@ export const MyPostList = (props: Props) => {
                           cursor: 'pointer',
                         }}
                       >
-                        <BsBookmarkFill
-                          size={'1.2rem'}
-                          onClick={() => onDeleteBookmark(post.id)}
-                        />
+                        {bookmarkIds?.find(id => id === post.id) ? (
+                          <BsBookmarkFill
+                            size={'1.2rem'}
+                            onClick={() => onDeleteBookmark(post.id)}
+                          />
+                        ) : (
+                          <BsBookmark
+                            size={'1.2rem'}
+                            onClick={() => onClickBookmark(post.id)}
+                          />
+                        )}
                       </div>
                     )}
                   </div>

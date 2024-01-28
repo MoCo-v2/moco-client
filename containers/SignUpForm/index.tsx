@@ -86,6 +86,7 @@ export const SignUpForm = (props: Props) => {
               placeholder="직무를 선택해주세요."
               options={POSITIONS}
               onChange={e => onChange('position', e?.value)}
+              value={POSITIONS.find(x => x.value === signUpData.position)}
               required
             />
           </Form.Group>
@@ -110,6 +111,10 @@ export const SignUpForm = (props: Props) => {
                   JSON.stringify(e.map((x: {value: string}) => x.value)),
                 )
               }
+              value={JSON.parse(signUpData.stack || '[]').map((x: string) => ({
+                label: STACKS.find(stack => stack.value === x)?.label,
+                value: x,
+              }))}
               required
             />
           </Form.Group>

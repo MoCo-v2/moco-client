@@ -2,7 +2,7 @@ export interface ResponsePost {
   id: number;
   title: string;
   content: string;
-  type: '프로젝트' | '스터디' | '모각코' | '과외';
+  type: 'project' | 'study' | 'moco' | 'lesson' | '';
   capacity: string;
   mode: string;
   duration: string;
@@ -24,7 +24,7 @@ export interface ResponsePost {
 export interface WritePostData {
   title: string;
   content: string;
-  type: '프로젝트' | '스터디' | '모각코' | '과외';
+  type: 'project' | 'study' | 'moco' | 'lesson' | '';
   capacity: string;
   mode: string;
   duration: string;
