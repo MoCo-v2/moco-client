@@ -27,7 +27,7 @@ interface Props {
 
 export const SearchBox = (props: Props) => {
   const {filter, setFilter} = props;
-  console.log(filter);
+
   const onChange = (key: string, value?: string) => {
     setFilter({
       ...filter,

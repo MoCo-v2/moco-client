@@ -83,6 +83,8 @@ export const ProfileForm = () => {
       console.log(error);
       if ((error as any)?.response?.data?.msg) {
         toast.error((error as any).response.data.msg);
+      } else {
+        toast.error('프로필 저장에 실패했습니다.');
       }
     } finally {
       hideLoading();
