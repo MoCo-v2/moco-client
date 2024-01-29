@@ -16,7 +16,7 @@ export const getStackImageUrl = (stack: string) => {
     django: 'https://skillicons.dev/icons?i=django',
     swift: 'https://skillicons.dev/icons?i=swift',
     kotlin: 'https://skillicons.dev/icons?i=kotlin',
-    mysQL: 'https://skillicons.dev/icons?i=mysql',
+    mysql: 'https://skillicons.dev/icons?i=mysql',
     mongodb: 'https://skillicons.dev/icons?i=mongodb',
     php: 'https://skillicons.dev/icons?i=php',
     graphql: 'https://skillicons.dev/icons?i=graphql',

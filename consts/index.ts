@@ -40,7 +40,7 @@ export const STACKS = [
   {label: 'Django', value: 'django'},
   {label: 'Swift', value: 'swift'},
   {label: 'Kotlin', value: 'kotlin'},
-  {label: 'MySQL', value: 'mysQL'},
+  {label: 'MySQL', value: 'mysql'},
   {label: 'MongoDB', value: 'mongodb'},
   {label: 'php', value: 'php'},
   {label: 'GraphQL', value: 'graphql'},
