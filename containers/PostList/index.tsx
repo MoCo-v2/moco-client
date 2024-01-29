@@ -59,7 +59,12 @@ export const PostList = (props: Props) => {
     mutation: postMutation,
     totalElements,
     totalPages,
-  } = usePost(filter);
+  } = usePost({
+    ...filter,
+    language: filter.language
+      ? JSON.parse(filter.language).join(',')
+      : undefined,
+  });
 
   const handleScrollToTop = () => {
     window.scrollTo({top: 0, behavior: 'instant'});
