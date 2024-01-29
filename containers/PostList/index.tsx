@@ -34,19 +34,32 @@ export const PostList = (props: Props) => {
   const {user} = useUser();
   const {data: bookmarkIds, mutation} = useBookmarkIds();
 
-  const [page, setPage] = useState(0);
   const [userId, setUserId] = useState<string | undefined>();
+
+  const [filter, setFilter] = useState<{
+    offset: number;
+    limit: number;
+    recruit?: boolean;
+    type?: string;
+    position?: string;
+    mode?: string;
+    language?: string;
+  }>({
+    offset: 0,
+    limit,
+    recruit: false,
+    type: 'all',
+    position: 'all',
+    mode: 'all',
+    language: undefined,
+  });
 
   const {
     data: postList,
     mutation: postMutation,
     totalElements,
     totalPages,
-  } = usePost({
-    offset: page,
-    limit,
-    recruit: false,
-  });
+  } = usePost(filter);
 
   const handleScrollToTop = () => {
     window.scrollTo({top: 0, behavior: 'instant'});
@@ -89,7 +102,7 @@ export const PostList = (props: Props) => {
   return (
     <Wrapper>
       <div className="side-box">
-        <SearchBox />
+        <SearchBox filter={filter} setFilter={setFilter} />
       </div>
       <PostListWrapper>
         {postList?.map(post => {
@@ -185,7 +198,7 @@ export const PostList = (props: Props) => {
           );
         })}
         <Pagination
-          activePage={page + 1}
+          activePage={filter.offset + 1}
           itemsCountPerPage={limit}
           totalItemsCount={totalElements || 0}
           pageRangeDisplayed={5}
@@ -194,7 +207,10 @@ export const PostList = (props: Props) => {
           firstPageText={'«'}
           lastPageText={'»'}
           onChange={number => {
-            setPage(number - 1);
+            setFilter({
+              ...filter,
+              offset: number - 1,
+            });
             handleScrollToTop();
           }}
         />

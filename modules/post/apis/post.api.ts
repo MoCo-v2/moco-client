@@ -21,7 +21,16 @@ export const postAPI = {
     axios
       .get<ResponsePost>(`${apiUrl}/public/posts/${id}`)
       .then(res => res.data),
-  getPostList: (filter: {offset: number; limit: number; recruit?: boolean}) =>
+  getPostList: (filter: {
+    offset: number;
+    limit: number;
+    recruit?: boolean;
+    username?: string;
+    type?: string;
+    position?: string;
+    mode?: string;
+    language?: string;
+  }) =>
     axios
       .get<{posts: ResponsePost[]; totalElements: number; totalPages: number}>(
         `${apiUrl}/public/posts`,
