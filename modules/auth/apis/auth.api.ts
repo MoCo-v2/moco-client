@@ -23,4 +23,6 @@ export const authAPI = {
     axios.get(`${apiUrl}/public/check-nickname/${name}`).then(res => res.data),
   updateUser: (data: SignUpData) =>
     axiosInstance.put(`${apiUrl}/private/users`, data).then(res => res.data),
+  deleteUser: () =>
+    axiosInstance.delete(`${apiUrl}/private/users`).then(res => res.data),
 };

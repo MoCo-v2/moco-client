@@ -1,9 +1,11 @@
 import {ChangeEvent, useEffect, useState} from 'react';
+import {deleteCookie} from 'cookies-next';
+import {signOut} from 'next-auth/react';
 
 import {Form, Button} from 'react-bootstrap';
 import {ToastContainer, toast} from 'react-toastify';
 
-import {CustomSelect} from '@/components';
+import {ConfirmModal, CustomSelect} from '@/components';
 
 import {ResponseUser, authAPI, imageAPI} from '@/modules';
 import {useUser} from '@/hooks/useUser';
@@ -19,6 +21,7 @@ export const ProfileForm = () => {
   const {showLoading, hideLoading} = useLoadingStore();
 
   const [validated, setValidated] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [tempUser, setTempUser] = useState<ResponseUser>({
     id: '',
     name: '',
@@ -88,6 +91,23 @@ export const ProfileForm = () => {
       }
     } finally {
       hideLoading();
+    }
+  };
+
+  const onDeleteUser = async () => {
+    try {
+      showLoading();
+      await authAPI.deleteUser();
+      toast.success('회원탈퇴가 완료되었습니다.');
+      deleteCookie('moco_asct');
+      deleteCookie('moco_rsct');
+      await signOut();
+    } catch (error) {
+      console.log(error);
+      toast.error('회원탈퇴에 실패했습니다.');
+    } finally {
+      hideLoading();
+      setShowConfirmModal(false);
     }
   };
 
@@ -173,10 +193,26 @@ export const ProfileForm = () => {
         </Form.Group>
         <div className="btn-wrapper">
           <Button type="submit">프로필 저장</Button>
-          <Button variant="secondary">회원탈퇴</Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowConfirmModal(true);
+            }}
+          >
+            회원탈퇴
+          </Button>
         </div>
       </StyledForm>
       <ToastContainer />
+      <ConfirmModal
+        show={showConfirmModal}
+        onHide={() => {
+          setShowConfirmModal(false);
+        }}
+        onOk={onDeleteUser}
+      >
+        <div>탈퇴하시겠습니까?</div>
+      </ConfirmModal>
     </Wrapper>
   );
 };
