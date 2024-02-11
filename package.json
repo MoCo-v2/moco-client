@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npm2 delete moco-client; pm2 start next --name 'moco-client' start -p ${PORT-3000}",
     "lint": "next lint"
   },
   "dependencies": {
