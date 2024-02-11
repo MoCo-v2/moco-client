@@ -30,7 +30,6 @@ export default NextAuth({
             accessToken: account.access_token,
           })
           .then(res => res.data);
-        console.log('test##', process.env.NEXT_PUBLIC_MOCO_API_URL);
         if (data?.accessToken) {
           token.isLogin = true;
           token.accessToken = data.accessToken;
