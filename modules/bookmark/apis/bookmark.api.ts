@@ -1,7 +1,4 @@
-import axios from 'axios';
 import createAxiosInstance from '@/utils/axiosInstance';
-
-const apiUrl = process.env.NEXT_PUBLIC_MOCO_API_URL + '/api/v1';
 
 const axiosInstance = createAxiosInstance(
   `${process.env.NEXT_PUBLIC_MOCO_API_URL}/api/v1`,

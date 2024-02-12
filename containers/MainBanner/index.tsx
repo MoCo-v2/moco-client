@@ -3,38 +3,39 @@ import {useMemo, useRef, useState} from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
-import {getRandomColor} from '@/utils';
-
 import {SlideIndicator, Wrapper} from './style';
+import {useBannerList} from '@/hooks/useBannerList';
 
 const BannerContainer = styled.div`
   width: 100%;
   height: 40rem;
   cursor: pointer;
-`;
-const DummyContent = styled.div`
-  width: 1200px;
-  height: 40rem;
-  cursor: pointer;
-  margin: 0 auto;
+
+  img {
+    width: 100%;
+    height: 40rem;
+    object-fit: cover;
+    cursor: pointer;
+    margin: 0 auto;
+  }
 `;
 
 export const MainBanner = () => {
   const slickRef = useRef<Slider>(null);
+  const {data} = useBannerList();
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const DummyData = useMemo(() => {
-    return Array(5)
-      .fill('')
-      .map((x, idx) => (
-        <div key={idx}>
-          <BannerContainer style={{background: getRandomColor()}}>
-            <DummyContent />
-          </BannerContainer>
-        </div>
-      ));
-  }, []);
+  const bannerList = useMemo(() => {
+    if (!data?.items?.length) return [<></>];
+    return data.items.map((x, idx) => (
+      <div key={idx}>
+        <BannerContainer>
+          <img src={x} alt="banner" />
+        </BannerContainer>
+      </div>
+    ));
+  }, [data]);
 
   const previous = () => {
     slickRef?.current?.slickPrev();
@@ -56,7 +57,7 @@ export const MainBanner = () => {
         arrows={false}
         beforeChange={(_, v) => setCurrentSlide(v)}
       >
-        {DummyData}
+        {bannerList}
       </Slider>
 
       <SlideIndicator>
@@ -78,7 +79,7 @@ export const MainBanner = () => {
         <div className="pagination">
           <span className="page-index">{currentSlide + 1}</span>
           <span className="divider" />
-          <span className="page-index">{DummyData.length}</span>
+          <span className="page-index">{bannerList.length}</span>
         </div>
         <button className="right" onClick={next}>
           <svg
