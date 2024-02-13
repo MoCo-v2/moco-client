@@ -20,7 +20,6 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXT_PUBLIC_SITE_URL,
-  debug: true,
   callbacks: {
     async jwt({token, account}) {
       if (account) {
