@@ -91,6 +91,22 @@ export const WriteForm = (props: Props) => {
     }
   }, [id]);
 
+  const getErrorMessage = (data: WritePostData) => {
+    if (!JSON.parse(data.techStack).length) {
+      return '기술 스택을 선택해주세요.';
+    }
+    if (!data.recruitmentPosition) {
+      return '모집 포지션을 선택해주세요.';
+    }
+    if (!data.link) {
+      return '링크를 입력해주세요.';
+    }
+    if (!data.title) {
+      return '제목을 입력해주세요.';
+    }
+    return '게시글 정보를 확인해주세요.';
+  };
+
   const onChange = (key: string, value?: string) => {
     setWriteData({
       ...writeData,
@@ -130,7 +146,8 @@ export const WriteForm = (props: Props) => {
           });
         }
       } else {
-        toast.error('게시글 정보를 확인해주세요.');
+        const message = getErrorMessage(writeData);
+        toast.error(message);
         setValidated(false);
       }
     } catch (error) {
@@ -285,6 +302,7 @@ export const WriteForm = (props: Props) => {
                     : ''
                 }
                 value={writeData.link}
+                required
               />
             </Form.Group>
           </div>
