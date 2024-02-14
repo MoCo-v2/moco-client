@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {signOut} from 'next-auth/react';
+import {signIn, signOut} from 'next-auth/react';
 
 import {Form, Button} from 'react-bootstrap';
 import {Confetti} from '@neoconfetti/react';
@@ -68,7 +68,12 @@ export const SignUpForm = (props: Props) => {
   };
 
   const onClickLogIn = async () => {
-    await signOut();
+    const result = id.match(/(google|github|kakao)/);
+    if (result?.[0]) {
+      await signIn(result[0]);
+    } else {
+      await signOut();
+    }
     setShowSuccessModal(false);
   };
 
