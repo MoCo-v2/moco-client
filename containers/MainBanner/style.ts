@@ -57,3 +57,42 @@ export const SlideIndicator = styled.div`
     }
   }
 `;
+
+export const BannerContainer = styled.div<{bgcolor: string}>`
+  width: 100%;
+  height: 40rem;
+  cursor: pointer;
+  background: ${props => (props.bgcolor ? `${props.bgcolor}` : '#fff')};
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    gap: 10rem;
+    .text-box {
+      .banner-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #000;
+      }
+      .banner-content {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 0.8rem;
+      }
+      .banner-description {
+        font-size: 2.1rem;
+        color: #000;
+      }
+    }
+    img {
+      width: 30rem;
+      height: 30rem;
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
+`;

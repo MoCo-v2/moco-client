@@ -1,24 +1,9 @@
 import {useMemo, useRef, useState} from 'react';
 
-import styled from 'styled-components';
 import Slider from 'react-slick';
 
-import {SlideIndicator, Wrapper} from './style';
+import {BannerContainer, SlideIndicator, Wrapper} from './style';
 import {useBannerList} from '@/hooks/useBannerList';
-
-const BannerContainer = styled.div`
-  width: 100%;
-  height: 40rem;
-  cursor: pointer;
-
-  img {
-    width: 100%;
-    height: 40rem;
-    object-fit: cover;
-    cursor: pointer;
-    margin: 0 auto;
-  }
-`;
 
 export const MainBanner = () => {
   const slickRef = useRef<Slider>(null);
@@ -27,11 +12,18 @@ export const MainBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const bannerList = useMemo(() => {
-    if (!data?.items?.length) return [<></>];
-    return data.items.map((x, idx) => (
-      <div key={idx}>
-        <BannerContainer>
-          <img src={x} alt="banner" />
+    if (!data?.length) return [<></>];
+    return data.map((x, idx) => (
+      <div key={x.id}>
+        <BannerContainer bgcolor={x.backgroundColor}>
+          <div className="box">
+            <div className="text-box">
+              <div className="banner-title">{x.title}</div>
+              <div className="banner-content">{x.content}</div>
+              <div className="banner-description">{x.description}</div>
+            </div>
+            <img src={x.imageLink} alt="banner" />
+          </div>
         </BannerContainer>
       </div>
     ));

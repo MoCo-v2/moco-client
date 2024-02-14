@@ -1,6 +1,11 @@
 export interface ResponseBanner {
   id: number;
-  bannerName: string;
-  items: string[];
+  backgroundColor: string;
+  title: string;
+  content: string;
+  description: string;
+  imageLink: string;
+  ordering: number;
   expose: boolean;
+  memo?: string;
 }
