@@ -25,6 +25,28 @@ export const Wrapper = styled.div`
       line-height: 1.5;
     }
   }
+  .form-control:valid {
+    border: 1px solid #dce1e6;
+    background-image: none;
+    &:focus {
+      border: 1px solid #2684ff;
+      box-shadow: none;
+    }
+  }
+
+  .form-control:invalid {
+    border: 1px solid #dce1e6;
+    background-image: none;
+    &:focus {
+      border: 1px solid #2684ff;
+      box-shadow: none;
+    }
+  }
+
+  .Toastify__toast-body {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 `;
 
 export const StyledForm = styled(Form)`

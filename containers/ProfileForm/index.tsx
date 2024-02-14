@@ -70,25 +70,24 @@ export const ProfileForm = () => {
       event.preventDefault();
       showLoading();
       const form = event.currentTarget;
-      if (user?.name !== tempUser.name) {
-        await authAPI.checkNickName(tempUser.name);
-      }
       if (form.checkValidity()) {
+        if (user?.name !== tempUser.name) {
+          await authAPI.checkNickName(tempUser.name);
+        }
         setValidated(true);
         await authAPI.updateUser(tempUser);
         mutation.mutate();
         toast.success('프로필이 저장되었습니다.');
       } else {
-        toast.error('프로필 정보를 확인해주세요.');
+        if (form.reportValidity) form.reportValidity();
         setValidated(false);
       }
-    } catch (error) {
-      console.log(error);
-      if ((error as any)?.response?.data?.msg) {
-        toast.error((error as any).response.data.msg);
-      } else {
-        toast.error('프로필 저장에 실패했습니다.');
+    } catch (error: any) {
+      let message = '프로필 저장에 실패했습니다.';
+      if (error?.response?.data?.message || error?.response?.data?.msg) {
+        message = error.response.data.message || error.response.data.msg;
       }
+      toast.error(message);
     } finally {
       hideLoading();
     }
@@ -123,7 +122,7 @@ export const ProfileForm = () => {
           <input
             type="file"
             id="fileInput"
-            accept="image/*"
+            accept="image/png, image/jpeg, image/jpg"
             onChange={handleFileUpload}
           />
           <div>{user.name}님 환영해요.</div>
