@@ -1,9 +1,13 @@
+import {useState} from 'react';
 import {Button} from 'react-bootstrap';
 import dayjs from 'dayjs';
 
 import {useUser} from '@/hooks/useUser';
 
+import {ProfileDetailModal} from '../ProfileDetailModal';
+
 import {ResponseComment} from '@/modules';
+
 import {StyledCommentList} from './style';
 
 interface Props {
@@ -25,12 +29,23 @@ export const CommentList = (props: Props) => {
 
   const {user} = useUser();
 
+  const [userId, setUserId] = useState<string | undefined>();
+
+  const onClickProfile = (userId: string) => {
+    setUserId(userId);
+  };
+
   return (
     <StyledCommentList>
       {comments?.map(comment => (
         <div className="comment-item" key={comment.id}>
           <div className="comment-writer">
-            <img src={comment.picture} alt="profile" draggable={false} />
+            <img
+              src={comment.picture}
+              alt="profile"
+              draggable={false}
+              onClick={() => onClickProfile(comment.userId)}
+            />
             <div>
               <div className="writer">{comment.name}</div>
               <div className="created">
@@ -84,6 +99,7 @@ export const CommentList = (props: Props) => {
           )}
         </div>
       ))}
+      <ProfileDetailModal userId={userId} setUserId={setUserId} />
     </StyledCommentList>
   );
 };

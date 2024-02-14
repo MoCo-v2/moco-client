@@ -88,7 +88,11 @@ export const PostDetail = (props: Props) => {
       navigator.clipboard.writeText(link);
       toast.success('이메일이 복사되었습니다.');
     } else {
-      window.open(link, '_blank');
+      let url = link;
+      if (url.indexOf('//') < 0) {
+        url = 'http://' + url;
+      }
+      window.open(url, '_blank');
     }
   };
 
