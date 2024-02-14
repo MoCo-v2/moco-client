@@ -179,6 +179,7 @@ export const StyledCommentList = styled.div`
         width: 4rem;
         border-radius: 50%;
         object-fit: cover;
+        cursor: pointer;
       }
       & > div {
         display: flex;

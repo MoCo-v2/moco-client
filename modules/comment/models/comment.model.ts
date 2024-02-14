@@ -9,4 +9,5 @@ export interface ResponseComment {
   parentId?: number;
   childList?: ResponseComment[];
   removed: boolean;
+  userId: string;
 }
