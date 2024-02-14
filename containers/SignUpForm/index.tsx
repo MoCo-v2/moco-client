@@ -11,6 +11,7 @@ import {authAPI, SignUpData} from '@/modules';
 import {CAREERS, POSITIONS, STACKS} from '@/consts';
 
 import {CustomSelect, Modal} from '@/components';
+import {toast, ToastContainer} from 'react-toastify';
 
 interface Props {
   id: string;
@@ -40,14 +41,20 @@ export const SignUpForm = (props: Props) => {
       showLoading();
       const form = event.currentTarget;
       if (form.checkValidity()) {
+        await authAPI.checkNickName(signUpData.name);
         setValidated(true);
         await authAPI.userSignUp(signUpData);
         setShowSuccessModal(true);
       } else {
+        if (form.reportValidity) form.reportValidity();
         setValidated(false);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      let message = '회원가입에 실패했습니다.';
+      if (error.response?.data?.message || error?.response?.data?.msg) {
+        message = error.response.data.message || error.response.data.msg;
+      }
+      toast.error(message);
     } finally {
       hideLoading();
     }
@@ -129,6 +136,7 @@ export const SignUpForm = (props: Props) => {
           <Button onClick={onClickLogIn}>팀원 모집하기</Button>
         </StyledModalBody>
       </Modal>
+      <ToastContainer />
     </Wrapper>
   );
 };
