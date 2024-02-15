@@ -48,6 +48,8 @@ export const MainBanner = () => {
         slidesToScroll={1}
         arrows={false}
         beforeChange={(_, v) => setCurrentSlide(v)}
+        autoplay
+        autoplaySpeed={3000}
       >
         {bannerList}
       </Slider>
