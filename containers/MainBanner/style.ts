@@ -2,6 +2,35 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: relative;
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 150%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
+
+  .slick-current {
+    .banner-title {
+      position: relative;
+      animation: fadeInUp 0.5s;
+    }
+    .banner-content {
+      position: relative;
+      animation: fadeInUp 1s;
+    }
+    .banner-description {
+      position: relative;
+      animation: fadeInUp 1.2s;
+    }
+    img {
+      position: relative;
+      animation: fadeInUp 1s;
+    }
+  }
 `;
 
 export const SlideIndicator = styled.div`
