@@ -5,6 +5,7 @@ export interface ResponseBanner {
   content: string;
   description: string;
   imageLink: string;
+  pageLink?: string;
   ordering: number;
   expose: boolean;
   memo?: string;

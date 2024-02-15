@@ -15,7 +15,10 @@ export const MainBanner = () => {
     if (!data?.length) return [<></>];
     return data.map((x, idx) => (
       <div key={x.id}>
-        <BannerContainer bgcolor={x.backgroundColor}>
+        <BannerContainer
+          bgcolor={x.backgroundColor}
+          onClick={() => onClickBanner(x.pageLink)}
+        >
           <div className="box">
             <div className="text-box">
               <div className="banner-title">{x.title}</div>
@@ -28,6 +31,10 @@ export const MainBanner = () => {
       </div>
     ));
   }, [data]);
+
+  const onClickBanner = (link?: string) => {
+    if (link) window.open(link, '_blank');
+  };
 
   const previous = () => {
     slickRef?.current?.slickPrev();
