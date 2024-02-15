@@ -24,7 +24,7 @@ export const getStackImageUrl = (stack: string) => {
     reactnative: 'https://icon.icepanel.io/Technology/svg/React.svg',
     unity: 'https://icon.icepanel.io/Technology/png-shadow-512/Unity.png',
     flutter: 'https://icon.icepanel.io/Technology/svg/Flutter.svg',
-    aws: 'https://skillicons.dev/icons?i=aws',
+    aws: 'https://icon.icepanel.io/Technology/png-shadow-512/AWS.png',
     kubernetes: 'https://icon.icepanel.io/Technology/svg/Kubernetes.svg',
     docker: 'https://icon.icepanel.io/Technology/svg/Docker.svg',
     git: 'https://icon.icepanel.io/Technology/svg/Git.svg',
