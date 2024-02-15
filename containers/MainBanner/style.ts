@@ -12,6 +12,16 @@ export const Wrapper = styled.div`
       transform: translateZ(0);
     }
   }
+  @keyframes fadeInSide {
+    0% {
+      opacity: 0;
+      transform: translate3d(20%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
 
   .slick-current {
     .banner-title {
@@ -28,7 +38,7 @@ export const Wrapper = styled.div`
     }
     img {
       position: relative;
-      animation: fadeInUp 1s;
+      animation: fadeInSide 1.5s;
     }
   }
 `;
