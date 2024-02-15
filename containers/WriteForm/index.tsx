@@ -11,7 +11,12 @@ const MyEditor = dynamic(() => import('@/components/CustomEditor'), {
   loading: () => <p>Loading...</p>,
 });
 
-import {CustomDatePicker, CustomSelect, SectionTitle} from '@/components';
+import {
+  CustomDatePicker,
+  CustomRadioButton,
+  CustomSelect,
+  SectionTitle,
+} from '@/components';
 import {
   POSITIONS,
   STACKS,
@@ -161,22 +166,36 @@ export const WriteForm = (props: Props) => {
     <Wrapper>
       <StyledForm onSubmit={onSubmit} noValidate validated={validated}>
         <section>
-          <SectionTitle number={1} title="프로젝트 기본 정보를 입력해주세요." />
+          <SectionTitle title="📚 프로젝트 기본 정보를 입력해주세요." />
+          <Form.Group>
+            <Form.Label>모집 유형</Form.Label>
+            <CustomRadioButton
+              name="type"
+              items={WRITE_TYPE.map(x => ({
+                name: x.label,
+                desc: x.desc,
+                value: x.value,
+              }))}
+              onChange={e => onChange('type', e.target.value)}
+              checked={writeData.type}
+              required
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>진행 방식</Form.Label>
+            <CustomRadioButton
+              name="mode"
+              items={WRITE_MODE.map(x => ({
+                name: x.label,
+                desc: x.desc,
+                value: x.value,
+              }))}
+              onChange={e => onChange('mode', e.target.value)}
+              checked={writeData.mode}
+              required
+            />
+          </Form.Group>
           <div className="flex-box">
-            <Form.Group>
-              <Form.Label>모집 유형</Form.Label>
-              <CustomSelect
-                placeholder="프로젝트 | 모각코 | 스터디 | 과외"
-                options={WRITE_TYPE}
-                onChange={e => onChange('type', e?.value)}
-                value={{
-                  label: WRITE_TYPE.find(x => x.value === writeData.type)
-                    ?.label,
-                  value: writeData.type,
-                }}
-                required
-              />
-            </Form.Group>
             <Form.Group>
               <Form.Label>모집 인원</Form.Label>
               <CustomSelect
@@ -184,22 +203,6 @@ export const WriteForm = (props: Props) => {
                 options={WRITE_CAPACITY}
                 onChange={e => onChange('capacity', e?.value)}
                 value={{label: writeData.capacity, value: writeData.capacity}}
-                required
-              />
-            </Form.Group>
-          </div>
-          <div className="flex-box">
-            <Form.Group>
-              <Form.Label>진행 방식</Form.Label>
-              <CustomSelect
-                placeholder="전체 | 온라인 | 오프라인"
-                options={WRITE_MODE}
-                onChange={e => onChange('mode', e?.value)}
-                value={{
-                  label: WRITE_MODE.find(x => x.value === writeData.mode)
-                    ?.label,
-                  value: writeData.mode,
-                }}
                 required
               />
             </Form.Group>
@@ -211,41 +214,6 @@ export const WriteForm = (props: Props) => {
                 onChange={e => onChange('duration', e?.value)}
                 value={{label: writeData.duration, value: writeData.duration}}
                 required
-              />
-            </Form.Group>
-          </div>
-          <div className="flex-box">
-            <Form.Group>
-              <Form.Label>기술 스택</Form.Label>
-              <CustomSelect
-                isMulti
-                placeholder="프로젝트 사용 스택"
-                options={STACKS}
-                onChange={e =>
-                  onChange(
-                    'techStack',
-                    JSON.stringify(e.map((x: {value: string}) => x.value)),
-                  )
-                }
-                value={JSON.parse(writeData.techStack || '[]').map(
-                  (x: string) => ({
-                    label: STACKS.find(stack => stack.value === x)?.label,
-                    value: x,
-                  }),
-                )}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>모집 마감일</Form.Label>
-              <CustomDatePicker
-                selected={dayjs(writeData.deadLine).toDate()}
-                onChange={date =>
-                  onChange(
-                    'deadLine',
-                    dayjs(date).format('YYYY-MM-DD').toString(),
-                  )
-                }
               />
             </Form.Group>
           </div>
@@ -273,42 +241,75 @@ export const WriteForm = (props: Props) => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>연락 방법</Form.Label>
-              <CustomSelect
-                placeholder="연락방법을 선택해주세요."
-                options={WRITE_CONTACT}
-                onChange={e => onChange('contactMethod', e?.value)}
-                value={{
-                  label: writeData.contactMethod,
-                  value: writeData.contactMethod,
-                }}
-                required
+              <Form.Label>모집 마감일</Form.Label>
+              <CustomDatePicker
+                selected={dayjs(writeData.deadLine).toDate()}
+                onChange={date =>
+                  onChange(
+                    'deadLine',
+                    dayjs(date).format('YYYY-MM-DD').toString(),
+                  )
+                }
               />
             </Form.Group>
           </div>
           <div className="flex-box">
-            <div />
             <Form.Group>
-              <Form.Label>링크</Form.Label>
-              <Form.Control
-                onChange={e => onChange('link', e.target.value)}
-                placeholder={
-                  writeData.contactMethod === '카카오톡'
-                    ? '오픈 카톡방 링크'
-                    : writeData.contactMethod === '이메일'
-                    ? '이메일 주소'
-                    : writeData.contactMethod === '구글 폼'
-                    ? '구글 폼 주소'
-                    : ''
+              <Form.Label>기술 스택</Form.Label>
+              <CustomSelect
+                isMulti
+                placeholder="프로젝트 사용 스택"
+                options={STACKS}
+                onChange={e =>
+                  onChange(
+                    'techStack',
+                    JSON.stringify(e.map((x: {value: string}) => x.value)),
+                  )
                 }
-                value={writeData.link}
+                value={JSON.parse(writeData.techStack || '[]').map(
+                  (x: string) => ({
+                    label: STACKS.find(stack => stack.value === x)?.label,
+                    value: x,
+                  }),
+                )}
                 required
               />
             </Form.Group>
           </div>
+          <Form.Group>
+            <Form.Label>연락 방법</Form.Label>
+            <CustomRadioButton
+              name="contactMethod"
+              items={WRITE_CONTACT.map(x => ({
+                name: x.label,
+                desc: x.desc,
+                value: x.value,
+              }))}
+              onChange={e => onChange('contactMethod', e.target.value)}
+              checked={writeData.contactMethod}
+              required
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>링크</Form.Label>
+            <Form.Control
+              onChange={e => onChange('link', e.target.value)}
+              placeholder={
+                writeData.contactMethod === '카카오톡'
+                  ? '오픈 카톡방 링크'
+                  : writeData.contactMethod === '이메일'
+                  ? '이메일 주소'
+                  : writeData.contactMethod === '구글 폼'
+                  ? '구글 폼 주소'
+                  : ''
+              }
+              value={writeData.link}
+              required
+            />
+          </Form.Group>
         </section>
         <section>
-          <SectionTitle number={2} title="프로젝트에 대해 소개해주세요." />
+          <SectionTitle title="📢 프로젝트에 대해 소개해주세요." />
           <Form.Group>
             <Form.Label>제목</Form.Label>
             <Form.Control

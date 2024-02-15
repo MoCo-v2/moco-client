@@ -5,3 +5,4 @@ export * from './CustomSelect';
 export * from './CustomDatePicker';
 export * from './Tag';
 export * from './PageLoader';
+export * from './CustomRadioButton';
