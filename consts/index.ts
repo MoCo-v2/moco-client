@@ -57,10 +57,26 @@ export const STACKS = [
 ];
 
 export const WRITE_TYPE = [
-  {label: '프로젝트', value: 'project'},
-  {label: '모각코', value: 'moco'},
-  {label: '스터디', value: 'study'},
-  {label: '과외', value: 'lesson'},
+  {
+    label: '프로젝트',
+    value: 'project',
+    desc: '팀원들을 모집해 사이드 프로젝트를 시작할 수 있습니다.',
+  },
+  {
+    label: '모각코',
+    value: 'moco',
+    desc: '분위기 좋은 곳에 모여서 각자 코딩을 해보아요.',
+  },
+  {
+    label: '스터디',
+    value: 'study',
+    desc: '특정 주제에 대해서 스터디를 진행할 수 있습니다.',
+  },
+  {
+    label: '과외',
+    value: 'lesson',
+    desc: '경력을 살려 주니어 개발자로 진입을 원하는 동료를 도와줄 수 있습니다.',
+  },
 ];
 
 export const WRITE_CAPACITY = [
@@ -78,9 +94,17 @@ export const WRITE_CAPACITY = [
 ];
 
 export const WRITE_MODE = [
-  {label: '전체', value: 'all'},
-  {label: '온라인', value: 'online'},
-  {label: '오프라인', value: 'offline'},
+  {
+    label: '전체',
+    value: 'all',
+    desc: '온라인 오프라인 두 방식 모두 진행합니다.',
+  },
+  {
+    label: '온라인',
+    value: 'online',
+    desc: '화상통화 또는 구글미팅 등을 이용하여 진행합니다.',
+  },
+  {label: '오프라인', value: 'offline', desc: '직접 만나 진행합니다.'},
 ];
 
 export const WRITE_DURATION = [
@@ -95,7 +119,15 @@ export const WRITE_DURATION = [
 ];
 
 export const WRITE_CONTACT = [
-  {label: '카카오톡', value: '카카오톡'},
-  {label: '이메일', value: '이메일'},
-  {label: '구글 폼', value: '구글 폼'},
+  {
+    label: '카카오톡',
+    value: '카카오톡',
+    desc: '카카오톡 오픈 채팅방을 이용합니다.',
+  },
+  {label: '이메일', value: '이메일', desc: '메일을 보내 연락을 시도합니다.'},
+  {
+    label: '구글 폼',
+    value: '구글 폼',
+    desc: '구글 폼을 이용해 연락을 시도합니다.',
+  },
 ];

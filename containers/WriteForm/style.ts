@@ -13,6 +13,10 @@ export const Wrapper = styled.div`
   gap: 50px;
   position: relative;
 
+  .custom-radio-wrapper {
+    margin-bottom: 4.5rem;
+  }
+
   .flex-box {
     display: flex;
     justify-content: space-between;
