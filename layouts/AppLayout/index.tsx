@@ -5,7 +5,7 @@ import {Footer} from '../Footer';
 import styled from 'styled-components';
 
 const Layout = styled.div`
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1080px) {
     position: relative;
     width: 100%;
     height: 100vh;

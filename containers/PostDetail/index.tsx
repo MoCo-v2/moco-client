@@ -179,120 +179,131 @@ export const PostDetail = (props: Props) => {
 
   return (
     <Wrapper>
-      <section className="writer-section">
-        <div className="title">{post.title}</div>
-        <div
-          className="writer-info"
-          onClick={() => onClickProfile(post.userId)}
-        >
+      <section className="post-info-section">
+        <div className="writer-image">
           <img src={post.picture} alt="profile" draggable={false} />
-          <div className="writer">{post.writer}</div>
-          <div className="created">
-            {dayjs(post.createdDate).format('YYYY.MM.DD')}
-          </div>
         </div>
-        {user?.id === post.userId && (
-          <div className="modify-box">
-            {!post.full && (
-              <span onClick={() => onClickModifyItem('endRecruitment')}>
-                마감
+        <div className="post-title">
+          <div className="title">{post.title}</div>
+          <div className="bookmark-btn">
+            <span>
+              <BsEye size={'1.8rem'} /> {post.view}
+            </span>
+            {user?.id && (
+              <span
+                style={{
+                  cursor: 'pointer',
+                }}
+              >
+                {bookmarkIds?.find(id => id === post.id) ? (
+                  <BsBookmarkFill
+                    size={'1.8rem'}
+                    onClick={() => onDeleteBookmark(post.id)}
+                  />
+                ) : (
+                  <BsBookmark
+                    size={'1.8rem'}
+                    onClick={() => onClickBookmark(post.id)}
+                  />
+                )}
               </span>
             )}
-            <span onClick={() => onClickModifyItem('modify')}>수정</span>
-            <span onClick={() => onClickModifyItem('delete')}>삭제</span>
-          </div>
-        )}
-      </section>
-      <section className="study-info-section">
-        <div className="item">
-          <div className="label">모집 구분</div>
-          <div className="value">
-            {WRITE_TYPE.find(x => x.value === post.type)?.label}
           </div>
         </div>
-        <div className="item">
-          <div className="label">진행 방식</div>
-          <div className="value">
-            {WRITE_MODE.find(x => x.value === post.mode)?.label}
+        <div className="writer-info">
+          <div
+            className="writer-name"
+            onClick={() => onClickProfile(post.userId)}
+          >
+            {post.writer}
+          </div>
+          <div className="post-created">
+            {dayjs(post.createdDate).format('YYYY.MM.DD HH:mm')}
           </div>
         </div>
-        <div className="item">
-          <div className="label">모집 인원</div>
-          <div className="value">{post.capacity}</div>
-        </div>
-        <div className="item">
-          <div className="label">시작 예정</div>
-          <div className="value">{post.deadLine}</div>
-        </div>
-        <div className="item">
-          <div className="label">연락 방법</div>
-          <div className="value">
-            <Tag
-              tag={post.contactMethod}
-              onClick={() =>
-                onClickContactMethod(post.contactMethod, post.link)
-              }
-            />
+        <div className="post-detail-info">
+          <div className="box">
+            <div className="box-item">
+              <div className="label">모집 구분</div>
+              <div className="value">
+                {WRITE_TYPE.find(x => x.value === post.type)?.label}
+              </div>
+            </div>
+            <div className="box-item">
+              <div className="label">진행 방식</div>
+              <div className="value">
+                {WRITE_MODE.find(x => x.value === post.mode)?.label}
+              </div>
+            </div>
+            <div className="box-item">
+              <div className="label">모집 인원</div>
+              <div className="value">{post.capacity}</div>
+            </div>
+            <div className="box-item">
+              <div className="label">시작 예정</div>
+              <div className="value">{post.deadLine}</div>
+            </div>
           </div>
-        </div>
-        <div className="item">
-          <div className="label">예상 기간</div>
-          <div className="value">{post.duration}</div>
-        </div>
-        <div className="item">
-          <div className="label">모집 분야</div>
-          <div className="value">
-            {JSON.parse(post.recruitmentPosition).map((position: string) => (
-              <Tag
-                tag={POSITIONS.find(x => x.value === position)?.label || ''}
-                key={position}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="item">
-          <div className="label">사용 언어</div>
-          <div className="value">
-            {(JSON.parse(post.techStack) || []).map((stack: string) => (
-              <img
-                src={getStackImageUrl(stack)}
-                key={stack}
-                draggable={false}
-              />
-            ))}
+          <div className="box">
+            <div className="box-item">
+              <div className="label">연락 방법</div>
+              <div
+                className="value"
+                style={{cursor: 'pointer', textDecoration: 'underline'}}
+                onClick={() =>
+                  onClickContactMethod(post.contactMethod, post.link)
+                }
+              >
+                {post.contactMethod}
+              </div>
+            </div>
+            <div className="box-item">
+              <div className="label">예상 기간</div>
+              <div className="value">{post.duration}</div>
+            </div>
+            <div className="box-item">
+              <div className="label">모집 분야</div>
+              <div className="value">
+                {JSON.parse(post.recruitmentPosition).map(
+                  (position: string, index: number) => (
+                    <span
+                      key={position}
+                      style={{
+                        marginRight: '0.5rem',
+                      }}
+                    >
+                      {POSITIONS.find(x => x.value === position)?.label || ''}
+                      {JSON.parse(post.recruitmentPosition).length > index + 1
+                        ? ','
+                        : ''}
+                    </span>
+                  ),
+                )}
+              </div>
+            </div>
+            <div className="box-item">
+              <div className="label">사용 언어</div>
+              <div className="value">
+                {(JSON.parse(post.techStack) || []).map((stack: string) => (
+                  <img
+                    src={getStackImageUrl(stack)}
+                    key={stack}
+                    draggable={false}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
       <section className="content-section">
-        <div className="content-title">프로젝트 소개</div>
+        <div className="content-title">
+          {WRITE_TYPE.find(x => x.value === post.type)?.label} 소개
+        </div>
         <div
           className="post-content"
           dangerouslySetInnerHTML={{__html: post.content}}
         />
-        <div className="post-info">
-          <span>
-            <BsEye size={'1.4rem'} /> {post.view}
-          </span>
-          {user?.id && (
-            <span
-              style={{
-                cursor: 'pointer',
-              }}
-            >
-              {bookmarkIds?.find(id => id === post.id) ? (
-                <BsBookmarkFill
-                  size={'1.4rem'}
-                  onClick={() => onDeleteBookmark(post.id)}
-                />
-              ) : (
-                <BsBookmark
-                  size={'1.4rem'}
-                  onClick={() => onClickBookmark(post.id)}
-                />
-              )}
-            </span>
-          )}
-        </div>
       </section>
       <section className="comment-section">
         <WriteComment
