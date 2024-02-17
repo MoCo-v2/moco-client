@@ -65,7 +65,7 @@ export const WRITE_TYPE = [
   {
     label: '모각코',
     value: 'moco',
-    desc: '분위기 좋은 곳에 모여서 각자 코딩을 해보아요.',
+    desc: '특정 장소로 모여 각자 코딩을 진행합니다..',
   },
   {
     label: '스터디',
@@ -86,11 +86,7 @@ export const WRITE_CAPACITY = [
   {label: '3명', value: '3명'},
   {label: '4명', value: '4명'},
   {label: '5명', value: '5명'},
-  {label: '6명', value: '6명'},
-  {label: '7명', value: '7명'},
-  {label: '8명', value: '8명'},
-  {label: '9명', value: '9명'},
-  {label: '10명 이상', value: '10명 이상'},
+  {label: '6명', value: '6명'}
 ];
 
 export const WRITE_MODE = [
