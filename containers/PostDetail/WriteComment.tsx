@@ -6,21 +6,21 @@ import {ResponsePost} from '@/modules';
 import {StyledWriteComment} from './style';
 
 interface Props {
-  post: ResponsePost;
+  commentCount: number;
   comment: string;
   setComment: (comment: string) => void;
   onCreateComment: () => void;
 }
 
 export const WriteComment = (props: Props) => {
-  const {post, comment, setComment, onCreateComment} = props;
+  const {commentCount, comment, setComment, onCreateComment} = props;
 
   const {user} = useUser();
 
   return (
     <StyledWriteComment>
       <div className="comment-count">
-        댓글 <span>{post.commentCnt}</span>
+        댓글 <span>{commentCount}</span>
       </div>
       {user && (
         <>

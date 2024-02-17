@@ -31,4 +31,6 @@ export const commentAPI = {
     axios
       .get<ResponseComment[]>(`${apiUrl}/public/comments/${id}`)
       .then(res => res.data),
+  getCommentCount: (id: number) =>
+    axios.get(`${apiUrl}/public/comments-count/${id}`).then(res => res.data),
 };

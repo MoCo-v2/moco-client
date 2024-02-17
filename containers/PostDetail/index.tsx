@@ -182,6 +182,17 @@ export const PostDetail = (props: Props) => {
       <section className="post-info-section">
         <div className="writer-image">
           <img src={post.picture} alt="profile" draggable={false} />
+          {user?.id === post.userId && (
+            <div className="modify-box">
+              {!post.full && (
+                <span onClick={() => onClickModifyItem('endRecruitment')}>
+                  마감
+                </span>
+              )}
+              <span onClick={() => onClickModifyItem('modify')}>수정</span>
+              <span onClick={() => onClickModifyItem('delete')}>삭제</span>
+            </div>
+          )}
         </div>
         <div className="post-title">
           <div className="title">{post.title}</div>
@@ -307,7 +318,7 @@ export const PostDetail = (props: Props) => {
       </section>
       <section className="comment-section">
         <WriteComment
-          post={post}
+          commentCount={comments?.length || 0}
           comment={comment}
           setComment={setComment}
           onCreateComment={onCreateComment}

@@ -22,12 +22,29 @@ export const Wrapper = styled.div`
 
   .post-info-section {
     .writer-image {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 3rem;
       img {
         width: 8rem;
         height: 8rem;
         object-fit: cover;
         border-radius: 1rem;
+      }
+      .modify-box {
+        display: flex;
+        justify-content: flex-end;
+        gap: 2rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+        span {
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+            font-weight: 600;
+          }
+        }
       }
     }
     .post-title {
