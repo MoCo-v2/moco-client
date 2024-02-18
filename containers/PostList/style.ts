@@ -153,6 +153,11 @@ export const PostItem = styled.div`
         height: 4rem;
         object-fit: cover;
       }
+      .tech-stack-count {
+        font-size: 1.6rem;
+        color: #4a5e75;
+        font-weight: 700;
+      }
     }
     .comment-section {
       display: flex;

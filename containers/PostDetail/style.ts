@@ -56,6 +56,8 @@ export const Wrapper = styled.div`
         max-width: 80%;
         font-size: 2.4rem;
         font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .bookmark-btn {
         display: flex;
@@ -103,6 +105,7 @@ export const Wrapper = styled.div`
         align-items: center;
         justify-content: space-between;
         .box-item {
+          min-width: 20rem;
           height: 100%;
           display: flex;
           flex-direction: column;

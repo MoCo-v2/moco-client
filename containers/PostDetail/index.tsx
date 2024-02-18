@@ -273,35 +273,49 @@ export const PostDetail = (props: Props) => {
               <div className="value">{post.duration}</div>
             </div>
             <div className="box-item">
-              <div className="label">모집 분야</div>
+              <div className="label">사용 언어</div>
               <div className="value">
-                {JSON.parse(post.recruitmentPosition).map(
-                  (position: string, index: number) => (
-                    <span
-                      key={position}
-                      style={{
-                        marginRight: '0.5rem',
-                      }}
-                    >
-                      {POSITIONS.find(x => x.value === position)?.label || ''}
-                      {JSON.parse(post.recruitmentPosition).length > index + 1
-                        ? ','
-                        : ''}
-                    </span>
-                  ),
+                {(JSON.parse(post.techStack) || []).map(
+                  (stack: string, index: number) => {
+                    if (index > 4) return null;
+                    return (
+                      <img
+                        src={getStackImageUrl(stack)}
+                        key={stack}
+                        draggable={false}
+                      />
+                    );
+                  },
+                )}
+                {!!(JSON.parse(post.techStack).length > 5) && (
+                  <div className="tech-stack-count">
+                    +{JSON.parse(post.techStack).length - 5}
+                  </div>
                 )}
               </div>
             </div>
+          </div>
+          <div className="box">
             <div className="box-item">
-              <div className="label">사용 언어</div>
+              <div className="label">모집 분야</div>
               <div className="value">
-                {(JSON.parse(post.techStack) || []).map((stack: string) => (
-                  <img
-                    src={getStackImageUrl(stack)}
-                    key={stack}
-                    draggable={false}
-                  />
-                ))}
+                {JSON.parse(post.recruitmentPosition).map(
+                  (position: string, index: number) => {
+                    return (
+                      <span
+                        key={position}
+                        style={{
+                          marginRight: '0.5rem',
+                        }}
+                      >
+                        {POSITIONS.find(x => x.value === position)?.label || ''}
+                        {JSON.parse(post.recruitmentPosition).length > index + 1
+                          ? ','
+                          : ''}
+                      </span>
+                    );
+                  },
+                )}
               </div>
             </div>
           </div>
