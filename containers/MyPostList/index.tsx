@@ -139,15 +139,23 @@ export const MyPostList = (props: Props) => {
                   })}
                 </div>
                 <div className="tech-stack">
-                  {JSON.parse(post.techStack).map((x: string) => {
-                    return (
-                      <img
-                        src={getStackImageUrl(x)}
-                        key={x}
-                        draggable={false}
-                      />
-                    );
-                  })}
+                  {JSON.parse(post.techStack).map(
+                    (x: string, index: number) => {
+                      if (index > 4) return null;
+                      return (
+                        <img
+                          src={getStackImageUrl(x)}
+                          key={x}
+                          draggable={false}
+                        />
+                      );
+                    },
+                  )}
+                  {!!(JSON.parse(post.techStack).length > 5) && (
+                    <div className="tech-stack-count">
+                      +{JSON.parse(post.techStack).length - 5}
+                    </div>
+                  )}
                   <div className="comment-section">
                     <div className="view-count">
                       <BsEye size="1.2rem" />
