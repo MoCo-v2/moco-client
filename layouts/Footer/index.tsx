@@ -27,8 +27,9 @@ const StyledFooter = styled.footer`
       gap: 2rem;
       font-size: 1.4rem;
       font-weight: 400;
-      div {
-        cursor: pointer;
+      a {
+        color: #fffbfb;
+        text-decoration: none;
       }
     }
   }
@@ -50,8 +51,18 @@ export const Footer = () => {
           Copyright moco. All rights reserved
         </div>
         <div className="policy">
-          <div>이용약관</div>
-          <div>개인정보처리방침</div>
+          <a
+            href="https://coordinated-fall-d87.notion.site/c7186148a8084a33ade992d000da5e45?pvs=4"
+            target="_blank"
+          >
+            이용약관
+          </a>
+          <a
+            href="https://coordinated-fall-d87.notion.site/b0849666083547158409ef141986d03a?pvs=4"
+            target="_blank"
+          >
+            개인정보처리방침
+          </a>
         </div>
       </div>
       <div className="bottom">© 2024 MOCO</div>
