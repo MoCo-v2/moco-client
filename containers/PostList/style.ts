@@ -14,11 +14,6 @@ export const Wrapper = styled.div`
     width: 60rem;
     height: 100%;
   }
-
-  .Toastify__toast-body {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
 `;
 
 export const PostListWrapper = styled.div`

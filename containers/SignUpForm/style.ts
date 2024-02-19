@@ -42,11 +42,6 @@ export const Wrapper = styled.div`
       box-shadow: none;
     }
   }
-
-  .Toastify__toast-body {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
 `;
 
 export const StyledForm = styled(Form)`

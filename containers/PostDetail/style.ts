@@ -15,11 +15,6 @@ export const Wrapper = styled.div`
     min-height: 2rem;
   }
 
-  .Toastify__toast-body {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
-
   .post-info-section {
     .writer-image {
       display: flex;

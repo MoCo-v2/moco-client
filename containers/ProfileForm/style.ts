@@ -9,10 +9,6 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   padding: 1.6rem;
   color: #333;
-  .Toastify__toast-body {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
 
   .ProseMirror {
     padding: 0;

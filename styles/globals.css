@@ -21,3 +21,8 @@ body {
   --bs-body-font-family: '__Noto_Sans_KR_26a74c',
     '__Noto_Sans_KR_Fallback_26a74c';
 }
+
+.Toastify__toast-body {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
