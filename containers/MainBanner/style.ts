@@ -102,15 +102,21 @@ export const BannerContainer = styled.div<{bgcolor: string}>`
   height: 40rem;
   cursor: pointer;
   background: ${props => (props.bgcolor ? `${props.bgcolor}` : '#fff')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    width: 85rem;
     height: 100%;
     position: relative;
-    gap: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     .text-box {
+      margin-left: calc((100% - 850px) / 2);
+      @media (max-width: 850px) {
+        margin-left: 0;
+      }
       .banner-title {
         font-size: 1.5rem;
         font-weight: 600;
