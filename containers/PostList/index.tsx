@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Link from 'next/link';
 
 import dayjs from 'dayjs';
@@ -15,6 +15,7 @@ import {useUser} from '@/hooks/useUser';
 import {useBookmarkIds} from '@/hooks/useBookmarkIds';
 
 import {useLoadingStore} from '@/store/loading';
+import {useMainPageStore} from '@/store/mainPage';
 
 import {getModeColor, getStackImageUrl} from '@/utils';
 import {ROUTE_POST} from '@/routes';
@@ -31,6 +32,7 @@ export const PostList = (props: Props) => {
   const {} = props;
 
   const {showLoading, hideLoading} = useLoadingStore();
+  const {offset, setOffset} = useMainPageStore();
   const {user} = useUser();
   const {data: bookmarkIds, mutation} = useBookmarkIds();
 
@@ -45,7 +47,7 @@ export const PostList = (props: Props) => {
     mode?: string;
     language?: string;
   }>({
-    offset: 0,
+    offset,
     limit,
     recruit: false,
     type: 'all',
@@ -104,11 +106,26 @@ export const PostList = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    setFilter({
+      ...filter,
+      offset,
+    });
+  }, [offset]);
+
   return (
     <>
       <Wrapper>
         <div className="side-box">
-          <SearchBox filter={filter} setFilter={setFilter} />
+          <SearchBox
+            filter={filter}
+            setFilter={prev => {
+              setOffset(0);
+              setFilter({
+                ...prev,
+              });
+            }}
+          />
         </div>
         <PostListWrapper>
           {postList?.map(post => {
@@ -212,7 +229,8 @@ export const PostList = (props: Props) => {
             );
           })}
           <Pagination
-            activePage={filter.offset + 1}
+            // activePage={filter.offset + 1}
+            activePage={offset + 1}
             itemsCountPerPage={limit}
             totalItemsCount={totalElements || 0}
             pageRangeDisplayed={5}
@@ -221,10 +239,11 @@ export const PostList = (props: Props) => {
             firstPageText={'«'}
             lastPageText={'»'}
             onChange={number => {
-              setFilter({
-                ...filter,
-                offset: number - 1,
-              });
+              // setFilter({
+              //   ...filter,
+              //   offset: number - 1,
+              // });
+              setOffset(number - 1);
               handleScrollToTop();
             }}
           />
