@@ -97,11 +97,11 @@ export const WriteForm = (props: Props) => {
   }, [id]);
 
   const getErrorMessage = (data: WritePostData) => {
-    if (!JSON.parse(data.techStack).length) {
-      return '기술 스택을 선택해주세요.';
-    }
     if (!data.recruitmentPosition) {
       return '모집 포지션을 선택해주세요.';
+    }
+    if (!JSON.parse(data.techStack).length) {
+      return '기술 스택을 선택해주세요.';
     }
     if (!data.link) {
       return '링크를 입력해주세요.';
