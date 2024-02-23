@@ -35,7 +35,12 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>{/* TODO meta tag & font */}</Head>
+        <Head>
+          <meta
+            name="google-site-verification"
+            content="TxD_Duu6v_ZM_9hjVEM5se6z3smshEToVbZzAvFShaw"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
