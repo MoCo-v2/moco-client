@@ -65,7 +65,7 @@ export const WRITE_TYPE = [
   {
     label: '모각코',
     value: 'moco',
-    desc: '분위기 좋은 곳에 모여서 각자 코딩을 해보아요.',
+    desc: '모여서 각자 코딩.',
   },
   {
     label: '스터디',
