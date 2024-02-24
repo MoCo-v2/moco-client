@@ -103,9 +103,6 @@ export const WriteForm = (props: Props) => {
     if (!JSON.parse(data.techStack).length) {
       return '기술 스택을 선택해주세요.';
     }
-    if (!data.link) {
-      return '링크를 입력해주세요.';
-    }
     if (!data.title) {
       return '제목을 입력해주세요.';
     }
@@ -304,7 +301,6 @@ export const WriteForm = (props: Props) => {
                   : ''
               }
               value={writeData.link}
-              required
             />
           </Form.Group>
         </section>

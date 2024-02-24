@@ -258,15 +258,19 @@ export const PostDetail = (props: Props) => {
           <div className="box">
             <div className="box-item">
               <div className="label">연락 방법</div>
-              <div
-                className="value"
-                style={{cursor: 'pointer', textDecoration: 'underline'}}
-                onClick={() =>
-                  onClickContactMethod(post.contactMethod, post.link)
-                }
-              >
-                {post.contactMethod}
-              </div>
+              {post.link ? (
+                <div
+                  className="value"
+                  style={{cursor: 'pointer', textDecoration: 'underline'}}
+                  onClick={() =>
+                    onClickContactMethod(post.contactMethod, post.link)
+                  }
+                >
+                  {post.contactMethod}
+                </div>
+              ) : (
+                <div className="value">댓글</div>
+              )}
             </div>
             <div className="box-item">
               <div className="label">예상 기간</div>
