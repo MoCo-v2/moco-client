@@ -45,10 +45,11 @@ export const Wrapper = styled.div`
 
 export const SlideIndicator = styled.div`
   position: absolute;
-  bottom: 10rem;
-  left: calc((100% - 1200px) / 2);
-  @media (max-width: 1200px) {
-    left: 0;
+  bottom: 8rem;
+  left: calc((100% - 850px) / 2);
+  @media (max-width: 1080px) {
+    bottom: 2rem;
+    left: 30px;
   }
 
   display: flex;
@@ -106,7 +107,7 @@ export const BannerContainer = styled.div<{bgcolor: string}>`
   align-items: center;
   justify-content: center;
   .box {
-    width: 85rem;
+    width: 850px;
     height: 100%;
     position: relative;
     display: flex;
@@ -114,9 +115,6 @@ export const BannerContainer = styled.div<{bgcolor: string}>`
     justify-content: space-between;
     .text-box {
       margin-left: calc((100% - 850px) / 2);
-      @media (max-width: 850px) {
-        margin-left: 0;
-      }
       .banner-title {
         font-size: 1.5rem;
         font-weight: 600;
@@ -138,6 +136,41 @@ export const BannerContainer = styled.div<{bgcolor: string}>`
       height: 30rem;
       object-fit: contain;
       cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 1080px) {
+    height: 55rem;
+    .box {
+      width: 100%;
+      height: 100%;
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      justify-content: center;
+      .text-box {
+        margin-left: 30px;
+        .banner-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #000;
+        }
+        .banner-content {
+          font-size: 2.8rem;
+          font-weight: 700;
+          color: #000;
+          margin-bottom: 0.8rem;
+        }
+        .banner-description {
+          font-size: 2.1rem;
+          color: #000;
+        }
+      }
+      img {
+        margin-left: 30px;
+        width: 30rem;
+        height: 30rem;
+        object-fit: contain;
+        cursor: pointer;
+      }
     }
   }
 `;

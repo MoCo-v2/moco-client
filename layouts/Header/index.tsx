@@ -22,6 +22,10 @@ const StyledNavBar = styled(Navbar)`
   font-size: 1.8rem;
   font-weight: 900;
 
+  @media screen and (max-width: 1080px) {
+    padding: 0 3rem;
+  }
+
   .navbar-brand {
     font-size: 2.4rem;
     font-weight: 900;
@@ -42,6 +46,11 @@ const StyledNavBar = styled(Navbar)`
     }
     .dropdown-menu {
       position: absolute;
+      @media screen and (max-width: 1080px) {
+        position: absolute;
+        right: 0;
+        left: unset;
+      }
     }
   }
 

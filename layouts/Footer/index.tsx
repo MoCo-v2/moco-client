@@ -38,6 +38,10 @@ const StyledFooter = styled.footer`
     font-size: 1.2rem;
     text-align: right;
   }
+
+  @media screen and (max-width: 1080px) {
+    padding: 3rem;
+  }
 `;
 
 export const Footer = () => {
