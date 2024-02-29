@@ -9,6 +9,9 @@ export const Wrapper = styled.div`
 
   display: flex;
   gap: 1rem;
+  @media screen and (max-width: 1080px) {
+    flex-direction: column;
+  }
   input {
     color: var(--fg);
     transition: background-color var(--trans-dur) var(--trans-timing1),
@@ -57,6 +60,9 @@ export const Wrapper = styled.div`
     position: relative;
     transition: background-color var(--trans-dur) var(--trans-timing1),
       box-shadow var(--trans-dur) var(--trans-timing1);
+    @media screen and (max-width: 1080px) {
+      min-width: 100%;
+    }
   }
   .item-label:hover {
     background-color: hsl(var(--hue), 10%, 95%);
@@ -65,6 +71,9 @@ export const Wrapper = styled.div`
     color: var(--fg);
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    @media screen and (max-width: 1080px) {
+      font-size: 2.4rem;
+    }
   }
   .item-name {
     margin-inline-end: 0.5rem;

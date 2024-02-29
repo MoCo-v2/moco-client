@@ -13,6 +13,13 @@ export const Wrapper = styled.div`
   gap: 50px;
   position: relative;
 
+  @media screen and (max-width: 1080px) {
+    padding: 2rem 0;
+    #tippy-4 {
+      display: none;
+    }
+  }
+
   .custom-radio-wrapper {
     margin-bottom: 4.5rem;
   }
@@ -25,6 +32,11 @@ export const Wrapper = styled.div`
     margin-bottom: 3.2rem;
     & > div {
       width: 100%;
+    }
+    @media screen and (max-width: 1080px) {
+      flex-direction: column;
+      gap: 1.6rem;
+      margin-bottom: 1.6rem;
     }
   }
 
@@ -42,6 +54,12 @@ export const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    padding: 3rem;
+  }
+
   .form-label {
     font-size: 1.6rem;
     font-weight: 600;
