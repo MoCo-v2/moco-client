@@ -14,6 +14,23 @@ export const Wrapper = styled.div`
     width: 60rem;
     height: 100%;
   }
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
+
+    .side-box {
+      position: relative;
+      top: 0;
+      min-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 export const PostListWrapper = styled.div`
