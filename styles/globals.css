@@ -19,7 +19,9 @@ html {
 
 body {
   --bs-body-font-family: '__Noto_Sans_KR_26a74c',
-    '__Noto_Sans_KR_Fallback_26a74c';
+    '__Noto_Sans_KR_Fallback_26a74c', system-ui, -apple-system, 'Segoe UI',
+    Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .Toastify__toast-body {
