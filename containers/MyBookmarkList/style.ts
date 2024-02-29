@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   padding: 2rem 6rem;
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    padding: 3rem;
+  }
 `;
 
 export const PostListWrapper = styled.div`
@@ -12,6 +16,11 @@ export const PostListWrapper = styled.div`
   width: 80rem;
   min-width: 40rem;
   margin: 0 auto;
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    min-width: 100%;
+  }
 
   .pagination {
     align-items: center;
