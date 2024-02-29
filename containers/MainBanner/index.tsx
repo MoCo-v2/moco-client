@@ -17,7 +17,7 @@ export const MainBanner = () => {
       <div key={x.id}>
         <BannerContainer
           bgcolor={x.backgroundColor}
-          onClick={() => onClickBanner(x.pageLink)}
+          onClick={() => onClickBanner()}
         >
           <div className="box">
             <div className="text-box">
@@ -30,10 +30,12 @@ export const MainBanner = () => {
         </BannerContainer>
       </div>
     ));
-  }, [data]);
+  }, [data, currentSlide]);
 
-  const onClickBanner = (link?: string) => {
-    if (link) window.open(link, '_blank');
+  const onClickBanner = () => {
+    if (!data?.length) return;
+    data[currentSlide]?.pageLink &&
+      window.open(data[currentSlide]?.pageLink, '_blank');
   };
 
   const previous = () => {
