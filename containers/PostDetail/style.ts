@@ -11,6 +11,11 @@ export const Wrapper = styled.div`
   gap: 50px;
   position: relative;
 
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    padding: 3rem;
+  }
+
   .bn-inline-content {
     min-height: 2rem;
   }
@@ -125,6 +130,21 @@ export const Wrapper = styled.div`
         .box-item + .box-item {
           border-left: 1px solid #d8d8d8;
           padding-left: 2rem;
+        }
+
+        @media screen and (max-width: 1080px) {
+          flex-direction: column;
+          height: auto;
+          padding: 0 2rem;
+          .box-item {
+            width: 100%;
+            padding: 2rem 0;
+          }
+          .box-item + .box-item {
+            border-left: none;
+            padding-left: 0;
+            border-top: 1px solid #d8d8d8;
+          }
         }
       }
     }
