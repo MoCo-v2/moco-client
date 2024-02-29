@@ -11,7 +11,7 @@ const Layout = styled.div`
     height: 100vh;
     z-index: 10;
 
-    /* ::after {
+    ::after {
       content: '';
       z-index: 1001;
       position: fixed;
@@ -29,7 +29,7 @@ const Layout = styled.div`
     }
     > div {
       display: none;
-    } */
+    }
   }
 `;
 
