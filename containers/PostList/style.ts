@@ -40,6 +40,11 @@ export const PostListWrapper = styled.div`
   width: 100%;
   min-width: 40rem;
 
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
   .pagination {
     align-items: center;
     justify-content: center;
@@ -69,6 +74,7 @@ export const PostListWrapper = styled.div`
 `;
 
 export const PostItem = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -79,6 +85,7 @@ export const PostItem = styled.div`
   &:hover {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
   }
+
   .writer-info {
     display: flex;
     align-items: center;
@@ -121,12 +128,8 @@ export const PostItem = styled.div`
   .content {
     overflow: hidden;
     border-top: 1px solid #d1d1d1;
-    /* border-bottom: 1px solid #d1d1d1; */
-    padding: 1rem 0 0;
+    padding: 1rem 0;
     .title {
-      text-decoration: none;
-      color: #000;
-
       font-size: 1.8rem;
       font-weight: 700;
 
@@ -171,18 +174,19 @@ export const PostItem = styled.div`
         font-weight: 700;
       }
     }
-    .comment-section {
+  }
+  .comment-section {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    & > div {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      justify-content: flex-end;
-      margin-left: auto;
-
-      & > div {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+      gap: 0.5rem;
     }
   }
 `;
