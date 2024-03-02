@@ -152,84 +152,82 @@ export const PostList = (props: Props) => {
                     {WRITE_TYPE.find(x => x.value === post.type)?.label}
                   </div>
                 </div>
-                <div className="content">
-                  <Link
-                    className="title"
-                    href={{
-                      pathname: `${ROUTE_POST}`,
-                      query: {
-                        id: post.id,
-                      },
-                    }}
-                  >
-                    <div>{post.title}</div>
-                  </Link>
-                </div>
-                <div className="post-info">
-                  <div className="recruitment-position">
-                    {JSON.parse(post.recruitmentPosition).map((x: string) => {
-                      return (
-                        <div key={x}>
-                          {
-                            POSITIONS.find(position => position.value === x)
-                              ?.label
-                          }
-                        </div>
-                      );
-                    })}
+                <Link
+                  href={{
+                    pathname: `${ROUTE_POST}`,
+                    query: {
+                      id: post.id,
+                    },
+                  }}
+                >
+                  <div className="content">
+                    <div className="title">{post.title}</div>
                   </div>
-                  <div className="tech-stack">
-                    {JSON.parse(post.techStack).map(
-                      (x: string, index: number) => {
-                        if (index > 4) return null;
+                  <div className="post-info">
+                    <div className="recruitment-position">
+                      {JSON.parse(post.recruitmentPosition).map((x: string) => {
                         return (
-                          <img
-                            src={getStackImageUrl(x)}
-                            key={x}
-                            draggable={false}
-                          />
+                          <div key={x}>
+                            {
+                              POSITIONS.find(position => position.value === x)
+                                ?.label
+                            }
+                          </div>
                         );
-                      },
-                    )}
-                    {!!(JSON.parse(post.techStack).length > 5) && (
-                      <div className="tech-stack-count">
-                        +{JSON.parse(post.techStack).length - 5}
-                      </div>
-                    )}
-                    <div className="comment-section">
-                      <div className="view-count">
-                        <BsEye size="1.2rem" /> {post.view}
-                      </div>
-                      <div className="comments">
-                        <BsChatLeft size="1.2rem" /> {post.commentCnt}
-                      </div>
-                      {user?.id && (
-                        <div
-                          style={{
-                            cursor: 'pointer',
-                          }}
-                        >
-                          {bookmarkIds?.find(id => id === post.id) ? (
-                            <BsBookmarkFill
-                              size={'1.2rem'}
-                              onClick={() => onDeleteBookmark(post.id)}
+                      })}
+                    </div>
+                    <div className="tech-stack">
+                      {JSON.parse(post.techStack).map(
+                        (x: string, index: number) => {
+                          if (index > 4) return null;
+                          return (
+                            <img
+                              src={getStackImageUrl(x)}
+                              key={x}
+                              draggable={false}
                             />
-                          ) : (
-                            <BsBookmark
-                              size={'1.2rem'}
-                              onClick={() => onClickBookmark(post.id)}
-                            />
-                          )}
+                          );
+                        },
+                      )}
+                      {!!(JSON.parse(post.techStack).length > 5) && (
+                        <div className="tech-stack-count">
+                          +{JSON.parse(post.techStack).length - 5}
                         </div>
                       )}
                     </div>
                   </div>
+                </Link>
+                <div className="comment-section">
+                  <div className="view-count">
+                    <BsEye size="1.2rem" /> {post.view}
+                  </div>
+                  <div className="comments">
+                    <BsChatLeft size="1.2rem" /> {post.commentCnt}
+                  </div>
+                  {user?.id && (
+                    <div
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {bookmarkIds?.find(id => id === post.id) ? (
+                        <BsBookmarkFill
+                          size={'1.2rem'}
+                          onClick={() => onDeleteBookmark(post.id)}
+                        />
+                      ) : (
+                        <BsBookmark
+                          size={'1.2rem'}
+                          onClick={() => onClickBookmark(post.id)}
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
               </PostItem>
             );
           })}
           <Pagination
-            // activePage={filter.offset + 1}
             activePage={offset + 1}
             itemsCountPerPage={limit}
             totalItemsCount={totalElements || 0}
@@ -239,10 +237,6 @@ export const PostList = (props: Props) => {
             firstPageText={'«'}
             lastPageText={'»'}
             onChange={number => {
-              // setFilter({
-              //   ...filter,
-              //   offset: number - 1,
-              // });
               setOffset(number - 1);
               handleScrollToTop();
             }}
