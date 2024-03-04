@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   padding: 1.6rem;
   color: #333;
+  min-height: 78vh;
 
   .ProseMirror {
     padding: 0;
@@ -28,9 +29,9 @@ export const StyledForm = styled(Form)`
 
   .picture-box {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1.6rem;
+    justify-content: space-between;
+    gap: 2rem;
 
     #fileInput {
       display: none;
@@ -51,6 +52,12 @@ export const StyledForm = styled(Form)`
       font-size: 2.6rem;
       font-weight: 500;
       letter-spacing: -0.78px;
+    }
+    .user-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
     }
   }
 
@@ -86,6 +93,16 @@ export const StyledForm = styled(Form)`
       font-weight: 600;
       padding: 0.8rem 1rem;
       border-radius: 5rem;
+    }
+  }
+
+  .flex-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    & > div {
+      width: 100%;
     }
   }
 `;

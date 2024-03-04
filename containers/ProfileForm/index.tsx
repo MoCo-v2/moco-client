@@ -125,52 +125,55 @@ export const ProfileForm = () => {
             accept="image/png, image/jpeg, image/jpg"
             onChange={handleFileUpload}
           />
-          <div>{user.name}</div>
+          <div className="user-intro">
+            <Form.Group>
+              <Form.Label className="required">닉네임</Form.Label>
+              <Form.Control
+                onChange={e => onChange('name', e.target.value)}
+                placeholder="닉네임을 입력해주세요."
+                value={tempUser.name}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>소개</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                placeholder={`안녕하세요. ${tempUser.name}입니다.`}
+                onChange={e => onChange('intro', e.target.value)}
+                value={tempUser.intro}
+              />
+            </Form.Group>
+          </div>
         </div>
-        <Form.Group>
-          <Form.Label className="required">닉네임</Form.Label>
-          <Form.Control
-            onChange={e => onChange('name', e.target.value)}
-            placeholder="닉네임을 입력해주세요."
-            value={tempUser.name}
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className="required">직군</Form.Label>
-          <CustomSelect
-            placeholder="직군를 선택해주세요."
-            options={POSITIONS}
-            onChange={e => onChange('position', e?.value)}
-            value={{
-              label: POSITIONS.find(
-                position => position.value === tempUser.position,
-              )?.label,
-              value: tempUser.position,
-            }}
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className="required">경력</Form.Label>
-          <CustomSelect
-            placeholder="경력을 선택해주세요."
-            options={CAREERS}
-            onChange={e => onChange('career', e?.value)}
-            value={{label: tempUser.career, value: tempUser.career}}
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>소개</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={4}
-            placeholder={`안녕하세요. ${tempUser.name}입니다.`}
-            onChange={e => onChange('intro', e.target.value)}
-            value={tempUser.intro}
-          />
-        </Form.Group>
+        <div className="flex-box">
+          <Form.Group>
+            <Form.Label className="required">직군</Form.Label>
+            <CustomSelect
+              placeholder="직군를 선택해주세요."
+              options={POSITIONS}
+              onChange={e => onChange('position', e?.value)}
+              value={{
+                label: POSITIONS.find(
+                  position => position.value === tempUser.position,
+                )?.label,
+                value: tempUser.position,
+              }}
+              required
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label className="required">경력</Form.Label>
+            <CustomSelect
+              placeholder="경력을 선택해주세요."
+              options={CAREERS}
+              onChange={e => onChange('career', e?.value)}
+              value={{label: tempUser.career, value: tempUser.career}}
+              required
+            />
+          </Form.Group>
+        </div>
         <Form.Group>
           <Form.Label className="required">툴 / 언어</Form.Label>
           <CustomSelect
