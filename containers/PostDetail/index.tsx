@@ -235,7 +235,7 @@ export const PostDetail = (props: Props) => {
         <div className="post-detail-info">
           <div className="box">
             <div className="box-item">
-              <div className="label">모집 구분</div>
+              <div className="label">모집 유형</div>
               <div className="value">
                 {WRITE_TYPE.find(x => x.value === post.type)?.label}
               </div>
@@ -251,7 +251,7 @@ export const PostDetail = (props: Props) => {
               <div className="value">{post.capacity}</div>
             </div>
             <div className="box-item">
-              <div className="label">시작 예정</div>
+              <div className="label">시작 예정일</div>
               <div className="value">{post.deadLine}</div>
             </div>
           </div>
@@ -273,11 +273,13 @@ export const PostDetail = (props: Props) => {
               )}
             </div>
             <div className="box-item">
-              <div className="label">예상 기간</div>
+              <div className="label">
+                {WRITE_TYPE.find(x => x.value === post.type)?.label} 기간
+              </div>
               <div className="value">{post.duration}</div>
             </div>
             <div className="box-item">
-              <div className="label">사용 언어</div>
+              <div className="label">사용 툴 / 언어</div>
               <div className="value">
                 {(JSON.parse(post.techStack) || []).map(
                   (stack: string, index: number) => {
@@ -301,7 +303,7 @@ export const PostDetail = (props: Props) => {
           </div>
           <div className="box">
             <div className="box-item">
-              <div className="label">모집 분야</div>
+              <div className="label">모집 직군</div>
               <div className="value">
                 {JSON.parse(post.recruitmentPosition).map(
                   (position: string, index: number) => {
@@ -326,9 +328,6 @@ export const PostDetail = (props: Props) => {
         </div>
       </section>
       <section className="content-section">
-        <div className="content-title">
-          {WRITE_TYPE.find(x => x.value === post.type)?.label} 소개
-        </div>
         <div
           className="post-content"
           dangerouslySetInnerHTML={{__html: post.content}}

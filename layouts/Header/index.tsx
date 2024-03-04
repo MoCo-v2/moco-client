@@ -120,7 +120,7 @@ export const Header = () => {
           {session?.isLogin ? (
             <>
               <Link className="nav-btn" href={ROUTE_WRITE}>
-                새 글 쓰기
+                모집하기
               </Link>
               <NavDropdown
                 title={

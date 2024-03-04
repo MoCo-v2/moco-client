@@ -125,7 +125,7 @@ export const ProfileForm = () => {
             accept="image/png, image/jpeg, image/jpg"
             onChange={handleFileUpload}
           />
-          <div>{user.name}님 환영해요.</div>
+          <div>{user.name}</div>
         </div>
         <Form.Group>
           <Form.Label className="required">닉네임</Form.Label>
@@ -137,9 +137,9 @@ export const ProfileForm = () => {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label className="required">직무</Form.Label>
+          <Form.Label className="required">직군</Form.Label>
           <CustomSelect
-            placeholder="직무를 선택해주세요."
+            placeholder="직군를 선택해주세요."
             options={POSITIONS}
             onChange={e => onChange('position', e?.value)}
             value={{
@@ -162,7 +162,7 @@ export const ProfileForm = () => {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>자기소개</Form.Label>
+          <Form.Label>소개</Form.Label>
           <Form.Control
             as="textarea"
             rows={4}
@@ -172,10 +172,10 @@ export const ProfileForm = () => {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label className="required">관심 스택</Form.Label>
+          <Form.Label className="required">툴 / 언어</Form.Label>
           <CustomSelect
             isMulti
-            placeholder="관심 스택을 선택해주세요."
+            placeholder="툴 / 언어을 선택해주세요."
             options={STACKS}
             onChange={e =>
               onChange(
@@ -191,7 +191,7 @@ export const ProfileForm = () => {
           />
         </Form.Group>
         <div className="btn-wrapper">
-          <Button type="submit">프로필 저장</Button>
+          <Button type="submit">저장</Button>
           <Button
             variant="secondary"
             onClick={() => {

@@ -14,7 +14,7 @@ export const RecommendPostList = (props: Props) => {
 
   return (
     <Wrapper>
-      <div className="title">🔥 이번주 인기 게시글</div>
+      <div className="title">👀 이번주 인기 게시글</div>
       {data?.map((post, index) => (
         <div key={post.id} className="item">
           <Link

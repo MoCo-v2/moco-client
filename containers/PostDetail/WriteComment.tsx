@@ -25,7 +25,6 @@ export const WriteComment = (props: Props) => {
       {user && (
         <>
           <div className="comment-write">
-            <img src={user?.picture} alt="profile" draggable={false} />
             <textarea
               value={comment}
               onChange={e => setComment(e.target.value)}
@@ -33,7 +32,7 @@ export const WriteComment = (props: Props) => {
             />
           </div>
           <div className="btn-wrapper">
-            <Button onClick={onCreateComment}>댓글 등록</Button>
+            <Button onClick={onCreateComment}>등록</Button>
           </div>
         </>
       )}

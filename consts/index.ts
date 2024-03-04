@@ -16,11 +16,7 @@ export const CAREERS = [
   {label: '3년', value: '3년'},
   {label: '4년', value: '4년'},
   {label: '5년', value: '5년'},
-  {label: '6년', value: '6년'},
-  {label: '7년', value: '7년'},
-  {label: '8년', value: '8년'},
-  {label: '9년', value: '9년'},
-  {label: '10년 이상', value: '10년 이상'},
+  {label: '6년 이상', value: '6년 이상'},
 ];
 
 export const STACKS = [
@@ -80,17 +76,12 @@ export const WRITE_TYPE = [
 ];
 
 export const WRITE_CAPACITY = [
-  {label: '인원 미정', value: '인원 미정'},
   {label: '1명', value: '1명'},
   {label: '2명', value: '2명'},
   {label: '3명', value: '3명'},
   {label: '4명', value: '4명'},
   {label: '5명', value: '5명'},
-  {label: '6명', value: '6명'},
-  {label: '7명', value: '7명'},
-  {label: '8명', value: '8명'},
-  {label: '9명', value: '9명'},
-  {label: '10명 이상', value: '10명 이상'},
+  {label: '6명 이상', value: '6명 이상'},
 ];
 
 export const WRITE_MODE = [
@@ -108,14 +99,13 @@ export const WRITE_MODE = [
 ];
 
 export const WRITE_DURATION = [
-  {label: '기간 미정', value: '기간 미정'},
+  {label: '기간 없음', value: '기간 없음'},
   {label: '1개월', value: '1개월'},
   {label: '2개월', value: '2개월'},
   {label: '3개월', value: '3개월'},
   {label: '4개월', value: '4개월'},
   {label: '5개월', value: '5개월'},
-  {label: '6개월', value: '6개월'},
-  {label: '장기', value: '장기'},
+  {label: '6개월 이상', value: '6개월 이상'},
 ];
 
 export const WRITE_CONTACT = [

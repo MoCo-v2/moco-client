@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0;
   margin-bottom: 3rem;
-  border-bottom: 3px solid #f2f2f2;
   .section-number {
     width: 2.8rem;
     height: 2.8rem;

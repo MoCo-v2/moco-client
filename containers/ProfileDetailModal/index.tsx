@@ -35,7 +35,7 @@ export const ProfileDetailModal = (props: Props) => {
           </div>
         </div>
         <div className="bottom">
-          <div className="label">관심 스택</div>
+          <div className="label">툴 / 언어</div>
           <div className="stacks">
             {JSON.parse(user.stack || '[]').map((x: string) => (
               <span className="stack" key={x}>
