@@ -83,9 +83,9 @@ export const WriteForm = (props: Props) => {
         title: '',
         content: '',
         type: 'project',
-        capacity: '인원 미정',
+        capacity: '1명',
         mode: 'all',
-        duration: '기간 미정',
+        duration: '기간 없음',
         techStack: JSON.stringify([]),
         recruitmentPosition: '',
         deadLine: dayjs().format('YYYY-MM-DD').toString(),
@@ -98,10 +98,10 @@ export const WriteForm = (props: Props) => {
 
   const getErrorMessage = (data: WritePostData) => {
     if (!data.recruitmentPosition) {
-      return '모집 포지션을 선택해주세요.';
+      return '모집 직군을 선택해주세요.';
     }
     if (!JSON.parse(data.techStack).length) {
-      return '기술 스택을 선택해주세요.';
+      return '툴 / 언어을 선택해주세요.';
     }
     if (!data.title) {
       return '제목을 입력해주세요.';
@@ -163,7 +163,7 @@ export const WriteForm = (props: Props) => {
     <Wrapper>
       <StyledForm onSubmit={onSubmit} noValidate validated={validated}>
         <section>
-          <SectionTitle title="📚 프로젝트 기본 정보를 입력해주세요." />
+          <SectionTitle title="📚 모집 기본 정보" />
           <Form.Group>
             <Form.Label>모집 유형</Form.Label>
             <CustomRadioButton
@@ -196,7 +196,7 @@ export const WriteForm = (props: Props) => {
             <Form.Group>
               <Form.Label>모집 인원</Form.Label>
               <CustomSelect
-                placeholder="인원 미정 ~ 10명 이상"
+                placeholder="1명 ~ 6명 이상"
                 options={WRITE_CAPACITY}
                 onChange={e => onChange('capacity', e?.value)}
                 value={{label: writeData.capacity, value: writeData.capacity}}
@@ -204,9 +204,13 @@ export const WriteForm = (props: Props) => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>진행 기간</Form.Label>
+              <Form.Label>
+                {WRITE_TYPE.find(x => x.value === writeData.type)?.label ||
+                  '프로젝트'}{' '}
+                기간
+              </Form.Label>
               <CustomSelect
-                placeholder="기간 미정 ~ 6개월 이상"
+                placeholder="기간 없음 ~ 6개월 이상"
                 options={WRITE_DURATION}
                 onChange={e => onChange('duration', e?.value)}
                 value={{label: writeData.duration, value: writeData.duration}}
@@ -216,10 +220,10 @@ export const WriteForm = (props: Props) => {
           </div>
           <div className="flex-box">
             <Form.Group>
-              <Form.Label>모집 포지션</Form.Label>
+              <Form.Label>모집 직군</Form.Label>
               <CustomSelect
                 isMulti
-                placeholder="프론트엔드, 백엔드..."
+                placeholder="직군을 선택해주세요."
                 options={POSITIONS}
                 onChange={e =>
                   onChange(
@@ -252,10 +256,10 @@ export const WriteForm = (props: Props) => {
           </div>
           <div className="flex-box">
             <Form.Group>
-              <Form.Label>기술 스택</Form.Label>
+              <Form.Label>툴 / 언어</Form.Label>
               <CustomSelect
                 isMulti
-                placeholder="프로젝트 사용 스택"
+                placeholder="프로젝트 사용 툴 / 언어"
                 options={STACKS}
                 onChange={e =>
                   onChange(
@@ -293,11 +297,11 @@ export const WriteForm = (props: Props) => {
               onChange={e => onChange('link', e.target.value)}
               placeholder={
                 writeData.contactMethod === '카카오톡'
-                  ? '오픈 카톡방 링크'
+                  ? '카카오톡 링크'
                   : writeData.contactMethod === '이메일'
-                  ? '이메일 주소'
+                  ? '이메일'
                   : writeData.contactMethod === '구글 폼'
-                  ? '구글 폼 주소'
+                  ? '구글 폼 링크'
                   : ''
               }
               value={writeData.link}
@@ -305,7 +309,7 @@ export const WriteForm = (props: Props) => {
           </Form.Group>
         </section>
         <section>
-          <SectionTitle title="📢 프로젝트에 대해 소개해주세요." />
+          <SectionTitle title="📢 프로젝트 소개" />
           <Form.Group>
             <Form.Label>제목</Form.Label>
             <Form.Control

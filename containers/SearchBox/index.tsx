@@ -68,7 +68,7 @@ export const SearchBox = (props: Props) => {
         }}
       />
       <CustomSelect
-        placeholder="모집 포지션"
+        placeholder="모집 직군"
         options={[{label: '전체', value: 'all'}, ...POSITIONS]}
         onChange={e => onChange('position', e?.value)}
         value={{
@@ -91,7 +91,7 @@ export const SearchBox = (props: Props) => {
       />
       <CustomSelect
         isMulti
-        placeholder="프로젝트 사용 스택"
+        placeholder="프로젝트 사용 툴 / 언어"
         options={STACKS}
         onChange={e => {
           console.log(e);

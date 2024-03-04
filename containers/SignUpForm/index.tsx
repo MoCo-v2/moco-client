@@ -93,9 +93,9 @@ export const SignUpForm = (props: Props) => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>직무</Form.Label>
+            <Form.Label>직군</Form.Label>
             <CustomSelect
-              placeholder="직무를 선택해주세요."
+              placeholder="직군를 선택해주세요."
               options={POSITIONS}
               onChange={e => onChange('position', e?.value)}
               value={POSITIONS.find(x => x.value === signUpData.position)}
@@ -112,10 +112,10 @@ export const SignUpForm = (props: Props) => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>관심 스택</Form.Label>
+            <Form.Label>툴 / 언어</Form.Label>
             <CustomSelect
               isMulti
-              placeholder="관심 스택을 선택해주세요."
+              placeholder="툴 / 언어을 선택해주세요."
               options={STACKS}
               onChange={e =>
                 onChange(

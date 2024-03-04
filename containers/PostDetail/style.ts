@@ -155,7 +155,7 @@ export const Wrapper = styled.div`
       font-size: 2.4rem;
       font-weight: bold;
       padding: 3.2rem 0;
-      border-bottom: 3px solid #f2f2f2;
+      border-bottom: 2px solid #f2f2f2;
     }
     .post-content {
       padding: 5rem 0 0;
@@ -169,37 +169,28 @@ export const StyledWriteComment = styled.div`
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     font-weight: 700;
+    color: #495057;
     span {
-      color: #939393;
+      color: #0d6efd;
     }
   }
   .comment-write {
-    display: flex;
-    align-items: start;
-    gap: 1.5rem;
-    img {
-      height: 4rem;
-      width: 4rem;
-      border-radius: 50%;
-      object-fit: cover;
-    }
     textarea {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-family: inherit;
       padding: 1rem 1rem 1.5rem;
       outline: none;
-      border: 2px solid #e1e1e1;
-      border-radius: 1.6rem;
+      border: 1px solid #e1e1e1;
+      border-radius: 1rem;
       width: 100%;
       min-height: 10rem;
-      margin-bottom: 1rem;
       resize: none;
     }
   }
   .btn-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin: 1.6rem 0 2.4rem;
+    margin: 1.5rem 0;
     .btn {
       min-width: 8rem;
       font-size: 1.6rem;
@@ -216,7 +207,7 @@ export const StyledCommentList = styled.div`
     flex-direction: column;
     gap: 1.5rem;
     padding: 2.4rem 0;
-    border-bottom: 3px solid #f2f2f2;
+    border-bottom: 2px solid #f2f2f2;
     .comment-writer {
       display: flex;
       align-items: center;
