@@ -9,7 +9,8 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   padding: 1.6rem;
   color: #333;
-  min-height: 78vh;
+  min-height: calc(100vh - 8.5rem - 20rem);
+  justify-content: center;
 
   .ProseMirror {
     padding: 0;
