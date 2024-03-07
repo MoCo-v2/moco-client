@@ -160,6 +160,10 @@ export const Wrapper = styled.div`
     .post-content {
       padding: 5rem 0 0;
       font-size: 2rem;
+
+      img {
+        max-width: -webkit-fill-available;
+      }
     }
   }
 `;
