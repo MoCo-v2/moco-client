@@ -154,13 +154,13 @@ export const BannerContainer = styled.div<{bgcolor: string}>`
           color: #000;
         }
         .banner-content {
-          font-size: 2.8rem;
+          font-size: 2.4rem;
           font-weight: 700;
           color: #000;
           margin-bottom: 0.8rem;
         }
         .banner-description {
-          font-size: 2.1rem;
+          font-size: 1.8rem;
           color: #000;
         }
       }

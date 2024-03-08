@@ -251,7 +251,6 @@ export const StyledCommentList = styled.div`
     }
     .comment-content {
       font-size: 1.6rem;
-      white-space: pre;
     }
   }
   textarea {

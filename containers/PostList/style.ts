@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
   @media screen and (max-width: 1080px) {
     width: 100%;
-    padding: 3rem;
+    padding: 3rem 1.5rem;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
