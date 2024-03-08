@@ -11,11 +11,6 @@ html {
     font-size: 8px;
   }
 }
-@media (max-width: 576px) {
-  html {
-    font-size: 7px;
-  }
-}
 
 body {
   --bs-body-font-family: '__Noto_Sans_KR_26a74c',

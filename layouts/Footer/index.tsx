@@ -41,6 +41,12 @@ const StyledFooter = styled.footer`
 
   @media screen and (max-width: 1080px) {
     padding: 3rem;
+    .contact {
+      font-size: 1.2rem !important;
+    }
+    .policy {
+      font-size: 1.2rem !important;
+    }
   }
 `;
 

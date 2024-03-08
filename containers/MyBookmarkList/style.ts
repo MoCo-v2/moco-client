@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  min-height: calc(100vh - 8.5rem - 20rem);
   padding: 2rem 6rem;
+
   @media screen and (max-width: 1080px) {
     width: 100%;
-    padding: 3rem;
+    min-height: calc(100vh - 8.5rem - 20rem);
+    padding: 3rem 1.5rem;
   }
 `;
 
